@@ -1,8 +1,8 @@
-import HeaderComponent from "@/components/HeaderComponent";
 import "./globals.css";
 import type { Metadata } from "next";
-import FooterComponent from "@/components/FooterComponent";
 import localFont from "next/font/local";
+import HeaderComponent from "@/components/HeaderComponent";
+import FooterComponent from "@/components/FooterComponent";
 
 const lato = localFont({
   src: [
