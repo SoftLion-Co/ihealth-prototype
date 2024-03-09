@@ -37,36 +37,49 @@ const NavigationCategories = [
   {
     text: "Health and Care",
     href: "/",
-    subcategories: [
+    title: "Men",
+    subOne: [
+      { subText: "Мультивітаміни для чоловіків", href: "/" },
+      { subText: "Тестостерон", href: "/" },
+      { subText: "ДГЕА", href: "/" },
+      { subText: "Засоби для чоловіків", href: "/" },
+      { subText: "Чоловіча фертильність", href: "/" },
+      { subText: "Якірці", href: "/" },
+    ],
+    subTwo: [
+      { subText: "Healthcare", href: "/" },
+      { subText: "Personal Care", href: "/" },
+    ],
+    subThree: [
       { subText: "Healthcare", href: "/" },
       { subText: "Personal Care", href: "/" },
     ],
   },
-  {
-    text: "Supplements and Tools",
-    href: "/",
-    subcategories: [
-      { subText: "Vitamins", href: "/vitamins" },
-      { subText: "Tools", href: "/tools" },
-    ],
-  },
-  {
-    text: "Sports and Beauty",
-    href: "/",
-    subcategories: [
-      { subText: "Sport Equipment", href: "/" },
-      { subText: "Beauty Products", href: "/" },
-    ],
-  },
+  // {
+  //   text: "Supplements and Tools",
+  //   href: "/",
+  //   subcategories: [
+  //     { subText: "Vitamins", href: "/vitamins" },
+  //     { subText: "Tools", href: "/tools" },
+  //   ],
+  // },
+  // {
+  //   text: "Sports and Beauty",
+  //   href: "/",
+  //   subcategories: [
+  //     { subText: "Sport Equipment", href: "/" },
+  //     { subText: "Beauty Products", href: "/" },
+  //   ],
+  // },
+];
+
+const CartAndWishlist = [
+  { image: WishOutline, href: "/" },
+  { image: Cart, href: "/" },
 ];
 
 const HeaderComponent = () => {
   const [opened, { open, close }] = useDisclosure(false);
-
-  const mergedCategories = [
-    ...NavigationStaticCategories,
-    ...NavigationCategories,
-  ];
 
   return (
     <header className="">
@@ -119,24 +132,43 @@ const HeaderComponent = () => {
                 <Link href={category.href}>{category.text}</Link>
               </Menu.Target>
 
-              <Menu.Dropdown>
+              <Menu.Dropdown className="py-[20px] px-[100px]">
                 <div className="flex gap-[40px]">
-                  <div>
+                  <div className="flex flex-col gap-[8px]">
                     {NavigationStaticCategories.map((categories, index) => (
-                      <Menu.Item key={index}>
+                      <Link key={index} href={categories.href}>
                         <Link href={categories.href}>{categories.text}</Link>
-                      </Menu.Item>
+                      </Link>
                     ))}
                   </div>
 
-                  <div>
-                    {category.subcategories.map((subcategory, subIndex) => (
-                      <Menu.Item key={subIndex}>
-                        <Link href={subcategory.href}>
+                  <div className="flex gap-[20px]">
+                    <div className="flex flex-col	">
+                      <h2>Чоловіче здоров'я</h2>
+                      {category.subOne.map((subcategory, subIndex) => (
+                        <Link key={subIndex} href={subcategory.href}>
                           {subcategory.subText}
                         </Link>
-                      </Menu.Item>
-                    ))}
+                      ))}
+                    </div>
+
+                    <div>
+                      <h2>Жіноче здоров'я</h2>
+                      {category.subTwo.map((subcategory, subIndex) => (
+                        <Link key={subIndex} href={subcategory.href}>
+                          {subcategory.subText}
+                        </Link>
+                      ))}
+                    </div>
+
+                    <div>
+                      <h2>Дитяче здоров'я</h2>
+                      {category.subThree.map((subcategory, subIndex) => (
+                        <Link key={subIndex} href={subcategory.href}>
+                          {subcategory.subText}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </Menu.Dropdown>
@@ -150,10 +182,12 @@ const HeaderComponent = () => {
             type="Search for products..."
           />
 
-          <div className="flex gap-[28px]">
-            <Image src={WishOutline} alt="Wish" />
-
-            <Image src={Cart} alt="Cart" />
+          <div className="flex items-center gap-[28px]">
+            {CartAndWishlist.map((item, index) => (
+              <Link key={index} href={item.href}>
+                <Image src={item.image} alt="Wish" />
+              </Link>
+            ))}
           </div>
         </div>
       </div>
