@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import HeaderComponent from "@/components/HeaderComponent";
 import FooterComponent from "@/components/FooterComponent";
+import { NextIntlClientProvider } from "next-intl";
+import { notFound } from "next/navigation";
 
 const lato = localFont({
   src: [
@@ -58,12 +60,20 @@ export default async function RootLayout({
     locale: string;
   };
 }) {
+  let messages;
+  try {
+    messages = (await import(`@/messages/${locale}.json`)).default;
+  } catch (error) {
+    notFound();
+  }
   return (
     <html lang={locale}>
       <body className={lato.className}>
-        <HeaderComponent />
-        {children}
-        <FooterComponent />
+        <NextIntlClientProvider messages={messages}>
+          <HeaderComponent />
+          {children}
+          <FooterComponent />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
