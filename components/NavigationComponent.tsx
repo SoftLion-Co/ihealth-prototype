@@ -63,6 +63,8 @@ const NavigationComponent = ({
       </Link>
     );
   });
+  
+  const remainingTagsCount = Math.max(tags ? tags.length - 5 : 0, 0);
 
   return (
     <div className="bg-gray-100 py-4 flex justify-between">
@@ -78,22 +80,31 @@ const NavigationComponent = ({
 
         {tags && tags.length > 0 && (
           <div className="flex items-center gap-5">
-            {tags?.map((item, index) => (
-              <span
-                key={index}
-                className="text-zinc-400 flex gap-2 items-center capitalize"
-              >
-                <Image
-                  src={crossGray}
-                  width={16}
-                  height={16}
-                  alt="Remove item"
-                  onClick={() => handleRemoveTag(index)}
-                  style={{ cursor: "pointer" }}
-                />
-                {item}
+            {tags
+              .slice(-5)
+              .reverse()
+              .map((item, index) => (
+                <span
+                  key={index}
+                  className="text-zinc-400 flex gap-2 items-center capitalize"
+                >
+                  <Image
+                    src={crossGray}
+                    width={16}
+                    height={16}
+                    alt="Remove item"
+                    onClick={() => handleRemoveTag(tags.length - 1 - index)}
+                    style={{ cursor: "pointer" }}
+                  />
+                  {item}
+                </span>
+              ))}
+            {remainingTagsCount > 0 && (
+              <span className="text-zinc-400 capitalize">
+                (+{remainingTagsCount})
               </span>
-            ))}
+            )}
+
             <span className="text-gray-700 flex gap-2 items-center capitalize">
               <Image
                 src={cross}
