@@ -70,7 +70,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={lato.className}>
         <NextIntlClientProvider messages={messages}>
-          <HeaderComponent />
+          {/* <HeaderComponent /> */}
           {children}
           <FooterComponent />
         </NextIntlClientProvider>
