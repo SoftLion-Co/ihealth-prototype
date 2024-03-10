@@ -1,9 +1,10 @@
 "use client";
-import React, { FC } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Menu } from "@mantine/core";
+import HeaderCategoriesObject from "./HeaderCategoriesObject";
 
 import BurgerMenu from "@/images/navigation/BurgerMenu.svg";
 import WishOutline from "@/images/navigation/WishOutline.svg";
@@ -11,7 +12,7 @@ import Cart from "@/images/goods/Cart.svg";
 import Profile from "@/images/navigation/Profile.svg";
 import Search from "@/images/navigation/Search.svg";
 
-// import UA from "@/images/flags/UA.svg";
+import UA from "@/images/flags/UA.svg";
 import UK from "@/images/flags/UK.svg";
 
 const ImageLanguage = [
@@ -33,46 +34,6 @@ const NavigationStaticCategories = [
   { text: "Sale up to 70%", href: "/" },
 ];
 
-const NavigationCategories = [
-  {
-    text: "Health and Care",
-    href: "/",
-    title: "Men",
-    subOne: [
-      { subText: "Мультивітаміни для чоловіків", href: "/" },
-      { subText: "Тестостерон", href: "/" },
-      { subText: "ДГЕА", href: "/" },
-      { subText: "Засоби для чоловіків", href: "/" },
-      { subText: "Чоловіча фертильність", href: "/" },
-      { subText: "Якірці", href: "/" },
-    ],
-    subTwo: [
-      { subText: "Healthcare", href: "/" },
-      { subText: "Personal Care", href: "/" },
-    ],
-    subThree: [
-      { subText: "Healthcare", href: "/" },
-      { subText: "Personal Care", href: "/" },
-    ],
-  },
-  // {
-  //   text: "Supplements and Tools",
-  //   href: "/",
-  //   subcategories: [
-  //     { subText: "Vitamins", href: "/vitamins" },
-  //     { subText: "Tools", href: "/tools" },
-  //   ],
-  // },
-  // {
-  //   text: "Sports and Beauty",
-  //   href: "/",
-  //   subcategories: [
-  //     { subText: "Sport Equipment", href: "/" },
-  //     { subText: "Beauty Products", href: "/" },
-  //   ],
-  // },
-];
-
 const CartAndWishlist = [
   { image: WishOutline, href: "/" },
   { image: Cart, href: "/" },
@@ -83,7 +44,7 @@ const HeaderComponent = () => {
 
   return (
     <header className="">
-      <div className="bg-[#1E212C] ">
+      <div className="bg-gray-900">
         <div className="container flex justify-between py-[12px] text-white">
           <p>
             Available 24/7 at <Link href="tel:4055550128">(405) 555-0128</Link>
@@ -111,7 +72,7 @@ const HeaderComponent = () => {
           </div>
 
           <div className="flex gap-[10px]">
-            <Link href={"/"} className="flex">
+            <Link href={"/"} className="flex gap-[8px]">
               <Image className="text-white" src={Profile} alt="User" /> Log in
             </Link>
             <span>/</span>
@@ -122,53 +83,40 @@ const HeaderComponent = () => {
 
       <div className="container flex justify-between items-center py-[20px]">
         <Link className="font-black" href="">
-          iHealth
+          <span>i</span>
+          <span className="text-[#17696A]">Health</span>
         </Link>
 
         <nav className="flex gap-[40px]">
-          {NavigationCategories.map((category, index) => (
+          {HeaderCategoriesObject.map((category, index) => (
             <Menu key={index} trigger="hover" openDelay={100} closeDelay={100}>
               <Menu.Target>
                 <Link href={category.href}>{category.text}</Link>
               </Menu.Target>
 
               <Menu.Dropdown className="py-[20px] px-[100px]">
-                <div className="flex gap-[40px]">
+                <div className="flex gap-[80px]">
                   <div className="flex flex-col gap-[8px]">
-                    {NavigationStaticCategories.map((categories, index) => (
-                      <Link key={index} href={categories.href}>
-                        <Link href={categories.href}>{categories.text}</Link>
+                    {NavigationStaticCategories.map((categories, subIndex) => (
+                      <Link key={subIndex} href={categories.href}>
+                        {categories.text}
                       </Link>
                     ))}
                   </div>
 
                   <div className="flex gap-[20px]">
-                    <div className="flex flex-col	">
-                      <h2>Чоловіче здоров'я</h2>
-                      {category.subOne.map((subcategory, subIndex) => (
-                        <Link key={subIndex} href={subcategory.href}>
-                          {subcategory.subText}
-                        </Link>
-                      ))}
-                    </div>
-
-                    <div>
-                      <h2>Жіноче здоров'я</h2>
-                      {category.subTwo.map((subcategory, subIndex) => (
-                        <Link key={subIndex} href={subcategory.href}>
-                          {subcategory.subText}
-                        </Link>
-                      ))}
-                    </div>
-
-                    <div>
-                      <h2>Дитяче здоров'я</h2>
-                      {category.subThree.map((subcategory, subIndex) => (
-                        <Link key={subIndex} href={subcategory.href}>
-                          {subcategory.subText}
-                        </Link>
-                      ))}
-                    </div>
+                    {category.subcategories
+                      ? category.subcategories.map((subcategory, subIndex) => (
+                          <div key={subIndex} className="flex flex-col">
+                            <h2>{subcategory.title}</h2>
+                            {subcategory.items.map((item, itemIndex) => (
+                              <Link key={itemIndex} href={item.href}>
+                                {item.subText}
+                              </Link>
+                            ))}
+                          </div>
+                        ))
+                      : null}
                   </div>
                 </div>
               </Menu.Dropdown>
@@ -193,7 +141,7 @@ const HeaderComponent = () => {
       </div>
 
       <>
-        <button onClick={open} type="button">
+        <button onClick={open} type="button" className="hidden">
           <Image src={BurgerMenu} alt="Burger Menu" />
         </button>
         <Modal
