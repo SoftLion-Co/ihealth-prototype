@@ -1,9 +1,8 @@
 "use client";
-import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 import { Carousel } from "@mantine/carousel";
-import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import Link from "next/link";
 import ControlComponent from "./ControlComponent";
 
 interface DiscountProps {
@@ -11,7 +10,7 @@ interface DiscountProps {
 }
 
 const DiscountComponent: React.FC<DiscountProps> = ({ discounts }) => {
-  const autoplay = useRef(Autoplay({ delay: 3500 }));
+  const autoplay = useRef(Autoplay({ delay: 5000 }));
   return (
     <div className="bg-cyan-800 h-8">
       <div className="container h-full w-auto flex justify-center">
@@ -32,39 +31,19 @@ const DiscountComponent: React.FC<DiscountProps> = ({ discounts }) => {
             slide: "w-full flex justify-center items-center",
           }}
         >
-          <Carousel.Slide>
-            <Link
-              href="#"
-              className="inline-flex items-center gap-2 text-[12px]"
-            >
-              <p className="text-white font-black">Up to 70% Off.</p>
-              <p className="text-white underline">
-                Shop our latest sale styles
-              </p>
-            </Link>
-          </Carousel.Slide>
-          <Carousel.Slide>
-            <Link
-              href="#"
-              className="inline-flex items-center gap-2 text-[12px]"
-            >
-              <p className="text-white font-black">Up to 80% Off.</p>
-              <p className="text-white underline">
-                Shop our latest sale styles
-              </p>
-            </Link>
-          </Carousel.Slide>
-          <Carousel.Slide>
-            <Link
-              href="#"
-              className="inline-flex items-center gap-2 text-[12px]"
-            >
-              <p className="text-white font-black">Up to 50% Off.</p>
-              <p className="text-white underline">
-                Shop our latest sale styles
-              </p>
-            </Link>
-          </Carousel.Slide>
+          {discounts.map((discount, index) => (
+            <Carousel.Slide key={index}>
+              <Link
+                href={discount.href}
+                className="inline-flex items-center gap-2 text-[12px]"
+              >
+                <p className="text-white font-black">
+                  {discount.discountTitle}
+                </p>
+                <p className="text-white underline">{discount.title}</p>
+              </Link>
+            </Carousel.Slide>
+          ))}
         </Carousel>
       </div>
     </div>
