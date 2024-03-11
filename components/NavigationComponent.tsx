@@ -8,6 +8,7 @@ import crossGray from "@/images/vector/CrossGray.svg";
 import filter from "@/images/goods/Filter.svg";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { motion } from "framer-motion";
 
 interface NavigationComponentProps {
   links: { title: string; href: string }[];
@@ -74,7 +75,7 @@ const NavigationComponent = ({
 
   return (
     <>
-      <div className="bg-gray-100 py-4">
+      <div className="relative bg-gray-100 py-4 z-10">
         <div className="container flex justify-between text-sm">
           <div className="flex items-center gap-3 capitalize">
             {items.map((item, index) => (
@@ -126,24 +127,29 @@ const NavigationComponent = ({
           </div>
 
           <div className="md:hidden">
-            {tags &&
-              tags.length > 0 && ( // Перевірка наявності елементів у `tags`
-                <span
-                  className="text-gray-700 cursor-pointer flex gap-2"
-                  onClick={toggleFilters}
-                >
-                  <Image src={filter} alt="Filter" width={16} height={16} />
-                  Filters
-                  <div className="flex text-zinc-400 bg-zinc-200 rounded-full h-5 px-2 items-center justify-center text-xs">
-                    {tags.length}
-                  </div>
-                </span>
-              )}
+            {tags && tags.length > 0 && (
+              <span
+                className="text-gray-700 cursor-pointer flex gap-2"
+                onClick={toggleFilters}
+              >
+                <Image src={filter} alt="Filter" width={16} height={16} />
+                Filters
+                <div className="flex text-zinc-400 bg-zinc-200 rounded-full h-5 px-2 items-center justify-center text-xs">
+                  {tags.length}
+                </div>
+              </span>
+            )}
           </div>
         </div>
       </div>
       {showFilters && tags && tags.length > 0 && (
-        <div className="bg-gray-200 md:hidden">
+        <motion.div
+          className="bg-gray-200 md:hidden z-0"
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          exit={{ y: -100 }} // Додаємо анімацію при зниканні
+          transition={{ duration: 0.5, ease: [0.075, 0.82, 0.165, 1] }}
+        >
           <div className="flex container flex-wrap items-center gap-x-4 gap-y-2 text-sm py-4">
             <span
               className="text-gray-700 flex gap-2 items-center capitalize cursor-pointer"
@@ -170,7 +176,7 @@ const NavigationComponent = ({
                 </span>
               ))}
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );
