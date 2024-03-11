@@ -1,3 +1,4 @@
+"use client";
 import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +9,8 @@ import crossGray from "@/images/vector/CrossGray.svg";
 import filter from "@/images/goods/Filter.svg";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Popover } from "@mantine/core";
 
 interface NavigationComponentProps {
   links: { title: string; href: string }[];
@@ -43,6 +45,8 @@ const NavigationComponent = ({
     setShowFilters((prevState) => !prevState);
   };
 
+  const separator = <Image src={vector} alt=">" width={7} height={11} />;
+
   const allLinks = [
     {
       title: (
@@ -55,28 +59,66 @@ const NavigationComponent = ({
     ...links,
   ];
 
-  const separator = <Image src={vector} alt=">" width={7} height={11} />;
-
-  const items = allLinks.map(({ title, href }, index) => {
-    const cleanHref = href.startsWith("/") ? href.substring(1) : href;
-
-    return index === allLinks.length - 1 ? (
+  const items = allLinks.map(({ title, href }, index) =>
+    index === allLinks.length - 1 ? (
       <span className="text-zinc-400" key={index}>
         {title}
       </span>
     ) : (
-      <Link href={cleanHref} key={index} className="text-gray-700">
+      <Link
+        href={href.startsWith("/") ? href.substring(1) : href}
+        key={index}
+        className="text-gray-700"
+      >
         {title}
       </Link>
-    );
-  });
+    )
+  );
 
   const remainingTagsCount = Math.max(tags ? tags.length - 4 : 0, 0);
 
+  const clearAllButton = (
+    <span
+      className="text-gray-700 flex gap-2 items-center capitalize cursor-pointer"
+      onClick={handleClearTags}
+    >
+      <Image src={cross} width={16} height={16} alt="Remove item" />
+      {t("clear_all")}
+    </span>
+  );
+
+  const TagComponent = (item: any, index: any) => {
+    return (
+      <span
+        key={index}
+        className="text-zinc-400 flex gap-2 items-center capitalize"
+      >
+        <Image
+          src={crossGray}
+          width={16}
+          height={16}
+          alt="Remove item"
+          onClick={() => handleRemoveTag(index)}
+          style={{ cursor: "pointer" }}
+        />
+        {item}
+      </span>
+    );
+  };
+
+  const gridColumnsClass =
+    tags &&
+    (remainingTagsCount > 5
+      ? "grid-cols-3"
+      : remainingTagsCount > 1
+      ? "grid-cols-2"
+      : "grid-cols-1");
+
   return (
     <>
-      <div className="relative bg-gray-100 py-4 z-10">
+      <section className="relative bg-gray-100 py-4 z-10">
         <div className="container flex justify-between text-sm">
+          {/* Navigation */}
           <div className="flex items-center gap-3 capitalize">
             {items.map((item, index) => (
               <Fragment key={index}>
@@ -85,99 +127,71 @@ const NavigationComponent = ({
               </Fragment>
             ))}
           </div>
-          <div className="hidden md:block">
-            <div className="flex items-center gap-5">
-              {tags &&
-                tags.length > 0 &&
-                tags
-                  .slice(-4)
-                  .reverse()
-                  .map((item, index) => (
-                    <span
-                      key={index}
-                      className="text-zinc-400 flex gap-2 items-center capitalize"
-                    >
-                      <Image
-                        src={crossGray}
-                        width={16}
-                        height={16}
-                        alt="Remove item"
-                        onClick={() => handleRemoveTag(tags.length - 1 - index)}
-                        style={{ cursor: "pointer" }}
-                      />
-                      {item}
-                    </span>
-                  ))}
-              {remainingTagsCount > 0 && (
-                <div className="flex text-zinc-400 bg-zinc-200 rounded-full h-5 px-2 items-center justify-center text-xs">
-                  +{remainingTagsCount}
-                </div>
-              )}
 
-              {tags && tags.length > 0 && (
-                <span
-                  className="text-gray-700 flex gap-2 items-center capitalize cursor-pointer"
-                  onClick={handleClearTags}
-                >
-                  <Image src={cross} width={16} height={16} alt="Remove item" />
-                  {t("clear_all")}
-                </span>
-              )}
-            </div>
+          {/* Desktop filters with popup */}
+          <div className="hidden lg:flex items-center gap-5 ">
+            {tags &&
+              tags.length > 0 &&
+              tags
+                .slice(-4)
+                .reverse()
+                .map((item, index) =>
+                  TagComponent(item, tags.length - 1 - index)
+                )}
+            {remainingTagsCount > 0 && (
+              <Popover position="bottom" shadow="md">
+                <Popover.Target>
+                  <div className="flex text-zinc-400 bg-zinc-200 rounded-full h-5 px-2 items-center justify-center text-xs cursor-pointer">
+                    +{remainingTagsCount}
+                  </div>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <div className={`grid ${gridColumnsClass} gap-x-4 gap-y-1`}>
+                    {tags &&
+                      tags
+                        .slice(0, tags.length - 4)
+                        .map((item, index) => TagComponent(item, index))
+                        .reverse()}
+                  </div>
+                </Popover.Dropdown>
+              </Popover>
+            )}
+            {tags && tags.length > 0 ? clearAllButton : null}
           </div>
 
-          <div className="md:hidden">
+          {/* Mobile filters button */}
+          <div className="lg:hidden">
             {tags && tags.length > 0 && (
-              <span
-                className="text-gray-700 cursor-pointer flex gap-2"
-                onClick={toggleFilters}
-              >
+              <button className="flex gap-2" onClick={toggleFilters}>
                 <Image src={filter} alt="Filter" width={16} height={16} />
-                Filters
+                <span className="text-gray-700">Filters</span>
                 <div className="flex text-zinc-400 bg-zinc-200 rounded-full h-5 px-2 items-center justify-center text-xs">
                   {tags.length}
                 </div>
-              </span>
+              </button>
             )}
           </div>
         </div>
-      </div>
-      {showFilters && tags && tags.length > 0 && (
-        <motion.div
-          className="bg-gray-200 md:hidden z-0"
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          exit={{ y: -100 }} // Додаємо анімацію при зниканні
-          transition={{ duration: 0.5, ease: [0.075, 0.82, 0.165, 1] }}
-        >
-          <div className="flex container flex-wrap items-center gap-x-4 gap-y-2 text-sm py-4">
-            <span
-              className="text-gray-700 flex gap-2 items-center capitalize cursor-pointer"
-              onClick={handleClearTags}
-            >
-              <Image src={cross} width={16} height={16} alt="Remove item" />
-              {t("clear_all")}
-            </span>
-            {tags &&
-              tags.map((item, index) => (
-                <span
-                  key={index}
-                  className="text-zinc-400 flex gap-2 items-center capitalize"
-                >
-                  <Image
-                    src={crossGray}
-                    width={16}
-                    height={16}
-                    alt="Remove item"
-                    onClick={() => handleRemoveTag(tags.length - 1 - index)}
-                    style={{ cursor: "pointer" }}
-                  />
-                  {item}
-                </span>
-              ))}
-          </div>
-        </motion.div>
-      )}
+      </section>
+
+      {/* Mobile filters section */}
+      <AnimatePresence>
+        {showFilters && tags && tags.length > 0 && (
+          <motion.section
+            className="absolute w-full bg-gray-200 lg:hidden z-0"
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+            exit={{ y: -100 }}
+            transition={{ duration: 0.5, ease: [0.075, 0.82, 0.165, 1] }}
+          >
+            <div className="flex container flex-wrap items-center gap-x-4 gap-y-2 text-sm py-4">
+              {clearAllButton}
+              {tags &&
+                tags.map((item, index) => TagComponent(item, index)).reverse()}
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
     </>
   );
 };

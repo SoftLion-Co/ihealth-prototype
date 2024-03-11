@@ -3,7 +3,15 @@ import NavigationComponent from "@/components/NavigationComponent";
 import React, { useState, useCallback } from "react";
 
 const Page = () => {
-  const [tags, setTags] = useState(["Dresses", "Yellow", "Cotton"]);
+  const [tags, setTags] = useState([
+    "Tag1",
+    "Tag2",
+    "Tag3",
+    "Tag4",
+    "Tag5",
+    "Tag6",
+    "Tag7",
+  ]);
   const [newTag, setNewTag] = useState("");
 
   const addTag = useCallback(() => {
