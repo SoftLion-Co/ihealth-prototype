@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useWindowScroll } from "@mantine/hooks";
-import { Button, Text, Group } from "@mantine/core";
 
 import Facebook from "@/images/social-networks/Facebook.svg";
 import Instagram from "@/images/social-networks/Instagram.svg";
@@ -118,10 +117,10 @@ const FooterComponent = () => {
                   key={index}
                   href={item.href}
                   target={item.target}
-                  className="bg-gray-800 p-[8px] rounded inline-block"
+                  className="bg-gray-800 p-[8px] rounded inline-block group"
                 >
                   <Image
-                    className="transition-transform duration-300 ease-in-out transform hover:scale-125"
+                    className="transition-transform duration-300 ease-in-out transform group-hover:scale-125"
                     src={item.icon}
                     alt={item.text}
                   />
