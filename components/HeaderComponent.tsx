@@ -255,7 +255,7 @@ const HeaderComponent: FC = () => {
     <div className={`${className} flex justify-between xl:gap-[48px]`}>
       <form className="relative flex items-center">
         <input
-          className="outline-none border-[1px] border-solid border-gray-300 rounded w-[380px] h-[42px] pl-[10px]"
+          className="outline-none border-[1px] border-solid border-gray-300 rounded w-[240px] h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px]"
           type="Search for products..."
         />
 
@@ -264,7 +264,7 @@ const HeaderComponent: FC = () => {
         </label>
       </form>
 
-      <div className="flex items-center gap-[28px]">
+      <div className="flex items-center gap-[12px] xl:gap-[28px]">
         {CartAndWishlist.map((item, index) => (
           <Link key={index} href={item.href}>
             <Image src={item.image} alt="Wish" />
