@@ -253,10 +253,16 @@ const HeaderComponent: FC = () => {
 
   const SearchAndCart: FC<HeaderProps> = ({ className }) => (
     <div className={`${className} flex justify-between xl:gap-[48px]`}>
-      <input
-        className="border-[1px] rounded w-[380px] h-[42px]"
-        type="Search for products..."
-      />
+      <form className="relative flex items-center">
+        <input
+          className="outline-none border-[1px] border-solid border-gray-300 rounded w-[380px] h-[42px] pl-[10px]"
+          type="Search for products..."
+        />
+
+        <label className="absolute left-[90%] cursor-pointer" htmlFor="">
+          <Image className="w-[18px] h-[18px]" src={Search} alt="Search" />
+        </label>
+      </form>
 
       <div className="flex items-center gap-[28px]">
         {CartAndWishlist.map((item, index) => (
