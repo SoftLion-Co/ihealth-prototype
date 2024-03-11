@@ -44,14 +44,11 @@ const CartAndWishlist = [
 ];
 
 const HeaderComponent: FC = () => {
-  const [categoriesOpened, { open: openCategories, close: closeCategories }] =
-    useDisclosure(false);
-  const [mobileMenuOpened, { open: openMobileMenu, close: closeMobileMenu }] =
-    useDisclosure(false);
-
   const [openedCategories, setOpenedCategories] = useState(
     new Array(HeaderCategoriesObject.length).fill(false)
   );
+  const [mobileMenuOpened, { open: openMobileMenu, close: closeMobileMenu }] =
+    useDisclosure(false);
 
   const openCategory = (index: any) => {
     const updatedCategories = [...openedCategories];
