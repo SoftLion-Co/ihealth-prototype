@@ -178,10 +178,10 @@ const NavigationComponent = ({
       <AnimatePresence>
         {showFilters && tags && tags.length > 0 && (
           <motion.section
-            className="absolute w-full bg-gray-200 lg:hidden z-0"
-            initial={{ y: -100 }}
+            className="absolute w-full bg-gray-200 lg:hidden"
+            initial={{ y: "-100%" }}
             animate={{ y: 0 }}
-            exit={{ y: -100 }}
+            exit={{ y: "-100%" }}
             transition={{ duration: 0.5, ease: [0.075, 0.82, 0.165, 1] }}
           >
             <div className="flex container flex-wrap items-center gap-x-4 gap-y-2 text-sm py-4">

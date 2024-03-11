@@ -43,7 +43,7 @@ const HeaderComponent = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <header className="">
+    <header className="relative z-10 bg-white">
       <div className="bg-gray-900">
         <div className="container flex justify-between py-[12px] text-white">
           <p>
