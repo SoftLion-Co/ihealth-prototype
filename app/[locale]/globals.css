@@ -6,6 +6,11 @@ html {
   height: 100%;
 }
 
+main {
+  display: grid;
+  gap: 90px;
+}
+
 body {
   height: 100%;
   display: flex;

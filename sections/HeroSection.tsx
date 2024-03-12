@@ -62,7 +62,7 @@ const slides = [
 
 const HeroSection = () => {
   return (
-    <section>
+    <section className="h-auto w-auto">
       <DiscountComponent discounts={discountDate} />
       <SliderComponent slides={slides} />
     </section>
