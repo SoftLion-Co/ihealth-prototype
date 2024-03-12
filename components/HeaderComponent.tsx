@@ -6,7 +6,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal, Menu } from "@mantine/core";
 import HeaderCategoriesObject from "./HeaderCategoriesObject";
 
-import HeaderPhoto from "@/images/test-photo/HeaderPhoto.png";
+import HeaderPhoto from "@/images/test/test-photo/HeaderPhoto.png";
 import BurgerMenu from "@/images/navigation/BurgerMenu.svg";
 import WishOutline from "@/images/navigation/WishOutline.svg";
 import Cart from "@/images/goods/Cart.svg";
