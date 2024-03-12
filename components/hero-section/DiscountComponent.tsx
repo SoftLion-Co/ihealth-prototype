@@ -21,9 +21,15 @@ const DiscountComponent: React.FC<DiscountProps> = ({ discounts }) => {
           loop
           draggable={false}
           previousControlIcon={
-            <ControlComponent position="prev" alt="Previous" />
+            <ControlComponent
+              section="discount"
+              position="prev"
+              alt="Previous"
+            />
           }
-          nextControlIcon={<ControlComponent position="next" alt="Next" />}
+          nextControlIcon={
+            <ControlComponent section="discount" position="next" alt="Next" />
+          }
           classNames={{
             root: "h-full w-[400px] flex justify-center items-center",
             control: "border-none text-white",

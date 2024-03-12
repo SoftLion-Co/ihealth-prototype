@@ -1,20 +1,32 @@
 import React from "react";
 import Image from "next/image";
 import Arrow from "@/images/vector/ChevronArrow.svg";
+import NextPrev from "@/images/vector/OrdinaryArrow.svg";
 
 interface ControlProps {
+  section: "discount" | "slider";
   position: "prev" | "next";
   alt: string;
 }
 
-const ControlComponent: React.FC<ControlProps> = ({ position, alt }) => {
+const ControlComponent: React.FC<ControlProps> = ({
+  section,
+  position,
+  alt,
+}) => {
   return (
     <Image
-      src={Arrow}
+      src={section == "discount" ? Arrow : NextPrev}
       alt={alt}
-      className={`w-4 h-4 ${
-        position == "prev" ? "rotate-[90deg]" : "rotate-[270deg]"
-      }`}
+      className={`${
+        section == "discount"
+          ? position == "prev"
+            ? "rotate-[90deg]"
+            : "rotate-[270deg]"
+          : position == "prev"
+          ? "rotate-[180deg]"
+          : null
+      } ${section == "discount" ? "w-4 h-4" : "h-6 w-6"}`}
     />
   );
 };
