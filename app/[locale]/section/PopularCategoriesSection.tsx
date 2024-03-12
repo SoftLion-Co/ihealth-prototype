@@ -33,7 +33,6 @@ const PopularCategoriesSection = () => {
 
       {isScreenSmall ? (
         <Carousel
-          withIndicators
           loop
           withControls={false}
           className="flex justify-between w-[100%]"
