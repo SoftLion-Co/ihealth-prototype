@@ -119,11 +119,11 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         <Button
           disabled={disabled}
           onClick={handleButtonClick}
-          className={`bg-transparent border-1 border-[#17696A] text-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] transition-all duration-300 ease-in-out`}
+          className={`bg-transparent border-1 border-[#17696A] text-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] hover:bg-[transparent] active:bg-[transparent] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] transition-all duration-300 ease-in-out`}
         >
           {isActive ? (
             <svg
-              className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
+              className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
               width="24"
               height="24"
               viewBox="0 0 24 24"
