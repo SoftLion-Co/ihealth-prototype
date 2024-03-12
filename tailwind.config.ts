@@ -30,6 +30,7 @@ const config: Config = {
       "2xl": "1920px",
     },
     container: {
+      center: true,
       padding: {
         DEFAULT: "15px",
         sm: "20px",
