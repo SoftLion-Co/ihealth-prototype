@@ -20,8 +20,8 @@ type HeaderProps = {
 };
 
 const ImageLanguage = [
-  { country: "UA", icon: UA },
-  { country: "UK", icon: UK },
+  { text: "Ua / ₴", country: "UA", icon: UA },
+  { text: "Eng / $", country: "UK", icon: UK },
 ];
 
 const NavigationItem = [
@@ -39,8 +39,8 @@ const NavigationStaticCategories = [
 ];
 
 const CartAndWishlist = [
-  { image: WishOutline, href: "/" },
-  { image: Cart, href: "/" },
+  { image: WishOutline, quantity: "7", href: "/" },
+  { image: Cart, quantity: "15", href: "/" },
 ];
 
 const HeaderComponent: FC = () => {
@@ -111,12 +111,15 @@ const HeaderComponent: FC = () => {
     <div className={`${className} cursor-pointer`}>
       <Menu trigger="hover" openDelay={100} closeDelay={100}>
         <Menu.Target>
-          <Image
-            src={selectedLanguage.icon}
-            alt={selectedLanguage.country}
-            width={24}
-            height={12}
-          />
+          <div className="flex items-center gap-[12px]">
+            <Image
+              src={selectedLanguage.icon}
+              alt={selectedLanguage.country}
+              width={24}
+              height={12}
+            />
+            <p>{selectedLanguage.text}</p>
+          </div>
         </Menu.Target>
 
         <Menu.Dropdown>
@@ -124,7 +127,7 @@ const HeaderComponent: FC = () => {
             <div
               key={index}
               onClick={() => handleLanguageChange(language)}
-              className="py-[10px] px-[14px]"
+              className="flex items-center gap-[12px] py-[10px] px-[14px]"
             >
               <Image
                 className=""
@@ -133,6 +136,7 @@ const HeaderComponent: FC = () => {
                 width={24}
                 height={12}
               />
+              <p>{language.text}</p>
             </div>
           ))}
         </Menu.Dropdown>
@@ -192,7 +196,7 @@ const HeaderComponent: FC = () => {
               fullScreen
               transitionProps={{ transition: "scale-x", duration: 200 }}
             >
-              <div className="container flex flex-col gap-[20px] xl:flex-row xl:justify-between">
+              <div className="container flex flex-col gap-[20px] py-[20px] xl:flex-row xl:justify-between">
                 <div className="flex flex-col gap-[8px]">
                   {NavigationStaticCategories.map((categories, subIndex) => (
                     <Link
@@ -255,21 +259,41 @@ const HeaderComponent: FC = () => {
     <div
       className={`${className} flex justify-between gap-[20px] xl:gap-[48px]`}
     >
-      <form className="relative flex items-center w-[100%]">
+      <form className="relative flex items-center">
         <input
-          className="outline-none border-[1px] border-solid border-gray-300 rounded w-[100%] h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px]"
-          type="Search for products..."
+          id="searchInput"
+          className="outline-none w-[100%] border-[1px] border-solid border-gray-300 rounded h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px] placeholder-gray-500"
+          type="text"
+          placeholder="Search..."
         />
 
-        <label className="absolute right-[3%] cursor-pointer" htmlFor="">
+        <button
+          type="button"
+          className="absolute right-[3%] cursor-pointer xl:right-[4%]"
+        >
           <Image className="w-[18px] h-[18px]" src={Search} alt="Search" />
-        </label>
+        </button>
       </form>
 
-      <div className="flex items-center gap-[12px] xl:gap-[28px]">
+      <div className="flex items-center gap-[12px] xl:gap-[32px]">
         {CartAndWishlist.map((item, index) => (
-          <Link key={index} href={item.href}>
-            <Image src={item.image} alt="Wish" />
+          <Link
+            key={index}
+            href={item.href}
+            className="flex items-center gap-[8px] text-[14px] xl:text-[16px]"
+          >
+            <Image
+              className="w-[22px] h-[22px] xl:w-[26px] xl:h-[26px]"
+              src={item.image}
+              alt="Wish"
+            />
+            {item.image === Cart ? (
+              <p className="bg-[#03CEA4] text-white rounded-md px-[4px] py-[1px] xl:px-[8px]">
+                {item.quantity}
+              </p>
+            ) : (
+              <p>{item.quantity}</p>
+            )}
           </Link>
         ))}
       </div>
