@@ -43,7 +43,9 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           <Image
             className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
             src={Cart}
-            alt="cart"
+            alt="Cart"
+            width={24}
+            height={24}
           />
           {text}
         </Button>
@@ -65,8 +67,8 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M14.7929 6.79289C15.1834 6.40237 15.8166 6.40237 16.2071 6.79289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L16.2071 17.2071C15.8166 17.5976 15.1834 17.5976 14.7929 17.2071C14.4024 16.8166 14.4024 16.1834 14.7929 15.7929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L14.7929 8.20711C14.4024 7.81658 14.4024 7.18342 14.7929 6.79289Z"
             />
           </svg>
@@ -82,7 +84,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           <Image
             className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
             src={Filter}
-            alt="filter"
+            alt="Filter"
             width={24}
             height={24}
           />
@@ -129,8 +131,8 @@ const ButtonComponent: React.FC<ButtonProps> = ({
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M11.9994 4.10638C8.47019 0.752766 3.26381 2.13881 1.35872 5.87633C0.313178 7.92755 0.298896 10.5787 1.84178 13.3885C3.37099 16.1735 6.41989 19.113 11.5156 21.9295L11.9993 22.1969L12.4831 21.9295C17.579 19.113 20.6281 16.1735 22.1574 13.3886C23.7004 10.5787 23.6861 7.92756 22.6406 5.87633C20.7355 2.13874 15.5289 0.752817 11.9994 4.10638Z"
               />
             </svg>
@@ -144,8 +146,8 @@ const ButtonComponent: React.FC<ButtonProps> = ({
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M11.9994 19.9077C7.4003 17.2883 4.83525 14.6848 3.59488 12.4259C2.32537 10.1139 2.43614 8.16664 3.14059 6.78459C4.58857 3.94386 8.70616 3.03548 11.2149 6.20846L11.9993 7.20051L12.7837 6.20851C15.2929 3.0354 19.4108 3.94392 20.8587 6.78459C21.5632 8.16662 21.6739 10.1139 20.4043 12.4259C19.1638 14.6848 16.5986 17.2883 11.9994 19.9077ZM11.9994 4.10638C8.47019 0.752766 3.26381 2.13881 1.35872 5.87633C0.313178 7.92755 0.298896 10.5787 1.84178 13.3885C3.37099 16.1735 6.41989 19.113 11.5156 21.9295L11.9993 22.1969L12.4831 21.9295C17.579 19.113 20.6281 16.1735 22.1574 13.3886C23.7004 10.5787 23.6861 7.92756 22.6406 5.87633C20.7355 2.13874 15.5289 0.752817 11.9994 4.10638Z"
               />
             </svg>
