@@ -183,73 +183,69 @@ const HeaderComponent: FC = () => {
             {category.text}
           </Link>
 
-          {category.subcategories && (
-            <Modal
-              opened={openedCategories[index]}
-              onClose={() => closeCategory(index)}
-              classNames={{
-                header: "xl:hidden",
-                overlay: "bg-transparent",
-                body: "p-0",
-                content: "h-[100%] xl:mt-[134px] xl:h-[485px]",
-              }}
-              fullScreen
-              transitionProps={{ transition: "scale-x", duration: 200 }}
-            >
-              <div className="container flex flex-col gap-[20px] py-[20px] xl:flex-row xl:justify-between">
-                <div className="flex flex-col gap-[8px]">
-                  {NavigationStaticCategories.map((categories, subIndex) => (
-                    <Link
-                      key={subIndex}
-                      href={categories.href}
-                      className={
-                        categories.text === "Sale up to 70%"
-                          ? "text-red-600"
-                          : ""
-                      }
-                    >
-                      {categories.text}
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="flex flex-col gap-[20px] xl:flex-row xl:gap-[40px]">
-                  {category.subcategories
-                    ? category.subcategories.map((subcategory, subIndex) => (
-                        <div key={subIndex} className="flex flex-col gap-[8px]">
-                          <h2 className="uppercase text-[#1E212C] font-black">
-                            {subcategory.title}
-                          </h2>
-                          {subcategory.items.map((item, itemIndex) => (
-                            <Link
-                              key={itemIndex}
-                              href={item.href}
-                              className="text-[#424551]"
-                            >
-                              {item.subText}
-                            </Link>
-                          ))}
-                        </div>
-                      ))
-                    : null}
-                </div>
-
-                <div className="flex flex-col gap-[16px]">
-                  <Image
-                    src={HeaderPhoto}
-                    alt="Header Photo"
-                    className="rounded"
-                    width={260}
-                    height={260}
-                  />
-
-                  <Link href="/" className="text-[#424551] font-black">
-                    Sale up to 50%
+          <Modal
+            opened={openedCategories[index]}
+            onClose={() => closeCategory(index)}
+            fullScreen
+            classNames={{
+              header: "xl:hidden",
+              overlay: "bg-transparent",
+              body: "p-0",
+              content: "h-[100%] xl:mt-[134px] xl:h-[485px]",
+            }}
+            transitionProps={{ transition: "scale-x", duration: 200 }}
+          >
+            <div className="container flex flex-col gap-[20px] py-[20px] xl:flex-row xl:justify-between">
+              <div className="flex flex-col gap-[8px]">
+                {NavigationStaticCategories.map((categories, subIndex) => (
+                  <Link
+                    key={subIndex}
+                    href={categories.href}
+                    className={
+                      categories.text === "Sale up to 70%" ? "text-red-600" : ""
+                    }
+                  >
+                    {categories.text}
                   </Link>
-                </div>
+                ))}
               </div>
-            </Modal>
-          )}
+
+              <div className="flex flex-col gap-[20px] xl:flex-row xl:gap-[40px]">
+                {category.subcategories
+                  ? category.subcategories.map((subcategory, subIndex) => (
+                      <div key={subIndex} className="flex flex-col gap-[8px]">
+                        <h2 className="uppercase text-[#1E212C] font-black">
+                          {subcategory.title}
+                        </h2>
+                        {subcategory.items.map((item, itemIndex) => (
+                          <Link
+                            key={itemIndex}
+                            href={item.href}
+                            className="text-[#424551]"
+                          >
+                            {item.subText}
+                          </Link>
+                        ))}
+                      </div>
+                    ))
+                  : null}
+              </div>
+
+              <div className="flex flex-col gap-[16px]">
+                <Image
+                  src={HeaderPhoto}
+                  alt="Header Photo"
+                  className="rounded"
+                  width={260}
+                  height={260}
+                />
+
+                <Link href="/" className="text-[#424551] font-black">
+                  Sale up to 50%
+                </Link>
+              </div>
+            </div>
+          </Modal>
         </div>
       ))}
     </nav>
