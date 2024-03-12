@@ -8,7 +8,7 @@ const page = () => {
   return (
     <main>
       <h1>{t("title")}</h1>
-      <ProductCardComponent rating={2} discount={20} />
+      <ProductCardComponent rating={5} discount={20} />
     </main>
   );
 };
