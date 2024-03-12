@@ -37,6 +37,10 @@ const PopularCategoriesSection = () => {
           loop
           withControls={false}
           className="flex justify-between w-[100%]"
+          classNames={{
+            indicator: "bg-[#17696A]",
+            indicators: "bottom-[-22px]",
+          }}
         >
           {PopularCategoriesData.map((item, index) => (
             <Carousel.Slide key={index}>
