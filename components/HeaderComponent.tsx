@@ -152,13 +152,13 @@ const HeaderComponent: FC = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M12.0001 3.25C10.0671 3.25 8.50009 4.817 8.50009 6.75C8.50009 8.683 10.0671 10.25 12.0001 10.25C13.9331 10.25 15.5001 8.683 15.5001 6.75C15.5001 4.817 13.9331 3.25 12.0001 3.25ZM6.50009 6.75C6.50009 3.71243 8.96252 1.25 12.0001 1.25C15.0377 1.25 17.5001 3.71243 17.5001 6.75C17.5001 9.78757 15.0377 12.25 12.0001 12.25C8.96252 12.25 6.50009 9.78757 6.50009 6.75Z"
           />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M6.10415 15.25C5.41083 15.25 4.86892 15.5876 4.64895 16.0726C4.34449 16.7439 4.06879 17.5432 4.00373 18.3012C3.97464 18.64 4.11593 18.8897 4.31061 19.0107C5.33977 19.65 7.72448 20.75 12.0001 20.75C16.2757 20.75 18.6604 19.65 19.6896 19.0107C19.8842 18.8897 20.0255 18.64 19.9964 18.3012C19.9314 17.5432 19.6557 16.7439 19.3512 16.0726C19.1313 15.5876 18.5894 15.25 17.896 15.25H6.10415ZM2.82752 15.2466C3.43546 13.9061 4.793 13.25 6.10415 13.25H17.896C19.2072 13.25 20.5647 13.9061 21.1727 15.2466C21.5218 16.0165 21.8965 17.0515 21.9891 18.1301C22.0734 19.1124 21.6652 20.1379 20.7449 20.7096C19.3914 21.5504 16.6397 22.75 12.0001 22.75C7.36049 22.75 4.60879 21.5504 3.25525 20.7096C2.33499 20.1379 1.92675 19.1124 2.01105 18.1301C2.10363 17.0515 2.47833 16.0165 2.82752 15.2466Z"
           />
         </svg>
@@ -252,14 +252,16 @@ const HeaderComponent: FC = () => {
   );
 
   const SearchAndCart: FC<HeaderProps> = ({ className }) => (
-    <div className={`${className} flex justify-between xl:gap-[48px]`}>
-      <form className="relative flex items-center">
+    <div
+      className={`${className} flex justify-between gap-[20px] xl:gap-[48px]`}
+    >
+      <form className="relative flex items-center w-[100%]">
         <input
-          className="outline-none border-[1px] border-solid border-gray-300 rounded w-[240px] h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px]"
+          className="outline-none border-[1px] border-solid border-gray-300 rounded w-[100%] h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px]"
           type="Search for products..."
         />
 
-        <label className="absolute left-[90%] cursor-pointer" htmlFor="">
+        <label className="absolute right-[3%] cursor-pointer" htmlFor="">
           <Image className="w-[18px] h-[18px]" src={Search} alt="Search" />
         </label>
       </form>
