@@ -47,8 +47,8 @@ const lato = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "iHealth",
-  description: "iHealth",
+  title: "Wellness",
+  description: "Wellness",
 };
 
 export default async function RootLayout({

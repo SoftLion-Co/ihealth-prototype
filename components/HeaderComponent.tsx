@@ -282,7 +282,7 @@ const HeaderComponent: FC = () => {
     <div
       className={`${className} flex justify-between gap-[20px] xl:gap-[48px]`}
     >
-      <form className="relative flex items-center w-[85%]">
+      <form className="relative flex items-center w-[85%] xl:w-max">
         <input
           id="searchInput"
           className="outline-none w-[100%] border-[1px] border-solid border-gray-300 rounded h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px] placeholder-gray-500"
@@ -292,7 +292,7 @@ const HeaderComponent: FC = () => {
 
         <button
           type="button"
-          className="absolute right-[3%] cursor-pointer xl:right-[4%]"
+          className="absolute right-[3%] cursor-pointer xl:right-[5%]"
         >
           <Image className="w-[18px] h-[18px]" src={Search} alt="Search" />
         </button>

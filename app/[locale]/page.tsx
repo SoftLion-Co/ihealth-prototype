@@ -14,8 +14,8 @@ const page = () => {
     <main>
       <HeroSection />
       <PopularCategoriesSection />
-      <SubscribeSection />
       <ServiceSection />
+      <SubscribeSection />
     </main>
   );
 };
