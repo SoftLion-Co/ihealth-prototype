@@ -36,7 +36,7 @@ const PopularCategoriesSection = () => {
           withIndicators
           loop
           withControls={false}
-          className="flex justify-between w-[100%]"
+          className="flex justify-center w-[100%] xl:"
           classNames={{
             indicator: "bg-[#17696A]",
             indicators: "bottom-[-22px]",

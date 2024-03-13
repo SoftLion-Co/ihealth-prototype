@@ -282,7 +282,7 @@ const HeaderComponent: FC = () => {
     <div
       className={`${className} flex justify-between gap-[20px] xl:gap-[48px]`}
     >
-      <form className="relative flex items-center">
+      <form className="relative flex items-center w-[85%]">
         <input
           id="searchInput"
           className="outline-none w-[100%] border-[1px] border-solid border-gray-300 rounded h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px] placeholder-gray-500"

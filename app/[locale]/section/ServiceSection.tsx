@@ -43,7 +43,7 @@ const ServiceSection = () => {
           loop
           withControls={false}
           slideGap="25"
-          className="container w-[100%] flex justify-between"
+          className="container w-[100%] flex justify-center"
         >
           {ServiceProps.map((item, index) => (
             <Carousel.Slide
