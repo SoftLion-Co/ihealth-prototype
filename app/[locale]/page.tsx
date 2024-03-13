@@ -12,8 +12,8 @@ const page = () => {
   return (
     <main>
       <HeroSection />
-      <PopularCategoriesSection />
-      <ServiceSection />
+      {/* <PopularCategoriesSection />
+      <ServiceSection /> */}
     </main>
   );
 };
