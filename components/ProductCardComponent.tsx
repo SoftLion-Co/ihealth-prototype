@@ -24,6 +24,7 @@ type Props = {
   price: string;
   oldPrice?: string;
   options?: any;
+  small?: boolean;
 };
 
 const ProductCardComponent = ({
@@ -36,33 +37,32 @@ const ProductCardComponent = ({
   price,
   oldPrice,
   options,
+  small = false,
 }: Props) => {
   const [isWishlistActive, setWishlistActive] = useState(wishlist);
-
+  const locale = useLocale();
   const toggleWishlist = () => {
     setWishlistActive(!isWishlistActive);
   };
 
-  const Control = ({ position }: { position: "next" | "prev" }) => (
-    <Image
-      src={arrow}
-      alt="Arrow"
-      width={24}
-      height={24}
-      className={position === "next" ? "-rotate-90" : "rotate-90"}
-    />
-  );
-
   return (
-    <div className="bg-white max-w-[390px] group hover:shadow-card-xl">
+    <div
+      className={`bg-white ${
+        small ? "md:max-w-[285px]" : "md:max-w-[390px]"
+      } group shadow-card-xl lg:shadow-none lg:hover:shadow-card-xl`}
+    >
       <div className="relative">
-        <Image
-          src={image}
-          width={390}
-          height={440}
-          alt="Product Image"
-          className="rounded max-h-[440px] object-cover position-center"
-        />
+        <Link href={`/${locale}/${slug}`}>
+          <Image
+            src={image}
+            width={390}
+            height={440}
+            alt="Product Image"
+            className={`rounded ${
+              small ? "h-[240px] md:h-[320px]" : "h-[320px] md:h-[440px]"
+            } object-cover position-center`}
+          />
+        </Link>
 
         {discount && (
           <Badge
@@ -116,17 +116,27 @@ const ProductCardComponent = ({
 
       <div className="p-4 flex flex-col relative z-10">
         <h2 className="text-lg text-[#424551] mb-2">{name}</h2>
-        <div className="flex gap-3">
-          <span className="text-2xl	text-danger font-bold	">${price}</span>
-          {discount && (
-            <span className="line-through text-[#787A80] text-lg">
+        <div className="flex gap-3 items-center flex-wrap">
+          <span
+            className={`${small ? "text-xl" : "text-2xl"} ${
+              discount ? "text-danger" : "text-[#1E212C]"
+            } font-bold`}
+          >
+            ${price}
+          </span>
+          {discount && oldPrice && (
+            <span
+              className={`${
+                small ? "text-base" : "text-lg"
+              } line-through text-[#787A80] text-lg `}
+            >
               ${oldPrice}
             </span>
           )}
         </div>
       </div>
       <div className="relative ">
-        <div className="px-4 pb-4 pt-1 w-full hidden group-hover:flex flex-col gap-y-4 absolute top-0 bg-white shadow-card-xl rounded-b z-10">
+        <div className="px-4 pb-4 pt-1 w-full hidden lg:group-hover:flex flex-col gap-y-4 absolute top-0 bg-white shadow-card-xl rounded-b z-10">
           {options && (
             <MantineProvider
               theme={{
@@ -144,7 +154,11 @@ const ProductCardComponent = ({
               }}
             >
               {options.map((option: any) => {
-                const [value, setValue] = useState("");
+                const [value, setValue] = useState(option.values[0]);
+
+                const handleChange = (newValue: string) => {
+                  setValue(newValue);
+                };
 
                 return (
                   <div className="flex flex-wrap gap-1">
@@ -152,12 +166,12 @@ const ProductCardComponent = ({
                       key={option.id}
                       multiple={false}
                       value={value}
-                      onChange={setValue}
+                      onChange={handleChange}
                     >
-                      {option.values.map((value: string, index: number) => (
+                      {option.values.map((val: string, index: number) => (
                         <Chip
                           key={index}
-                          value={value}
+                          value={val}
                           classNames={{
                             iconWrapper: "hidden",
                             label:
@@ -165,8 +179,9 @@ const ProductCardComponent = ({
                           }}
                           radius="sm"
                           color="primary"
+                          checked={val === value}
                         >
-                          {value}
+                          {val}
                         </Chip>
                       ))}
                     </Chip.Group>
@@ -175,7 +190,11 @@ const ProductCardComponent = ({
               })}
             </MantineProvider>
           )}
-          <ButtonComponent typeButton="MainCartButton" text="Add to cart" />
+          <ButtonComponent
+            typeButton="MainCartButton"
+            text="Add to cart"
+            small={small}
+          />
         </div>
       </div>
     </div>

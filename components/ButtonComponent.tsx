@@ -18,6 +18,7 @@ interface ButtonProps {
     | "FollowButton"
     | "FilterButton"
     | "WishButton";
+  small?: boolean;
 }
 
 const ButtonComponent: React.FC<ButtonProps> = ({
@@ -25,6 +26,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
   onClick,
   typeButton,
   disabled,
+  small = false,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -38,10 +40,10 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         <Button
           disabled={disabled}
           onClick={onClick}
-          className={`w-full bg-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] transition-all duration-300 ease-in-out`}
+          className={`w-full ${small?"text-xs":"text-sm"} bg-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] transition-all duration-300 ease-in-out`}
         >
           <Image
-            className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
+            className={`filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] ${small?"lg:w-[16px] lg:h-[16px]":"lg:w-[24px] lg:h-[24px]"}`}
             src={Cart}
             alt="Cart"
             width={24}

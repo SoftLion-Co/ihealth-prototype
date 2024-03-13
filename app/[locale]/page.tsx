@@ -11,7 +11,7 @@ const page = () => {
   const t = useTranslations("home_page");
   const image = test;
   const slug = "product-slug";
-  const name = "WHEY Protein 100% Gold Standard";
+  const name = "Shirt with insertion lace trims";
   const price = "20.40";
   const oldPrice = "40.80";
   const options = [
@@ -41,7 +41,7 @@ const page = () => {
   return (
     <main>
       <h1>{t("title")}</h1>
-      <div className="container grid grid-cols-2 md:grid-cols-3 justify-items-center gap-x-[30px] gap-y-[60px]">
+      <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-x-[30px] gap-y-[60px]">
         <ProductCardComponent
           rating={5}
           discount={50}
@@ -51,47 +51,38 @@ const page = () => {
           price={price}
           oldPrice={oldPrice}
           options={options}
+          small
         />
         <ProductCardComponent
           rating={5}
-          discount={50}
           image={image}
           slug={slug}
           name={name}
           price={price}
-          oldPrice={oldPrice}
           options={options}
+          small
         />
         <ProductCardComponent
           rating={5}
-          discount={50}
           image={image}
           slug={slug}
           name={name}
           price={price}
-          oldPrice={oldPrice}
           options={options}
+          small
         />
         <ProductCardComponent
           rating={5}
-          discount={50}
           image={image}
           slug={slug}
           name={name}
           price={price}
-          oldPrice={oldPrice}
           options={options}
+          small
         />
-        <ProductCardComponent
-          rating={5}
-          discount={50}
-          image={image}
-          slug={slug}
-          name={name}
-          price={price}
-          oldPrice={oldPrice}
-          options={options}
-        />
+      </div>
+
+      <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-x-[30px] gap-y-[60px]">
         <ProductCardComponent
           rating={5}
           discount={50}
@@ -123,8 +114,8 @@ const page = () => {
           options={options}
         />
       </div>
-      <PopularCategoriesSection />
-      <ServiceSection />
+      {/* <PopularCategoriesSection />
+      <ServiceSection /> */}
     </main>
   );
 };
