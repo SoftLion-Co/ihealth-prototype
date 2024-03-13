@@ -84,9 +84,9 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
           <div className="absolute top-[19%] lg:top-[25%] w-full">
             <div className="container w-full flex flex-col gap-9">
               <div className="flex flex-col gap-3 md:items-start text-center">
-                <h2 className="w-auto uppercase text-base lg:text-lg font-bold text-zinc-800">
+                <p className="w-auto uppercase text-base lg:text-lg font-bold text-zinc-800">
                   {slide.subTitle}
-                </h2>
+                </p>
                 <h1 className="text-[52px] lg:text-[72px] font-black text-zinc-800">
                   {slide.title}
                 </h1>
