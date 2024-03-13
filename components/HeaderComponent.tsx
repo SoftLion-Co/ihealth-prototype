@@ -127,10 +127,10 @@ const HeaderComponent: FC = () => {
 
   const HeaderLogo: FC<HeaderProps> = ({ className }) => (
     <Link
-      className={`${className} font-black text-[18px] text-[#17696A] xl:text-[24px]`}
+      className={`${className} font-black text-[18px] text-[#17696A] xl:text-[22px]`}
       href=""
     >
-      iHealth
+      Wellness
     </Link>
   );
 
