@@ -28,8 +28,10 @@ const DiscountComponent: React.FC<DiscountProps> = ({ discounts }) => {
           <ControlComponent section="discount" position="next" alt="Next" />
         }
         classNames={{
-          root: "relative h-full flex flex-row items-center justify-center container w-min w-[350px] sm:w-[380px] lg:w-[500px] xl:w-[50%]",
-          control: "border-none text-white lg:px-[180px]",
+          root: "relative h-full flex flex-row items-center justify-center container",
+          controls:
+            "sm:right-[8rem] sm:left-[8rem] lg:left-[20rem] lg:right-[20rem] xl:left-[30rem] xl:right-[30rem]  2xl:left-[45rem] 2xl:right-[45rem] ",
+          control: "border-none text-white",
           slide: "w-full flex justify-center",
         }}
       >

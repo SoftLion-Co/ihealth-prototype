@@ -28,7 +28,6 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
       const buttons = document.querySelectorAll<HTMLButtonElement>(
         "button[aria-hidden=true]"
       );
-      console.log(buttons);
       buttons.forEach((button, index) => {
         button.setAttribute("data-index", `${index + 1}`);
         const style = document.createElement("style");
@@ -67,8 +66,8 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
         indicator: `${
           slides.length > 4
             ? "w-[calc((100%-(4*15%))/4)]"
-            : "w-[17%] lg:w-[20%]"
-        } h-[.210rem] bg-gray-700 opacity-80 active:opacity-100 before:text-[22px] before:text-[28px] before:font-bold before:text-gray-700 before:block before:opacity-80 before:absolute before:bottom-[15px] lg:before:bottom-[30px]  active:before:opacity-100`,
+            : "w-[calc(90%/4)] sm:w-[17%] lg:w-[20%]"
+        } h-[.210rem] bg-gray-700 opacity-40 before:text-[22px] before:text-[28px] before:font-bold before:text-gray-700 before:block before:opacity-80 before:absolute before:bottom-[15px] lg:before:bottom-[30px]`,
         slide: "w-full",
       }}
     >
