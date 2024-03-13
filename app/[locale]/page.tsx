@@ -4,12 +4,14 @@ import PopularCategoriesSection from "@/app/[locale]/section/PopularCategoriesSe
 import ServiceSection from "@/app/[locale]/section/ServiceSection";
 
 import { useTranslations } from "next-intl";
+import HeroSection from "@/sections/HeroSection";
 
 const page = () => {
   const t = useTranslations("home_page");
 
   return (
     <main>
+      <HeroSection />
       <PopularCategoriesSection />
       <ServiceSection />
     </main>
