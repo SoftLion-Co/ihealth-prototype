@@ -1,10 +1,11 @@
 import React from "react";
 
+import HeroSection from "@/sections/HeroSection";
 import PopularCategoriesSection from "@/app/[locale]/section/PopularCategoriesSection";
 import ServiceSection from "@/app/[locale]/section/ServiceSection";
+import SubscribeSection from "./section/SubscribeSection";
 
 import { useTranslations } from "next-intl";
-import HeroSection from "@/sections/HeroSection";
 
 const page = () => {
   const t = useTranslations("home_page");
@@ -14,6 +15,7 @@ const page = () => {
       <HeroSection />
       <PopularCategoriesSection />
       <ServiceSection />
+      <SubscribeSection />
     </main>
   );
 };
