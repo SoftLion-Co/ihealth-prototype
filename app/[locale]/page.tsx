@@ -1,4 +1,8 @@
 import React from "react";
+
+import PopularCategoriesSection from "@/app/[locale]/section/PopularCategoriesSection";
+import ServiceSection from "@/app/[locale]/section/ServiceSection";
+
 import { useTranslations } from "next-intl";
 import ProductCardComponent from "@/components/ProductCardComponent";
 import test from "@/images/test.webp";
@@ -14,6 +18,8 @@ const page = () => {
     <main>
       <h1>{t("title")}</h1>
       <ProductCardComponent rating={5} discount={50} images={images} slug={slug} name={name} price={price} />
+      <PopularCategoriesSection />
+      <ServiceSection />
     </main>
   );
 };
