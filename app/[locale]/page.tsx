@@ -114,8 +114,8 @@ const page = () => {
           options={options}
         />
       </div>
-      {/* <PopularCategoriesSection />
-      <ServiceSection /> */}
+      <PopularCategoriesSection />
+      <ServiceSection />
     </main>
   );
 };
