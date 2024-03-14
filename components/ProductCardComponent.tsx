@@ -49,7 +49,7 @@ const ProductCardComponent = ({
     <div
       className={`bg-white ${
         small ? "md:max-w-[285px]" : "md:max-w-[390px]"
-      } group shadow-card-xl lg:shadow-none lg:hover:shadow-card-xl`}
+      } group shadow-card-xl lg:shadow-none lg:hover:shadow-card-xl rounded`}
     >
       <div className="relative">
         <Link href={`/${locale}/${slug}`}>
@@ -68,16 +68,15 @@ const ProductCardComponent = ({
           <Badge
             color="red"
             radius="sm"
-            size="xl"
             variant="filled"
-            className="bg-danger px-2 py-0.5 absolute top-0 left-0 flex m-4"
+            className="bg-danger px-1 md:px-2 py-0.5 absolute top-0 left-0 flex m-2 md:m-4 text-sm md:text-base md:h-7 font-semibold"
           >
             -{discount}%
           </Badge>
         )}
         {rating && (
           <Rating
-            className="absolute top-0 flex right-0 m-4"
+            className="absolute top-0 flex right-0 m-2 md:m-4"
             value={rating}
             readOnly
             emptySymbol={
@@ -114,21 +113,21 @@ const ProductCardComponent = ({
         </button>
       </div>
 
-      <div className="p-4 flex flex-col relative z-10">
-        <h2 className="text-lg text-[#424551] mb-2">{name}</h2>
-        <div className="flex gap-3 items-center flex-wrap">
+      <div className="p-2 md:p-4 flex flex-col relative z-10">
+        <h2 className="text-sm md:text-lg text-[#424551] md:mb-2">{name}</h2>
+        <div className="flex gap-2 md:gap-3 items-center flex-wrap">
           <span
-            className={`${small ? "text-xl" : "text-2xl"} ${
-              discount ? "text-danger" : "text-[#1E212C]"
-            } font-bold`}
+            className={`${
+              small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
+            } ${discount ? "text-danger" : "text-[#1E212C]"} font-bold`}
           >
             ${price}
           </span>
           {discount && oldPrice && (
             <span
               className={`${
-                small ? "text-base" : "text-lg"
-              } line-through text-[#787A80] text-lg `}
+                small ? "text-sm md:text-base" : "text-base	 md:text-lg"
+              } line-through text-[#787A80]`}
             >
               ${oldPrice}
             </span>
