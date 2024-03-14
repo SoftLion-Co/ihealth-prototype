@@ -43,7 +43,7 @@ const page = () => {
       <h1>{t("title")}</h1>
       <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center  gap-x-[10px] md:gap-x-[30px] gap-y-[60px]">
         <ProductCardComponent
-          rating={5}
+          rating={3}
           discount={50}
           image={image}
           slug={slug}
