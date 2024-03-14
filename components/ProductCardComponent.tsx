@@ -18,7 +18,7 @@ type Props = {
   rating?: 0 | 1 | 2 | 3 | 4 | 5;
   discount?: number;
   wishlist?: boolean;
-  image: StaticImageData;
+  image: StaticImageData | string;
   slug: string;
   name: string;
   price: string;
@@ -47,20 +47,21 @@ const ProductCardComponent = ({
 
   return (
     <div
-      className={`bg-white ${
+      className={`bg-white group ${
         small ? "md:max-w-[285px]" : "md:max-w-[390px]"
-      } group shadow-card-xl lg:shadow-none lg:hover:shadow-card-xl`}
+      }  shadow-card-xl rounded`}
     >
       <div className="relative">
-        <Link href={`/${locale}/${slug}`}>
+        <Link
+          href={`/${locale}/${slug}`}
+          className="h-[170px] md:h-[240px] lg:h-[300px] relative block"
+        >
           <Image
             src={image}
             width={390}
             height={440}
             alt="Product Image"
-            className={`rounded ${
-              small ? "h-[240px] md:h-[320px]" : "h-[320px] md:h-[440px]"
-            } object-cover position-center`}
+            className={`rounded object-contain absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-[140px] md:max-h-[200px] lg:max-h-[240px]`}
           />
         </Link>
 
@@ -114,21 +115,23 @@ const ProductCardComponent = ({
         </button>
       </div>
 
-      <div className="p-4 flex flex-col relative z-10">
-        <h2 className="text-lg text-[#424551] mb-2">{name}</h2>
+      <div className="p-2 md:p-4 flex flex-col relative z-10">
+        <h2 className="text-sm sm:text-base md:text-lg text-[#424551] sm:mb-2">
+          {name}
+        </h2>
         <div className="flex gap-3 items-center flex-wrap">
           <span
-            className={`${small ? "text-xl" : "text-2xl"} ${
-              discount ? "text-danger" : "text-[#1E212C]"
-            } font-bold`}
+            className={`${
+              small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
+            } ${discount ? "text-danger" : "text-[#1E212C]"} font-bold`}
           >
             ${price}
           </span>
           {discount && oldPrice && (
             <span
               className={`${
-                small ? "text-base" : "text-lg"
-              } line-through text-[#787A80] text-lg `}
+                small ? "text-sm md:text-base" : "text-base md:text-lg"
+              } line-through text-[#787A80] `}
             >
               ${oldPrice}
             </span>

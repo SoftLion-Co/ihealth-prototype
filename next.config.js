@@ -1,8 +1,25 @@
-const createNextIntlPlugin = require('next-intl/plugin');
- 
+const createNextIntlPlugin = require("next-intl/plugin");
+
 const withNextIntl = createNextIntlPlugin();
- 
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
- 
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "content.rozetka.com.ua",
+      },
+      {
+        protocol: "https",
+        hostname: "content1.rozetka.com.ua",
+      },
+      {
+        protocol: "https",
+        hostname: "content2.rozetka.com.ua",
+      },
+    ],
+  },
+};
+
 module.exports = withNextIntl(nextConfig);

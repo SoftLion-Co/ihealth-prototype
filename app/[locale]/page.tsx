@@ -6,6 +6,8 @@ import ServiceSection from "@/app/[locale]/section/ServiceSection";
 import { useTranslations } from "next-intl";
 import ProductCardComponent from "@/components/ProductCardComponent";
 import test from "@/images/test/test.webp";
+import test2 from "@/images/test/test2.webp";
+import test3 from "@/images/test/test3.webp";
 
 const page = () => {
   const t = useTranslations("home_page");
@@ -41,11 +43,13 @@ const page = () => {
   return (
     <main>
       <h1>{t("title")}</h1>
-      <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-x-[30px] gap-y-[60px]">
+      <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-x-[30px] gap-y-[60px]">
         <ProductCardComponent
           rating={5}
           discount={50}
-          image={image}
+          image={
+            "https://content.rozetka.com.ua/goods/images/preview/292674687.jpg"
+          }
           slug={slug}
           name={name}
           price={price}
@@ -55,7 +59,9 @@ const page = () => {
         />
         <ProductCardComponent
           rating={5}
-          image={image}
+          image={
+            "https://content2.rozetka.com.ua/goods/images/preview/204574706.jpg"
+          }
           slug={slug}
           name={name}
           price={price}
@@ -64,7 +70,9 @@ const page = () => {
         />
         <ProductCardComponent
           rating={5}
-          image={image}
+          image={
+            "https://content1.rozetka.com.ua/goods/images/preview/283394630.jpg"
+          }
           slug={slug}
           name={name}
           price={price}
@@ -73,7 +81,9 @@ const page = () => {
         />
         <ProductCardComponent
           rating={5}
-          image={image}
+          image={
+            "https://content2.rozetka.com.ua/goods/images/preview/417115072.jpg"
+          }
           slug={slug}
           name={name}
           price={price}
@@ -86,7 +96,7 @@ const page = () => {
         <ProductCardComponent
           rating={5}
           discount={50}
-          image={image}
+          image={"https://content1.rozetka.com.ua/goods/images/preview/307006788.jpg"}
           slug={slug}
           name={name}
           price={price}
@@ -96,7 +106,7 @@ const page = () => {
         <ProductCardComponent
           rating={5}
           discount={50}
-          image={image}
+          image={"https://content2.rozetka.com.ua/goods/images/preview/374945696.jpg"}
           slug={slug}
           name={name}
           price={price}
@@ -106,7 +116,7 @@ const page = () => {
         <ProductCardComponent
           rating={5}
           discount={50}
-          image={image}
+          image={"https://content2.rozetka.com.ua/goods/images/preview/351227894.jpg"}
           slug={slug}
           name={name}
           price={price}
