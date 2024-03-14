@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Menu } from "@mantine/core";
 import HeaderCategoriesObject from "./HeaderCategoriesObject";
+import DiscountComponent from "@/components/hero-section/DiscountComponent";
 
 import HeaderPhoto from "@/images/test/test-photo/HeaderPhoto.png";
 import BurgerMenu from "@/images/navigation/BurgerMenu.svg";
@@ -41,6 +42,29 @@ const NavigationStaticCategories = [
 const CartAndWishlist = [
   { image: WishOutline, quantity: "7", href: "/" },
   { image: Cart, quantity: "15", href: "/" },
+];
+
+const DiscountDate = [
+  {
+    discountTitle: "Up to 70% Off.",
+    title: "Shop our latest sale styles",
+    href: "№",
+  },
+  {
+    discountTitle: "Up to 20% Off.",
+    title: "Shop our latest sale styles",
+    href: "№",
+  },
+  {
+    discountTitle: "Up to 80% Off.",
+    title: "Shop our latest sale styles",
+    href: "№",
+  },
+  {
+    discountTitle: "Up to 50% Off.",
+    title: "Shop our latest sale styles",
+    href: "№",
+  },
 ];
 
 const HeaderComponent: FC = () => {
@@ -102,8 +126,11 @@ const HeaderComponent: FC = () => {
   );
 
   const HeaderLogo: FC<HeaderProps> = ({ className }) => (
-    <Link className={`${className} font-black text-[18px] text-[#17696A] xl:text-[24px]`} href="">
-      iHealth
+    <Link
+      className={`${className} font-black text-[18px] text-[#17696A] xl:text-[22px]`}
+      href=""
+    >
+      Wellness
     </Link>
   );
 
@@ -191,7 +218,7 @@ const HeaderComponent: FC = () => {
               header: "xl:hidden",
               overlay: "bg-transparent",
               body: "p-0",
-              content: "h-[100%] xl:mt-[134px] xl:h-[485px]",
+              content: "h-[100%] xl:mt-[162px] xl:h-[485px]",
             }}
             transitionProps={{ transition: "scale-x", duration: 200 }}
           >
@@ -255,7 +282,7 @@ const HeaderComponent: FC = () => {
     <div
       className={`${className} flex justify-between gap-[20px] xl:gap-[48px]`}
     >
-      <form className="relative flex items-center">
+      <form className="relative flex items-center w-[85%] xl:w-max">
         <input
           id="searchInput"
           className="outline-none w-[100%] border-[1px] border-solid border-gray-300 rounded h-[38px] pl-[10px] xl:w-[380px] xl:h-[42px] placeholder-gray-500"
@@ -265,7 +292,7 @@ const HeaderComponent: FC = () => {
 
         <button
           type="button"
-          className="absolute right-[3%] cursor-pointer xl:right-[4%]"
+          className="absolute right-[3%] cursor-pointer xl:right-[5%]"
         >
           <Image className="w-[18px] h-[18px]" src={Search} alt="Search" />
         </button>
@@ -321,6 +348,8 @@ const HeaderComponent: FC = () => {
 
         <SearchAndCart className="hidden xl:flex" />
       </div>
+
+      <DiscountComponent discounts={DiscountDate} />
 
       <>
         <Modal

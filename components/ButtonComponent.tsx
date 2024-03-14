@@ -1,15 +1,19 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button } from "@mantine/core";
 
 import Cart from "@/images/goods/Cart.svg";
 import Filter from "@/images/goods/Filter.svg";
 
 interface ButtonProps {
   text: string;
+  className?: string;
   disabled?: boolean;
   onClick?: () => void;
+  href?: string;
+  target?: string;
+  tag?: "a" | "button";
+  type?: "submit" | "button" | "reset";
   typeButton:
     | "MainButton"
     | "MainArrowButton"
@@ -22,23 +26,31 @@ interface ButtonProps {
 
 const ButtonComponent: React.FC<ButtonProps> = ({
   text,
-  onClick,
-  typeButton,
+  className,
   disabled,
+  onClick,
+  href,
+  target,
+  tag = "button",
+  type = "submit",
+  typeButton,
 }) => {
   const [isActive, setIsActive] = useState(false);
+  const Tag = tag;
 
   const handleButtonClick = () => {
     setIsActive(!isActive);
   };
-
   const buttonContent = () => {
     if (typeButton === "MainCartButton") {
       return (
-        <Button
+        <Tag
+          type={type}
+          target={target}
           disabled={disabled}
           onClick={onClick}
-          className={`bg-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] transition-all duration-300 ease-in-out`}
+          href={href}
+          className={`${className} flex flex-row items-center justify-centerpx-[24px] py-[9px] rounded font-bold text-[#ffffff] text-[12px] bg-[#17696A] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px]  lg:text-[16px]`}
         >
           <Image
             className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
@@ -48,14 +60,17 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             height={24}
           />
           {text}
-        </Button>
+        </Tag>
       );
     } else if (typeButton === "MainArrowButton") {
       return (
-        <Button
+        <Tag
+          type={type}
+          target={target}
           disabled={disabled}
           onClick={onClick}
-          className={`group flex items-center bg-transparent border-1 border-[#17696A] text-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] hover:fill-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] transition-all duration-300 ease-in-out`}
+          href={href}
+          className={`${className} group flex flex-row items-center justify-center px-[24px] py-[9px] bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[12px] text-[#17696A] active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] hover:fill-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           {text}
           <svg
@@ -72,14 +87,17 @@ const ButtonComponent: React.FC<ButtonProps> = ({
               d="M14.7929 6.79289C15.1834 6.40237 15.8166 6.40237 16.2071 6.79289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L16.2071 17.2071C15.8166 17.5976 15.1834 17.5976 14.7929 17.2071C14.4024 16.8166 14.4024 16.1834 14.7929 15.7929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L14.7929 8.20711C14.4024 7.81658 14.4024 7.18342 14.7929 6.79289Z"
             />
           </svg>
-        </Button>
+        </Tag>
       );
     } else if (typeButton === "FilterButton") {
       return (
-        <Button
+        <Tag
+          type={type}
+          target={target}
           disabled={disabled}
           onClick={onClick}
-          className={`bg-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] transition-all duration-300 ease-in-out`}
+          href={href}
+          className={`${className}  flex flex-row items-center justify-center rounded font-bold bg-[#17696A] px-[24px] py-[9px] text-[#ffffff] text-[12px] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px]  lg:text-[16px]`}
         >
           <Image
             className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
@@ -89,17 +107,20 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             height={24}
           />
           {text}
-        </Button>
+        </Tag>
       );
     } else if (typeButton === "FollowButton") {
       return (
-        <Button
+        <Tag
+          type={type}
+          target={target}
           disabled={disabled}
           onClick={onClick}
-          className={`group bg-transparent border-1 border-[#17696A] text-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] hover:bg-[#17696A] hover:text-[#ffffff] hover:fill-[#ffffff] active:bg-[#17696A] active:text-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] transition-all duration-300 ease-in-out`}
+          href={href}
+          className={`${className} group  flex flex-row items-center justify-center bg-transparent font-bold text-[12px] rounded border solid border-1 border-[#17696A] text-[#17696A] px-[24px] py-[9px] hover:bg-[#17696A] hover:text-[#ffffff] hover:fill-[#ffffff] active:bg-[#17696A] active:text-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:text-[14px]  md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           <svg
-            className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] text-[#17696A] group-hover:fill-[#ffffff] group-active:fill-[#ffffff]"
+            className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] text-[#17696A] group-hover:fill-[#ffffff] group-active:fill-[#ffffff] lg:w-[24px] lg:h-[24px]"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -112,14 +133,17 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           </svg>
 
           {text}
-        </Button>
+        </Tag>
       );
     } else if (typeButton === "WishButton") {
       return (
-        <Button
+        <Tag
+          type={type}
+          target={target}
           disabled={disabled}
+          href={href}
           onClick={handleButtonClick}
-          className={`bg-transparent border-1 border-[#17696A] text-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] hover:bg-[transparent] active:bg-[transparent] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] transition-all duration-300 ease-in-out`}
+          className={`${className} flex flex-row items-center justify-center bg-transparent rounded border font-bold solid text-[12px]  border-1 border-[#17696A] text-[#17696A] px-[24px] py-[9px] hover:bg-[transparent] active:bg-[transparent] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:text-[14px]  md:px-[32px] md:py-[11px] lg:text-[16px] lg:px-[40px] lg:py-[14px]`}
         >
           {isActive ? (
             <svg
@@ -154,27 +178,33 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           )}
 
           {text}
-        </Button>
+        </Tag>
       );
     } else if (typeButton === "MainButton") {
       return (
-        <Button
+        <Tag
+          type={type}
+          target={target}
           disabled={disabled}
           onClick={onClick}
-          className={`bg-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] transition-all duration-300 ease-in-out`}
+          href={href}
+          className={`${className} flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] text-[12px] bg-[#17696A] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           {text}
-        </Button>
+        </Tag>
       );
     } else if (typeButton === "MainBorderButton") {
       return (
-        <Button
+        <Tag
+          type={type}
+          target={target}
           disabled={disabled}
           onClick={onClick}
-          className={`bg-transparent border-1 border-[#17696A] text-[#17696A] pr-[24px] pl-[24px] md:pr-[32px] md:pl-[32px] lg:pr-[40px] lg:pl-[40px]active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] transition-all duration-300 ease-in-out`}
+          href={href}
+          className={`${className} flex flex-row items-center justify-center bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[#17696A] active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] px-[24px] py-[9px] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
         >
           {text}
-        </Button>
+        </Tag>
       );
     } else {
       return null;
