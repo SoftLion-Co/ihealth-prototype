@@ -50,6 +50,7 @@ const ProductCardComponent = ({
       } group shadow-card-xl lg:shadow-none lg:hover:shadow-card-xl rounded`}
     >
       <div className="relative">
+        {/* Card Image */}
         <Link href={`/${locale}/${slug}`}>
           <Image
             src={image}
@@ -61,7 +62,8 @@ const ProductCardComponent = ({
             } object-cover position-center`}
           />
         </Link>
-          
+
+        {/* Discount badge */}
         {discount && (
           <Badge
             radius="sm"
@@ -71,6 +73,7 @@ const ProductCardComponent = ({
           </Badge>
         )}
 
+        {/* Product rating */}
         {rating && (
           <Rating
             className="absolute top-0 right-0 m-2 md:m-4"
@@ -95,6 +98,7 @@ const ProductCardComponent = ({
           />
         )}
 
+        {/* Add to wishlist button */}
         <button
           className="absolute bottom-0 right-0 m-2 md:m-4 bg-white rounded-full size-8"
           onClick={toggleWishlist}
@@ -109,6 +113,7 @@ const ProductCardComponent = ({
         </button>
       </div>
 
+      {/* Product description */}
       <div className="p-2 md:p-4 flex flex-col">
         <h2 className="text-sm md:text-lg text-[#424551] md:mb-2">{name}</h2>
         <div className="flex gap-2 md:gap-3 items-center flex-wrap">
@@ -131,6 +136,7 @@ const ProductCardComponent = ({
         </div>
       </div>
 
+      {/* Product hover */}
       <div className="relative ">
         <div className="px-4 pb-4 pt-1 w-full hidden lg:group-hover:flex flex-col gap-y-4 absolute top-0 bg-white shadow-card-xl rounded-b z-20">
           {options && (
@@ -186,6 +192,7 @@ const ProductCardComponent = ({
               })}
             </MantineProvider>
           )}
+
           <ButtonComponent
             typeButton="MainCartButton"
             text="Add to cart"
