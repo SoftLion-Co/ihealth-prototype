@@ -45,8 +45,8 @@ const page = () => {
   return (
     <main>
       <h1>{t("title")}</h1>
-      <HeroSection />
-      <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-x-[30px] gap-y-[60px]">
+      {/* <HeroSection /> */}
+      <div className="px-[25px] w-full max-w-[1280px] mx-auto grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-between  gap-x-[20px] md:gap-x-[30px] gap-y-[20px] md:gap-y-[60px]">
         <ProductCardComponent
           rating={5}
           discount={50}
@@ -95,7 +95,43 @@ const page = () => {
         />
       </div>
 
-      <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-x-[30px] gap-y-[60px]">
+      <div className="w-full px-[25px] max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-x-[30px] gap-y-[60px] mb-96">
+        <ProductCardComponent
+          rating={5}
+          discount={50}
+          image={
+            "https://content1.rozetka.com.ua/goods/images/preview/307006788.jpg"
+          }
+          slug={slug}
+          name={name}
+          price={price}
+          oldPrice={oldPrice}
+          options={options}
+        />
+        <ProductCardComponent
+          rating={5}
+          discount={50}
+          image={
+            "https://content2.rozetka.com.ua/goods/images/preview/374945696.jpg"
+          }
+          slug={slug}
+          name={name}
+          price={price}
+          oldPrice={oldPrice}
+          options={options}
+        />
+        <ProductCardComponent
+          rating={5}
+          discount={50}
+          image={
+            "https://content2.rozetka.com.ua/goods/images/preview/351227894.jpg"
+          }
+          slug={slug}
+          name={name}
+          price={price}
+          oldPrice={oldPrice}
+          options={options}
+        />
         <ProductCardComponent
           rating={5}
           discount={50}
@@ -134,9 +170,9 @@ const page = () => {
         />
       </div>
 
-      <PopularCategoriesSection />
+      {/* <PopularCategoriesSection />
       <ServiceSection />
-      <SubscribeSection />
+      <SubscribeSection /> */}
     </main>
   );
 };

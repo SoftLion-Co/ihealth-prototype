@@ -52,10 +52,12 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} ${small?"text-xs":"text-sm"} flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] text-[12px] bg-[#17696A] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
+          className={`${className} ${
+            small ? "text-xs" : "text-sm"
+          } flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] bg-[#17696A] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
         >
           <Image
-            className={`filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] ${small?"lg:w-[16px] lg:h-[16px]":"lg:w-[24px] lg:h-[24px]"}`}
+            className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px]"
             src={Cart}
             alt="Cart"
             width={24}

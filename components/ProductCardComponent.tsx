@@ -46,36 +46,35 @@ const ProductCardComponent = ({
   };
 
   return (
-    <div
-      className={`bg-white group ${
-        small ? "md:max-w-[285px]" : "md:max-w-[390px]"
-      }  shadow-card-xl rounded`}
-    >
+    <div className={`bg-white group rounded w-full`}>
       <div className="relative">
         <Link
           href={`/${locale}/${slug}`}
-          className="h-[170px] md:h-[240px] lg:h-[300px] relative block"
+          className={`${
+            small
+              ? "h-[180px] md:h-[220px] lg:h-[260px] xl:h-[280px] 2xl:h-[320px]"
+              : "h-[260px] md:h-[300px] lg:h-[360px] xl:h-[400px] 2xl:h-[440px]"
+          }  relative block`}
         >
           <Image
             src={image}
             width={390}
             height={440}
             alt="Product Image"
-            className={`rounded object-contain absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-[140px] md:max-h-[200px] lg:max-h-[240px]`}
+            className="rounded object-contain absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-4/5 w-4/5"
           />
         </Link>
 
+        {/* Discount badge */}
         {discount && (
           <Badge
-            color="red"
             radius="sm"
-            size="xl"
-            variant="filled"
-            className="bg-danger px-2 py-0.5 absolute top-0 left-0 flex m-4"
+            className="bg-danger px-1 md:px-2 py-0.5 absolute top-0 left-0 flex m-2 md:m-4 text-sm md:text-base md:h-7 font-semibold text-white"
           >
             -{discount}%
           </Badge>
         )}
+
         {rating && (
           <Rating
             className="absolute top-0 flex right-0 m-4"
