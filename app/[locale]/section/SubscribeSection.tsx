@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox, Input } from "@mantine/core";
 
 import ButtonComponent from "@/components/ButtonComponent";
@@ -8,10 +8,14 @@ import ButtonComponent from "@/components/ButtonComponent";
 import Subscribe from "@/images/test/subscribe/imageSubscribe.png";
 import MainTitleComponent from "@/components/MainTitleComponent";
 
-const CategoryData = [{ text: "Men" }, { text: "Women" }, { text: "Kids" }];
+const CategoryData = [
+  { text: "Men" },
+  { text: "Women" },
+  { text: "Kids" },
+  { text: "All" },
+];
 
 const EmailInput = () => {
-
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (e: any) => {
@@ -20,9 +24,10 @@ const EmailInput = () => {
 
   return (
     <>
-      <div className="flex flex-row items-end justify-center mt-[32px] lg:justify-start">
+      <div className="w-[100%] flex items-end justify-center mt-[32px] lg:justify-start">
         <Input.Wrapper
           label="Email"
+          classNames={{root: "w-[100%] md:w-max"}}
           styles={{
             label: {
               color: "#424551",
@@ -32,31 +37,17 @@ const EmailInput = () => {
         >
           <Input
             placeholder="Your working email"
-            className="w-[260px] md:w-[300px] lg:w-[360px]"
-            styles={{
-              input: {
-                height: "36px",
-                borderRadius: "0px",
-                borderTopLeftRadius: "0.5rem",
-                borderBottomLeftRadius: "0.5rem",
-                "&:focus": {
-                  border: "#17696A",
-                },
-                "@media (min-width: 768px)": {
-                  height: "43px",
-                },
-                "@media (min-width: 1024px)": {
-                  height: "52px",
-                },
-              },
+            className="w-[100%] md:w-[300px] lg:w-[360px]"
+            classNames={{
+              input:
+                "h-[36px] rounded-none rounded-l-[4px] focus:border-[#17696A] md:h-[43px] lg:h-[52px]",
             }}
           />
         </Input.Wrapper>
         <ButtonComponent
           text="Subcribe"
           typeButton="MainButton"
-          href="https://tailwindcss.com/docs/border-radius"
-          target="_blank"
+          type="submit"
           className="rounded-l-[0] disabled:cursor-no-drop "
           tag="button"
           disabled={!isChecked}
@@ -68,10 +59,9 @@ const EmailInput = () => {
         className="mt-[24px] flex justify-center lg:justify-start"
         color="cyan.9"
         label="I agree to receive communications from Createx Store."
-        styles={{
-          label: {
-            color: "#787A80",
-          },
+        classNames={{
+          body: "w-[calc-[100%-2%]] flex justify-center sm:w-full lg:justify-start",
+          label: "text-[#787A80]",
         }}
       />
     </>
@@ -79,15 +69,25 @@ const EmailInput = () => {
 };
 
 const CheckboxCategory = () => {
+  const [select, setSelect] = useState("");
+  
+
+  useEffect(() => {
+    console.log(select);
+  });
+
   return (
-    <div className="flex flex-row justify-center gap-[12px] lg:justify-start ">
+    <div className="flex flex-wrap justify-center gap-[12px] lg:justify-start ">
       {CategoryData.map((item, index) => (
         <ButtonComponent
-          tag="button"
-          className="py-[5px] px-[10px] md:py-[7px] md:px-[11px] lg:py-[6px] lg:px-[16px]"
           key={index}
+          tag="button"
+          className="py-[5px] px-[10px] first-line:uppercase md:py-[7px] md:px-[11px] lg:py-[6px] lg:px-[16px]"
           text={item.text}
           typeButton="MainBorderButton"
+          onClick={() => {
+            setSelect(item.text);
+          }}
         />
       ))}
     </div>
@@ -96,8 +96,8 @@ const CheckboxCategory = () => {
 
 const SubscribeSection = () => {
   return (
-    <section className="bg-[#F4F5F6]">
-      <div className="container pt-[64px] pb-[65px] flex flex-col justify-between items-center gap-[60px] lg:flex-row xl:gap-[250px] ">
+    <section className="bg-[#F4F5F6] mt-auto py-[60px]">
+      <div className="container flex flex-col justify-between items-center gap-[60px] lg:flex-row xl:gap-[250px] ">
         <div className="flex flex-col">
           <MainTitleComponent
             text="Subscribe for updates"
@@ -110,10 +110,10 @@ const SubscribeSection = () => {
           <EmailInput />
         </div>
         <Image
-          className="w-[224px] h-[224px] md:h-[256px] md:w-[256px] lg:w-[356px] lg:h-[356px] xl:w-[450px] xl:h-[415px]"
+          className="min-w-[150px] md:h-[256px] md:w-[256px] lg:w-[356px] lg:h-[356px] xl:w-[450px] xl:h-[415px]"
           src={Subscribe}
           alt="Subscribe"
-          width={450}
+          width={415}
           height={415}
         />
       </div>
