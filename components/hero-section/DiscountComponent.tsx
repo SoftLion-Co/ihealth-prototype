@@ -10,7 +10,7 @@ interface DiscountProps {
 }
 
 const DiscountComponent: React.FC<DiscountProps> = ({ discounts }) => {
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const autoplay = useRef(Autoplay({ delay: 4500 }));
   return (
     <div className="bg-cyan-800 h-8">
       <Carousel
