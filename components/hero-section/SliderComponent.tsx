@@ -1,10 +1,10 @@
 "use client";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import ButtonComponent from "@/components/ButtonComponent";
 import ControlComponent from "./ControlComponent";
-import Image from "next/image";
 
 interface SliderProps {
   slides: {
@@ -26,6 +26,7 @@ interface SliderProps {
 const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const [draggleScreen, setDraggleScreen] = useState(false);
+
   useEffect(() => {
     const { innerWidth } = window;
     setDraggleScreen(innerWidth <= 1440);
@@ -34,6 +35,7 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
       const buttons = document.querySelectorAll<HTMLButtonElement>(
         "button[aria-hidden=true]"
       );
+
       buttons.forEach((button, index) => {
         button.setAttribute("data-index", `${index + 1}`);
         const style = document.createElement("style");
@@ -42,12 +44,14 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
             content: "0${index + 1}";
           }
         `;
+
         document.head.appendChild(style);
       });
     }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, [draggleScreen]);
+
   return (
     <>
       <Carousel
@@ -106,6 +110,7 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
                     {slide.title}
                   </h1>
                 </div>
+
                 <div className="flex gap-6 items-center justify-center md:justify-start">
                   <ButtonComponent
                     text={slide.btnSale.title}
