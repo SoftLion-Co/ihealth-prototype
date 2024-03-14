@@ -19,6 +19,7 @@ const nextConfig = {
         hostname: "content2.rozetka.com.ua",
       },
     ],
+    domains: ["img.freepik.com"],
   },
 };
 

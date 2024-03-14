@@ -1,7 +1,9 @@
 import React from "react";
 
+import HeroSection from "@/sections/HeroSection";
 import PopularCategoriesSection from "@/app/[locale]/section/PopularCategoriesSection";
 import ServiceSection from "@/app/[locale]/section/ServiceSection";
+import SubscribeSection from "./section/SubscribeSection";
 
 import { useTranslations } from "next-intl";
 import ProductCardComponent from "@/components/ProductCardComponent";
@@ -43,6 +45,7 @@ const page = () => {
   return (
     <main>
       <h1>{t("title")}</h1>
+      <HeroSection />
       <div className="px-5 max-w-[1280px] mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-x-[30px] gap-y-[60px]">
         <ProductCardComponent
           rating={5}
@@ -96,7 +99,9 @@ const page = () => {
         <ProductCardComponent
           rating={5}
           discount={50}
-          image={"https://content1.rozetka.com.ua/goods/images/preview/307006788.jpg"}
+          image={
+            "https://content1.rozetka.com.ua/goods/images/preview/307006788.jpg"
+          }
           slug={slug}
           name={name}
           price={price}
@@ -106,7 +111,9 @@ const page = () => {
         <ProductCardComponent
           rating={5}
           discount={50}
-          image={"https://content2.rozetka.com.ua/goods/images/preview/374945696.jpg"}
+          image={
+            "https://content2.rozetka.com.ua/goods/images/preview/374945696.jpg"
+          }
           slug={slug}
           name={name}
           price={price}
@@ -116,7 +123,9 @@ const page = () => {
         <ProductCardComponent
           rating={5}
           discount={50}
-          image={"https://content2.rozetka.com.ua/goods/images/preview/351227894.jpg"}
+          image={
+            "https://content2.rozetka.com.ua/goods/images/preview/351227894.jpg"
+          }
           slug={slug}
           name={name}
           price={price}
@@ -124,8 +133,10 @@ const page = () => {
           options={options}
         />
       </div>
-      {/* <PopularCategoriesSection />
-      <ServiceSection /> */}
+
+      <PopularCategoriesSection />
+      <ServiceSection />
+      <SubscribeSection />
     </main>
   );
 };
