@@ -42,7 +42,7 @@ const PopularCategoriesSection = () => {
           plugins={[autoplay.current]}
           onMouseEnter={autoplay.current.stop}
           onMouseLeave={autoplay.current.reset}
-          className="flex justify-center w-[100%] xl:"
+          className="flex justify-center w-[100%]"
           classNames={{
             indicator: "bg-[#17696A] before:hidden",
             indicators: "bottom-[-22px]",
