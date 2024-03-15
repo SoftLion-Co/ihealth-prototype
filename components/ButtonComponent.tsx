@@ -78,7 +78,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         >
           {text}
           <svg
-            className="fill-[#17696A] ml-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] group-hover:fill-[#ffffff] group-active:fill-[#ffffff]"
+            className="transition duration-300 ease-in-out fill-[#17696A] ml-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] group-hover:fill-[#ffffff] group-active:fill-[#ffffff]"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -124,7 +124,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           className={`${className} group  flex flex-row items-center justify-center bg-transparent font-bold text-[12px] rounded border solid border-1 border-[#17696A] text-[#17696A] px-[24px] py-[9px] transition duration-300 ease-in-out hover:bg-[#17696A] hover:text-[#ffffff] hover:fill-[#ffffff] active:bg-[#17696A] active:text-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:text-[14px]  md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           <svg
-            className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] text-[#17696A] group-hover:fill-[#ffffff] group-active:fill-[#ffffff] lg:w-[24px] lg:h-[24px]"
+            className="transition duration-300 ease-in-out fill-[#17696A] mr-[8px] w-[16px] h-[16px] text-[#17696A] group-hover:fill-[#ffffff] group-active:fill-[#ffffff] lg:w-[24px] lg:h-[24px]"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -151,7 +151,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         >
           {isActive ? (
             <svg
-              className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
+              className="transition duration-300 ease-in-out fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -166,7 +166,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             </svg>
           ) : (
             <svg
-              className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
+              className="transition duration-300 ease-in-out fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
               width="24"
               height="24"
               viewBox="0 0 24 24"
