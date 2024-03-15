@@ -1,6 +1,7 @@
 import React from "react";
 
 import HeroSection from "@/sections/HeroSection";
+import TrendingNowSection from "@/app/[locale]/section/TrendingNowSection";
 import PopularCategoriesSection from "@/app/[locale]/section/PopularCategoriesSection";
 import ServiceSection from "@/app/[locale]/section/ServiceSection";
 import FollowUsSection from "@/app/[locale]/section/FollowUsSection";
@@ -14,6 +15,7 @@ const page = () => {
   return (
     <main>
       <HeroSection />
+      <TrendingNowSection />
       <PopularCategoriesSection />
       <ServiceSection />
       <FollowUsSection />
