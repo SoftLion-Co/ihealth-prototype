@@ -5,6 +5,7 @@ import { useLocale } from "next-intl";
 import Image, { StaticImageData } from "next/image";
 import { MantineProvider, Rating, Badge, Chip } from "@mantine/core";
 import ButtonComponent from "./ButtonComponent";
+import { useShoppingCart } from "use-shopping-cart";
 
 import starFilled from "@/images/navigation/StarFilled.svg";
 import starOutline from "@/images/navigation/StarOutline.svg";
@@ -22,6 +23,7 @@ type Props = {
   oldPrice?: string;
   options?: any;
   small?: boolean;
+  price_id?: string;
 };
 
 const ProductCardComponent = ({
@@ -35,11 +37,25 @@ const ProductCardComponent = ({
   oldPrice,
   options,
   small = false,
+  price_id,
 }: Props) => {
   const [isWishlistActive, setWishlistActive] = useState(wishlist);
   const locale = useLocale();
   const toggleWishlist = () => {
     setWishlistActive(!isWishlistActive);
+  };
+
+  const { addItem, handleCartClick } = useShoppingCart();
+  const product = {
+    name: name,
+    price: price  as unknown as number,
+    image: image as string,
+    currency: "USD",
+    price_id: price_id,
+    options: options,
+    wishlist: wishlist,
+    oldPrice: price,
+    sku: slug, // Assuming 'slug' can be used as the 'sku'
   };
 
   return (
@@ -196,6 +212,9 @@ const ProductCardComponent = ({
             typeButton="MainCartButton"
             text="Add to cart"
             small={small}
+            onClick={() => {
+              addItem(product), handleCartClick();
+            }}
           />
         </div>
       </div>
