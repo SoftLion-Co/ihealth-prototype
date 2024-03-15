@@ -18,7 +18,7 @@ const FollowUsData = [
   {
     text: "Follow us on Instagram",
     href: "https://www.instagram.com/vit_wellness_/",
-    hrefText: "@createx_store",
+    hrefText: "@vit_wellness_",
     images: [
       {
         image: image1,
