@@ -1,7 +1,9 @@
 "use client";
-import React, { FC } from "react";
+
+import React, { FC, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { observer } from "mobx-react-lite";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Menu } from "@mantine/core";
 
@@ -13,6 +15,10 @@ import Search from "@/images/navigation/Search.svg";
 
 // import UA from "@/images/flags/UA.svg";
 import UK from "@/images/flags/UK.svg";
+import LoginModal from "./LoginModal";
+import { type } from "os";
+import store from "@/store/store";
+import { Context } from "@/store/ContextProvider";
 
 const ImageLanguage = [
   // { country: "UA", icon: UA },
@@ -80,6 +86,7 @@ const CartAndWishlist = [
 
 const HeaderComponent = () => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [type, setType] = useState<"none" | "signup" | "signin">("none");
 
   return (
     <header className="">
@@ -111,12 +118,27 @@ const HeaderComponent = () => {
           </div>
 
           <div className="flex gap-[10px]">
-            <Link href={"/"} className="flex">
+            <p
+              className="flex cursor-pointer"
+              onClick={() => {
+                setType("signin");
+              }}
+            >
               <Image className="text-white" src={Profile} alt="User" /> Log in
-            </Link>
+            </p>
             <span>/</span>
-            <Link href={"/"}>Register</Link>
+            <p
+              className=" cursor-pointer"
+              onClick={() => {
+                setType("signup");
+              }}
+            >
+              Register
+            </p>
           </div>
+          <Link href={"/ua/profile"}>
+            <p className="text-white">Profile</p>
+          </Link>
         </div>
       </div>
 
@@ -206,6 +228,7 @@ const HeaderComponent = () => {
           <p>Modal</p>
         </Modal>
       </>
+      <LoginModal type={type} setType={setType} />
     </header>
   );
 };
