@@ -40,6 +40,10 @@ const ProductCardComponent = ({
   price_id,
 }: Props) => {
   const [isWishlistActive, setWishlistActive] = useState(wishlist);
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >({});
+
   const locale = useLocale();
   const toggleWishlist = () => {
     setWishlistActive(!isWishlistActive);
@@ -48,14 +52,30 @@ const ProductCardComponent = ({
   const { addItem, handleCartClick } = useShoppingCart();
   const product = {
     name: name,
-    price: price  as unknown as number,
+    price: price as unknown as number,
     image: image as string,
     currency: "USD",
     price_id: price_id,
-    options: options,
-    wishlist: wishlist,
-    oldPrice: price,
     sku: slug, // Assuming 'slug' can be used as the 'sku'
+  };
+
+  const options1 = {
+    count: 1,
+    price_metadata: {},
+    product_metadata: {
+      options: Object.entries(selectedOptions).map(([id, value]) => ({
+        id,
+        value,
+      })),
+      wishlist: wishlist,
+      oldPrice: price,
+    },
+  };
+  const handleOptionChange = (optionId: string, value: string) => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      [optionId]: value,
+    }));
   };
 
   return (
@@ -183,8 +203,8 @@ const ProductCardComponent = ({
                     <Chip.Group
                       key={option.id}
                       multiple={false}
-                      value={value}
-                      onChange={handleChange}
+                      value={selectedOptions[option.id] || option.values[0]}
+                      onChange={(value) => handleOptionChange(option.id, value)}
                     >
                       {option.values.map((val: string, index: number) => (
                         <Chip
@@ -197,7 +217,7 @@ const ProductCardComponent = ({
                           }}
                           radius="sm"
                           color="primary"
-                          checked={val === value}
+                          checked={val === selectedOptions[option.id]}
                         >
                           {val}
                         </Chip>
@@ -213,7 +233,7 @@ const ProductCardComponent = ({
             text="Add to cart"
             small={small}
             onClick={() => {
-              addItem(product), handleCartClick();
+              addItem(product, options1), handleCartClick();
             }}
           />
         </div>
