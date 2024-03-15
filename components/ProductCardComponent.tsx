@@ -1,18 +1,15 @@
 "use client";
-import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
-import { MantineProvider, Rating } from "@mantine/core";
-import { Badge } from "@mantine/core";
+import Link from "next/link";
+import { useLocale } from "next-intl";
+import Image, { StaticImageData } from "next/image";
+import { MantineProvider, Rating, Badge, Chip } from "@mantine/core";
+import ButtonComponent from "./ButtonComponent";
+
 import starFilled from "@/images/navigation/StarFilled.svg";
 import starOutline from "@/images/navigation/StarOutline.svg";
 import wishFilled from "@/images/navigation/WishFilled.svg";
 import wishOutline from "@/images/navigation/WishOutline.svg";
-import { Carousel } from "@mantine/carousel";
-import arrow from "@/images/vector/ChevronArrow.svg";
-import Link from "next/link";
-import { useLocale } from "next-intl";
-import ButtonComponent from "./ButtonComponent";
-import { Chip } from "@mantine/core";
 
 type Props = {
   rating?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -48,13 +45,14 @@ const ProductCardComponent = ({
   return (
     <div className={`bg-white group rounded w-full`}>
       <div className="relative">
+        {/* Card Image */}
         <Link
           href={`/${locale}/${slug}`}
           className={`${
             small
               ? "h-[180px] md:h-[220px] lg:h-[260px] xl:h-[280px] 2xl:h-[320px]"
               : "h-[260px] md:h-[300px] lg:h-[360px] xl:h-[400px] 2xl:h-[440px]"
-          }  relative block`}
+          } relative block`}
         >
           <Image
             src={image}
@@ -75,9 +73,10 @@ const ProductCardComponent = ({
           </Badge>
         )}
 
+        {/* Product rating */}
         {rating && (
           <Rating
-            className="absolute top-0 flex right-0 m-4"
+            className="absolute top-0 right-0 m-2 md:m-4"
             value={rating}
             readOnly
             emptySymbol={
@@ -86,7 +85,6 @@ const ProductCardComponent = ({
                 alt="Empty start"
                 width={14}
                 height={14}
-                sizes="1rem"
               />
             }
             fullSymbol={
@@ -100,8 +98,9 @@ const ProductCardComponent = ({
           />
         )}
 
+        {/* Add to wishlist button */}
         <button
-          className="absolute bottom-0 right-0 m-4 bg-white rounded-full size-8"
+          className="absolute bottom-0 right-0 m-2 md:m-4 bg-white rounded-full size-8"
           onClick={toggleWishlist}
         >
           <Image
@@ -114,11 +113,10 @@ const ProductCardComponent = ({
         </button>
       </div>
 
-      <div className="p-2 md:p-4 flex flex-col relative z-10">
-        <h2 className="text-sm sm:text-base md:text-lg text-[#424551] sm:mb-2">
-          {name}
-        </h2>
-        <div className="flex gap-3 items-center flex-wrap">
+      {/* Product description */}
+      <div className="p-2 md:p-4 flex flex-col">
+        <h2 className="text-sm md:text-lg text-[#424551] md:mb-2">{name}</h2>
+        <div className="flex gap-2 md:gap-3 items-center flex-wrap">
           <span
             className={`${
               small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
@@ -129,16 +127,18 @@ const ProductCardComponent = ({
           {discount && oldPrice && (
             <span
               className={`${
-                small ? "text-sm md:text-base" : "text-base md:text-lg"
-              } line-through text-[#787A80] `}
+                small ? "text-sm md:text-base" : "text-base	 md:text-lg"
+              } line-through text-[#787A80]`}
             >
               ${oldPrice}
             </span>
           )}
         </div>
       </div>
+
+      {/* Product hover */}
       <div className="relative ">
-        <div className="px-4 pb-4 pt-1 w-full hidden lg:group-hover:flex flex-col gap-y-4 absolute top-0 bg-white shadow-card-xl rounded-b z-10">
+        <div className="px-4 pb-4 pt-1 w-full hidden lg:group-hover:flex flex-col gap-y-4 absolute top-0 bg-white shadow-card-xl rounded-b z-20">
           {options && (
             <MantineProvider
               theme={{
