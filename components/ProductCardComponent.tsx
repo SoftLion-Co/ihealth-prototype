@@ -163,7 +163,7 @@ const ProductCardComponent = ({
                 };
 
                 return (
-                  <div className="flex flex-wrap gap-1">
+                  <div key={option.id} className="flex flex-wrap gap-1">
                     <Chip.Group
                       key={option.id}
                       multiple={false}
