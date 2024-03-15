@@ -73,6 +73,10 @@ const HeaderComponent: FC = () => {
   const [openedCategories, setOpenedCategories] = useState(
     new Array(HeaderCategoriesObject.length).fill(false)
   );
+  const [selectedLanguage, setSelectedLanguage] = useState(ImageLanguage[1]);
+  const [availableLanguages, setAvailableLanguages] = useState(
+    ImageLanguage.filter((lang) => lang.country !== selectedLanguage.country)
+  );
   const [mobileMenuOpened, { open: openMobileMenu, close: closeMobileMenu }] =
     useDisclosure(false);
 
@@ -87,11 +91,6 @@ const HeaderComponent: FC = () => {
     updatedCategories[index] = false;
     setOpenedCategories(updatedCategories);
   };
-
-  const [selectedLanguage, setSelectedLanguage] = useState(ImageLanguage[1]);
-  const [availableLanguages, setAvailableLanguages] = useState(
-    ImageLanguage.filter((lang) => lang.country !== selectedLanguage.country)
-  );
 
   const handleLanguageChange = (language: any) => {
     const prevSelectedLanguage = selectedLanguage;
