@@ -205,7 +205,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} flex flex-row items-center justify-center bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[#17696A] active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] px-[24px] py-[9px] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
+          className={`${className} flex flex-row items-center justify-center bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[#17696A] active:bg-[#17696A] active:text-[#ffffff] focus:bg-[#17696A] focus:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] px-[24px] py-[9px] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
         >
           {text}
         </Tag>

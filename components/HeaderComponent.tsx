@@ -12,6 +12,8 @@ import BurgerMenu from "@/images/navigation/BurgerMenu.svg";
 import WishOutline from "@/images/navigation/WishOutline.svg";
 import Cart from "@/images/goods/Cart.svg";
 import Search from "@/images/navigation/Search.svg";
+import ComeBack from "@/images/vector/ComeBack.svg";
+import Cross from "@/images/vector/Cross.svg";
 
 import UA from "@/images/flags/UA.svg";
 import UK from "@/images/flags/UK.svg";
@@ -215,14 +217,28 @@ const HeaderComponent: FC = () => {
             onClose={() => closeCategory(index)}
             fullScreen
             classNames={{
-              header: "xl:hidden",
-              overlay: "bg-transparent",
+              header: "hidden",
               body: "p-0",
-              content: "h-[100%] xl:mt-[162px] xl:h-[485px]",
+              content: "h-[100%] py-[20px] xl:mt-[162px] xl:h-max xl:py-[60px]",
             }}
             transitionProps={{ transition: "scale-x", duration: 200 }}
           >
-            <div className="container flex flex-col gap-[20px] py-[20px] xl:flex-row xl:justify-between">
+            <div className="container flex flex-col gap-[40px] xl:flex-row xl:justify-between">
+              <div className="flex justify-between xl:hidden">
+                <button onClick={() => closeCategory(index)}>
+                  <Image src={ComeBack} alt="Close" width={24} height={24} />
+                </button>
+
+                <button
+                  onClick={() => {
+                    closeCategory(index);
+                    if (mobileMenuOpened) closeMobileMenu();
+                  }}
+                >
+                  <Image src={Cross} alt="Close" width={24} height={24} />
+                </button>
+              </div>
+
               <div className="flex flex-col gap-[8px]">
                 {NavigationStaticCategories.map((categories, subIndex) => (
                   <Link
@@ -354,16 +370,23 @@ const HeaderComponent: FC = () => {
       <>
         <Modal
           opened={mobileMenuOpened}
-          onClose={closeMobileMenu}
+          onClose={() => ""}
           fullScreen
           radius={0}
           classNames={{
+            header: "hidden",
             overlay: "bg-transparent",
             content: "h-[100%] xl:hidden",
           }}
           transitionProps={{ transition: "scale-x", duration: 200 }}
         >
-          <div className="container flex flex-col gap-[40px] xl:justify-between xl:items-center xl:py-[20px]">
+          <div className="container flex flex-col gap-[40px] py-[20px] xl:justify-between xl:items-center">
+            <div className="flex flex-row-reverse">
+              <button onClick={closeMobileMenu}>
+                <Image src={Cross} alt="Close" width={24} height={24} />
+              </button>
+            </div>
+
             <div className="flex flex-col gap-[20px]">
               <div className="flex justify-between items-center gap-[20px]">
                 <CountrySelector />

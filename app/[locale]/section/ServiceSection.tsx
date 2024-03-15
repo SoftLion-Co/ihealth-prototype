@@ -45,7 +45,7 @@ const ServiceSection = () => {
           slideGap="25"
           withIndicators
           classNames={{
-            indicator: "bg-[#17696A]",
+            indicator: "bg-[#17696A] before:hidden",
             indicators: "bottom-[-22px]",
           }}
           className="container w-[100%] flex justify-center"
