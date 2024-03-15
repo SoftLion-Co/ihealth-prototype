@@ -12,7 +12,6 @@ const page = () => {
 
   return (
     <main>
-      <h1>{t("title")}</h1>
       <HeroSection />
       <PopularCategoriesSection />
       <ServiceSection />
