@@ -214,16 +214,16 @@ const HeaderComponent: FC = () => {
 
           <Modal
             opened={openedCategories[index]}
-            onClose={() => ""}
+            onClose={() => closeCategory(index)}
             fullScreen
             classNames={{
               header: "hidden",
               body: "p-0",
-              content: "h-[100%] xl:mt-[162px] xl:h-[485px]",
+              content: "h-[100%] py-[20px] xl:mt-[162px] xl:h-max xl:py-[60px]",
             }}
             transitionProps={{ transition: "scale-x", duration: 200 }}
           >
-            <div className="container flex flex-col gap-[40px] py-[20px] xl:flex-row xl:justify-between">
+            <div className="container flex flex-col gap-[40px] xl:flex-row xl:justify-between">
               <div className="flex justify-between xl:hidden">
                 <button onClick={() => closeCategory(index)}>
                   <Image src={ComeBack} alt="Close" width={24} height={24} />
