@@ -117,7 +117,7 @@ const SaleUpSection = () => {
           ))}
         </Carousel>
 
-        <Button text="Explore top sales" typeButton="MainBorderButton" />
+        <Button text="See all sale products" typeButton="MainBorderButton" />
       </div>
     </section>
   );
