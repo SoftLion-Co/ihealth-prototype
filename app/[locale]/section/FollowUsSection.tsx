@@ -79,8 +79,8 @@ const FollowUsSection = () => {
               }}
             >
               {item.images.map((imageObj, imgIndex) => (
-                <Carousel.Slide className="flex justify-center">
-                  <Link href={imageObj.link} key={imgIndex} target="_blank">
+                <Carousel.Slide key={imgIndex} className="flex justify-center">
+                  <Link href={imageObj.link} target="_blank">
                     <Image src={imageObj.image} alt={`Image ${imgIndex}`} />
                   </Link>
                 </Carousel.Slide>
@@ -89,17 +89,20 @@ const FollowUsSection = () => {
           ) : (
             <div className="flex gap-[15px]">
               {item.images.map((imageObj, imgIndex) => (
-                <div className="flex justify-center">
-                  <Link href={imageObj.link} key={imgIndex} target="_blank">
-                    <Image
-                      src={imageObj.image}
-                      alt={`Image ${imgIndex}`}
-                      width={260}
-                      height={260}
-                      className="w-[260px] h-[260] object-cover"
-                    />
-                  </Link>
-                </div>
+                <Link
+                  href={imageObj.link}
+                  target="_blank"
+                  key={imgIndex}
+                  className="flex justify-center"
+                >
+                  <Image
+                    src={imageObj.image}
+                    alt={`Image ${imgIndex}`}
+                    width={260}
+                    height={260}
+                    className="w-[260px] h-[260] object-cover"
+                  />
+                </Link>
               ))}
             </div>
           )}
