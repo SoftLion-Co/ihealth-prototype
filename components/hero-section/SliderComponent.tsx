@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import ButtonComponent from "@/components/ButtonComponent";
@@ -26,35 +27,35 @@ interface SliderProps {
 const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const [draggleScreen, setDraggleScreen] = useState(false);
+  const matches = useMediaQuery("(max-width: 1440px");
+  const carouselRef = useRef(null);
 
   useEffect(() => {
-    const { innerWidth } = window;
-    setDraggleScreen(innerWidth <= 1440);
+    setDraggleScreen(matches);
 
-    const timeoutId = setTimeout(() => {
-      const buttons = document.querySelectorAll<HTMLButtonElement>(
+    if (carouselRef.current) {
+      const carouselElement = carouselRef.current as HTMLElement;
+      const buttons = carouselElement.querySelectorAll<HTMLButtonElement>(
         "button[aria-hidden=true]"
       );
-
       buttons.forEach((button, index) => {
         button.setAttribute("data-index", `${index + 1}`);
-        const style = document.createElement("style");
-        style.textContent = `
-          button[aria-hidden=true][data-index="${index + 1}"]::before {
-            content: "0${index + 1}";
-          }
-        `;
-
-        document.head.appendChild(style);
+        button.insertAdjacentHTML(
+          "beforeend",
+          `<style>
+            button[aria-hidden=true][data-index="${index + 1}"]::before {
+              content: "0${index + 1}";
+            }
+          </style>`
+        );
       });
-    }, 1000);
-
-    return () => clearTimeout(timeoutId);
+    }
   }, [draggleScreen]);
 
   return (
     <>
       <Carousel
+        ref={carouselRef}
         slideSize={"100%"}
         align="start"
         withIndicators
@@ -82,9 +83,9 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
             "bottom-[20%] flex flex-row gap-1 md:justify-start container",
           indicator: `${
             slides.length > 4
-              ? "w-[calc((100%-(4*15%))/4)]"
-              : "w-[calc(90%/4)] sm:w-[17%] lg:w-[20%]"
-          } h-[.210rem] bg-gray-700 opacity-40 before:text-[22px] before:text-[28px] before:font-bold before:text-gray-700 before:block before:opacity-80 before:absolute before:bottom-[15px] lg:before:bottom-[30px]`,
+              ? "w-[calc((100%-(4*15%))/4)] before:w-[calc((100%-(4*15%))/4)]"
+              : "w-[calc(90%/4)] sm:w-[17%] lg:w-[20%] before:w-[calc(65%/4)] before:sm-[17%] before:lg:w-[18%]"
+          } h-[.210rem] bg-gray-700 opacity-40 before:text-end before:flex before:flex-row before:items-end before:h-[35px] before:text-[22px] before:text-[28px] before:font-bold before:text-gray-700 before:block before:opacity-80 before:absolute before:bottom-[15px] lg:before:bottom-[10px]`,
           slide: "w-full",
         }}
       >
