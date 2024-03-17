@@ -1,19 +1,17 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import { Checkbox, Input } from "@mantine/core";
+
 import ButtonComponent from "@/components/ButtonComponent";
 import MainTitleComponent from "@/components/MainTitleComponent";
-import Subscribe from "@/images/test/subscribe/imageSubscribe.png";
-import Image from "next/image";
+import SubscribeService from "@/services/SubscribeService";
 
-const CategoryData = [
-  { text: "Men" },
-  { text: "Women" },
-  { text: "Kids" }
-];
+import Subscribe from "@/images/test/subscribe/imageSubscribe.png";
+
+const CategoryData = [{ text: "Men" }, { text: "Women" }, { text: "Kids" }];
 
 const SubscribeSection = () => {
-  const [activeCategory, setActiveCategory] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [email, setEmail] = useState("");
@@ -26,22 +24,20 @@ const SubscribeSection = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleCategorySelect = (category: string) => {
-    setActiveCategory(category);
+  const handleCategorySelect = (category: any) => {
+    setSelectedCategory(category);
   };
 
   const handleSubmit = () => {
-    if (email && isChecked && selectedCategory) {
-      console.log("Email:", email);
-      console.log("Category:", selectedCategory);
+    const isValidEmail = (email: string) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (email && isChecked && selectedCategory && isValidEmail(email)) {
+      SubscribeService.postData(selectedCategory, email);
 
       setEmail("");
       setIsChecked(false);
       setSelectedCategory("");
-    } else {
-      alert(
-        "Please select a category, check the checkbox, and provide your email."
-      );
     }
   };
 
@@ -61,8 +57,11 @@ const SubscribeSection = () => {
               <ButtonComponent
                 key={index}
                 tag="button"
-                className={`py-[5px] px-[10px] first-line:uppercase md:py-[7px] md:px-[11px] lg:py-[6px] lg:px-[16px] ${activeCategory === item.text ? 'active' : ''}`}
-                text={item.text}              
+                type="submit"
+                className={`py-[5px] px-[10px] first-line:uppercase md:py-[7px] md:px-[11px] lg:py-[6px] lg:px-[16px] ${
+                  selectedCategory === item.text ? "bg-teal-700 text-[#ffffff]" : ""
+                }`}
+                text={item.text}
                 typeButton="MainBorderButton"
                 onClick={() => handleCategorySelect(item.text)}
               />
@@ -97,7 +96,7 @@ const SubscribeSection = () => {
               text="Subcribe"
               typeButton="MainButton"
               type="submit"
-              className="rounded-l-[0] disabled:cursor-no-drop "
+              className={`rounded-l-[0] disabled:cursor-no-drop`}
               tag="button"
               disabled={!isChecked}
               onClick={handleSubmit}

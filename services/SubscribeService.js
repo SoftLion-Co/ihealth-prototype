@@ -1,26 +1,20 @@
-import { makeAutoObservable } from 'mobx';
-import axios from 'axios';
 
-class DataStore {
-  data = null;
-  isLoading = false;
+class SubscribeService {
+   postData(email, category) {
+    const response = fetch(`http://localhost:3001/subscribe`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(email, category),
+    });
 
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  fetchData = async () => {
-    this.isLoading = true;
-    try {
-      const response = await axios.get('https://example.com/api/data');
-      this.data = response.data;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      this.isLoading = false;
+    if (!response.ok) {
+      throw new Error("Error creating project");
     }
-  };
+    console.log(response.json());
+  }
 }
 
-const dataStore = new DataStore();
-export default dataStore;
+export default new SubscribeService();
+
