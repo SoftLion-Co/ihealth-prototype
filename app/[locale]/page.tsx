@@ -1,6 +1,6 @@
 import React from "react";
 
-import HeroSection from "@/sections/HeroSection";
+import HeroSection from "@/app/[locale]/section/HeroSection";
 import PopularCategoriesSection from "@/app/[locale]/section/PopularCategoriesSection";
 import ServiceSection from "@/app/[locale]/section/ServiceSection";
 import SubscribeSection from "./section/SubscribeSection";
