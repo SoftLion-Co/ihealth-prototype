@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+import { useWindowScroll } from "@mantine/hooks";
 
 import Facebook from "@/images/social-networks/Facebook.svg";
 import Instagram from "@/images/social-networks/Instagram.svg";
@@ -66,6 +69,8 @@ const SocialData = [
 ];
 
 const FooterComponent = () => {
+  const [scroll, scrollTo] = useWindowScroll();
+
   return (
     <footer className="bg-gray-900 mt-auto py-[60px]">
       <div className="container flex flex-col gap-[32px] mb-[40px] md:flex-row md:gap-[150px]">
@@ -112,10 +117,10 @@ const FooterComponent = () => {
                   key={index}
                   href={item.href}
                   target={item.target}
-                  className="bg-gray-800 p-[8px] rounded inline-block"
+                  className="bg-gray-800 p-[8px] rounded inline-block group"
                 >
                   <Image
-                    className="transition-transform duration-300 ease-in-out transform hover:scale-125"
+                    className="transition-transform duration-300 ease-in-out transform group-hover:scale-125"
                     src={item.icon}
                     alt={item.text}
                   />
@@ -131,7 +136,11 @@ const FooterComponent = () => {
       <div className="container text-white flex flex-col items-center gap-[12px] mt-[40px] md:justify-between md:flex-row">
         <p className="text-[#ababab]">© All rights reserved. Made with</p>
 
-        <Link className="text-[#ababab]" href={"/"}>
+        <Link
+          onClick={() => scrollTo({ y: 0 })}
+          className="text-[#ababab]"
+          href={"/"}
+        >
           Go to top
         </Link>
       </div>
