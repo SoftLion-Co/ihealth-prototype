@@ -72,9 +72,9 @@ export default async function RootLayout({
       <body className={lato.className}>
         <NextIntlClientProvider messages={messages}>
           <ContextProvider>
-          <HeaderComponent />
-          {children}
-          <FooterComponent />
+            <HeaderComponent />
+              {children}
+            <FooterComponent />
           </ContextProvider>
         </NextIntlClientProvider>
       </body>
