@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import React, { useRef } from "react";
 import MainTitleComponent from "@/components/MainTitleComponent";
 
 import imageTops from "@/images/test/popular/imageTops.png";
@@ -10,6 +11,7 @@ import imageSandals from "@/images/test/popular/imageSandals.png";
 import imageJackets from "@/images/test/popular/imageJackets.png";
 import imageCoats from "@/images/test/popular/imageCoats.png";
 
+import Autoplay from "embla-carousel-autoplay";
 import { useMediaQuery } from "@mui/material";
 import { Carousel } from "@mantine/carousel";
 import { useTranslations } from "next-intl";
@@ -26,9 +28,10 @@ const PopularCategoriesData = [
 const PopularCategoriesSection = () => {
   const t = useTranslations("home_page");
   const isScreenSmall = useMediaQuery("(max-width: 1440px)");
+  const autoplay = useRef(Autoplay({ delay: 5000 }));
 
   return (
-    <div className="container flex flex-col items-center ">
+    <section className="container flex flex-col items-center ">
       <MainTitleComponent text="popular categories" />
 
       {isScreenSmall ? (
@@ -36,7 +39,10 @@ const PopularCategoriesSection = () => {
           withIndicators
           loop
           withControls={false}
-          className="flex justify-center w-[100%] xl:"
+          plugins={[autoplay.current]}
+          onMouseEnter={autoplay.current.stop}
+          onMouseLeave={autoplay.current.reset}
+          className="flex justify-center w-[100%]"
           classNames={{
             indicator: "bg-[#17696A] before:hidden",
             indicators: "bottom-[-22px]",
@@ -76,7 +82,7 @@ const PopularCategoriesSection = () => {
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

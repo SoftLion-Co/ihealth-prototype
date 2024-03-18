@@ -7,12 +7,14 @@ interface ControlProps {
   section: "discount" | "slider";
   position: "prev" | "next";
   alt: string;
+  className?: string;
 }
 
 const ControlComponent: React.FC<ControlProps> = ({
   section,
   position,
   alt,
+  className,
 }) => {
   return (
     <Image
@@ -26,7 +28,7 @@ const ControlComponent: React.FC<ControlProps> = ({
           : position == "prev"
           ? "rotate-[180deg]"
           : null
-      } ${section == "discount" ? "w-4 h-4" : "h-6 w-6"}`}
+      } ${section == "discount" ? "w-4 h-4" : "h-6 w-6"} ${className}`}
     />
   );
 };

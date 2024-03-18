@@ -14,6 +14,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      boxShadow: {
+        "card-xl":
+          "0 4px 4px -4px rgba(30,33,44, 0.05), 0 12px 10px -6px rgba(154,156,165, 0.08), 0 30px 24px -10px rgba(154,156,165, 0.1), 0 80px 80px -20px rgba(154,156,165, 0.16)",
+      },
       colors: {
         primary: "#17696A",
         danger: "#FF4242",
@@ -23,6 +27,7 @@ const config: Config = {
       },
     },
     screens: {
+      xs: "375px",
       sm: "640px",
       md: "768px",
       lg: "1024px",
