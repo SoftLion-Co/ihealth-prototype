@@ -68,9 +68,10 @@ const ProductCardComponent = ({
         value,
       })),
       wishlist: wishlist,
-      oldPrice: price,
+      oldPrice: oldPrice,
     },
   };
+
   const handleOptionChange = (optionId: string, value: string) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
@@ -156,11 +157,11 @@ const ProductCardComponent = ({
           <span
             className={`${
               small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
-            } ${discount ? "text-danger" : "text-[#1E212C]"} font-bold`}
+            } ${oldPrice ? "text-danger" : "text-[#1E212C]"} font-bold`}
           >
             ${price}
           </span>
-          {discount && oldPrice && (
+          {oldPrice && (
             <span
               className={`${
                 small ? "text-sm md:text-base" : "text-base	 md:text-lg"

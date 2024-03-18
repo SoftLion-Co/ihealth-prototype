@@ -72,7 +72,7 @@ const DiscountDate = [
 ];
 
 const HeaderComponent: FC = () => {
-  const { handleCartClick } = useShoppingCart();
+  const { handleCartClick, cartCount } = useShoppingCart();
 
   const [openedCategories, setOpenedCategories] = useState(
     new Array(HeaderCategoriesObject.length).fill(false)
@@ -332,7 +332,7 @@ const HeaderComponent: FC = () => {
                 alt="Wish"
               />
               <p className="bg-[#03CEA4] text-white rounded-md px-[4px] py-[1px] xl:px-[8px]">
-                {item.quantity}
+                {cartCount}
               </p>
             </button>
           ) : (

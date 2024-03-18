@@ -10,7 +10,6 @@ import { useTranslations } from "next-intl";
 import ProductCardComponent from "@/components/ProductCardComponent";
 
 const page = () => {
-  const t = useTranslations("home_page");
   const options = [
     {
       id: 9027281748019,
@@ -44,22 +43,22 @@ const page = () => {
         }
         name="Test Product"
         price="40.50"
+        oldPrice="70.20"
         slug="test-product"
         rating={5}
-        wishlist
         price_id="hello"
         options={options}
       />
       <ProductCardComponent
         image={
-          "https://content1.rozetka.com.ua/goods/images/preview/370402141.jpg"
+          "https://content1.rozetka.com.ua/goods/images/big_tile/383375998.jpg"
         }
         name="Test Product"
         price="40.50"
         slug="test-product"
         rating={5}
         wishlist
-        price_id="hello"
+        price_id="hello1"
         options={options}
       />
       <PopularCategoriesSection />
