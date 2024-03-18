@@ -1,7 +1,9 @@
 "use client";
-import React, { FC, useState, useEffect } from "react";
+
+import React, { FC, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { observer } from "mobx-react-lite";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Menu } from "@mantine/core";
 import HeaderCategoriesObject from "./HeaderCategoriesObject";
@@ -17,6 +19,10 @@ import Cross from "@/images/vector/Cross.svg";
 
 import UA from "@/images/flags/UA.svg";
 import UK from "@/images/flags/UK.svg";
+import LoginModal from "./LoginModal";
+import { type } from "os";
+import store from "@/store/store";
+import { Context } from "@/store/ContextProvider";
 
 type HeaderProps = {
   className?: string;
@@ -69,22 +75,14 @@ const DiscountDate = [
   },
 ];
 
-const HeaderComponent: FC = () => {
-  const [openedCategories, setOpenedCategories] = useState(
-    new Array(HeaderCategoriesObject.length).fill(false)
-  );
-  const [selectedLanguage, setSelectedLanguage] = useState(ImageLanguage[1]);
-  const [availableLanguages, setAvailableLanguages] = useState(
-    ImageLanguage.filter((lang) => lang.country !== selectedLanguage.country)
-  );
-  const [mobileMenuOpened, { open: openMobileMenu, close: closeMobileMenu }] =
-    useDisclosure(false);
-
+const HeaderComponent = () => {
+  const [opened, { open, close }] = useDisclosure(false);
+  const [type, setType] = useState<"none" | "signup" | "signin">("none");
+  
   const openCategory = (index: any) => {
     const updatedCategories = [...openedCategories];
     updatedCategories[index] = true;
     setOpenedCategories(updatedCategories);
-  };
 
   const closeCategory = (index: any) => {
     const updatedCategories = [...openedCategories];
@@ -282,6 +280,29 @@ const HeaderComponent: FC = () => {
                   height={260}
                 />
 
+          <div className="flex gap-[10px]">
+            <p
+              className="flex cursor-pointer"
+              onClick={() => {
+                setType("signin");
+              }}
+            >
+              <Image className="text-white" src={Profile} alt="User" /> Log in
+            </p>
+            <span>/</span>
+            <p
+              className=" cursor-pointer"
+              onClick={() => {
+                setType("signup");
+              }}
+            >
+              Register
+            </p>
+          </div>
+          <Link href={"/ua/profile"}>
+            <p className="text-white">Profile</p>
+          </Link>
+
                 <Link href="/" className="text-[#424551] font-black">
                   Sale up to 50%
                 </Link>
@@ -402,6 +423,7 @@ const HeaderComponent: FC = () => {
           </div>
         </Modal>
       </>
+      <LoginModal type={type} setType={setType} />
     </header>
   );
 };

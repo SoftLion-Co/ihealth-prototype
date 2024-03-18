@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import HeaderComponent from "@/components/HeaderComponent";
 import FooterComponent from "@/components/FooterComponent";
+import { ContextProvider } from "@/store/ContextProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 
@@ -70,9 +71,11 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={lato.className}>
         <NextIntlClientProvider messages={messages}>
-          <HeaderComponent />
-          {children}
-          <FooterComponent />
+          <ContextProvider>
+            <HeaderComponent />
+              {children}
+            <FooterComponent />
+          </ContextProvider>
         </NextIntlClientProvider>
       </body>
     </html>
