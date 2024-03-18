@@ -29,9 +29,19 @@ export default class Store {
       console.log(error);
     }
   }
-  async registration(firstName: string, lastName: string) {
+  async registration(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) {
     try {
-      const response = await AuthService.registration(firstName, lastName);
+      const response = await AuthService.registration(
+        firstName,
+        lastName,
+        email,
+        password
+      );
       localStorage.setItem("ihealthtoken", response.data.accessToken);
       this.setAuth(true);
       this.setUser(response.data.user);

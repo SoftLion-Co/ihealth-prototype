@@ -36,7 +36,13 @@ function SignUpComponent({ toggleType }: { toggleType: VoidFunction }) {
     <form
       onSubmit={form.onSubmit((values) => {
         console.log(values);
-        store.registration(values.email, values.password);
+        const names = values.name.split(" ");
+        store.registration(
+          names[0] || " ",
+          names[1] || " ",
+          values.email,
+          values.password
+        );
       })}
       className="flex flex-col gap-[15px]"
     >
