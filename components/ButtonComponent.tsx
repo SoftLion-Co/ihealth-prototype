@@ -22,12 +22,14 @@ interface ButtonProps {
     | "FollowButton"
     | "FilterButton"
     | "WishButton";
+  small?: boolean;
 }
 
 const ButtonComponent: React.FC<ButtonProps> = ({
   text,
   className,
   disabled,
+  small = false,
   onClick,
   href,
   target,
@@ -50,10 +52,12 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} flex flex-row items-center justify-centerpx-[24px] py-[9px] rounded font-bold text-[#ffffff] text-[12px] bg-[#17696A] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px]  lg:text-[16px]`}
+          className={`${className} ${
+            small ? "text-xs" : "text-sm"
+          } flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] bg-[#17696A] transition duration-300 ease-in-out active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
         >
           <Image
-            className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
+            className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px]"
             src={Cart}
             alt="Cart"
             width={24}
@@ -70,11 +74,11 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} group flex flex-row items-center justify-center px-[24px] py-[9px] bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[12px] text-[#17696A] active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] hover:fill-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
+          className={`${className} group flex flex-row items-center justify-center px-[24px] py-[9px] bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[12px] text-[#17696A] transition duration-300 ease-in-out active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] hover:fill-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           {text}
           <svg
-            className="fill-[#17696A] ml-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] group-hover:fill-[#ffffff] group-active:fill-[#ffffff]"
+            className="transition duration-300 ease-in-out fill-[#17696A] ml-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] group-hover:fill-[#ffffff] group-active:fill-[#ffffff]"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -97,7 +101,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className}  flex flex-row items-center justify-center rounded font-bold bg-[#17696A] px-[24px] py-[9px] text-[#ffffff] text-[12px] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px]  lg:text-[16px]`}
+          className={`${className}  flex flex-row items-center justify-center rounded font-bold bg-[#17696A] px-[24px] py-[9px] text-[#ffffff] text-[12px] transition duration-300 ease-in-out active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px]  lg:text-[16px]`}
         >
           <Image
             className="filter brightness-0 invert mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
@@ -117,10 +121,10 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} group  flex flex-row items-center justify-center bg-transparent font-bold text-[12px] rounded border solid border-1 border-[#17696A] text-[#17696A] px-[24px] py-[9px] hover:bg-[#17696A] hover:text-[#ffffff] hover:fill-[#ffffff] active:bg-[#17696A] active:text-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:text-[14px]  md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
+          className={`${className} group  flex flex-row items-center justify-center bg-transparent font-bold text-[12px] rounded border solid border-1 border-[#17696A] text-[#17696A] px-[24px] py-[9px] transition duration-300 ease-in-out hover:bg-[#17696A] hover:text-[#ffffff] hover:fill-[#ffffff] active:bg-[#17696A] active:text-[#ffffff] active:fill-[#ffffff] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:text-[14px]  md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           <svg
-            className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] text-[#17696A] group-hover:fill-[#ffffff] group-active:fill-[#ffffff] lg:w-[24px] lg:h-[24px]"
+            className="transition duration-300 ease-in-out fill-[#17696A] mr-[8px] w-[16px] h-[16px] text-[#17696A] group-hover:fill-[#ffffff] group-active:fill-[#ffffff] lg:w-[24px] lg:h-[24px]"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -143,11 +147,11 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           href={href}
           onClick={handleButtonClick}
-          className={`${className} flex flex-row items-center justify-center bg-transparent rounded border font-bold solid text-[12px]  border-1 border-[#17696A] text-[#17696A] px-[24px] py-[9px] hover:bg-[transparent] active:bg-[transparent] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:text-[14px]  md:px-[32px] md:py-[11px] lg:text-[16px] lg:px-[40px] lg:py-[14px]`}
+          className={`${className} flex flex-row items-center justify-center bg-transparent rounded border font-bold solid text-[12px]  border-1 border-[#17696A] text-[#17696A] px-[24px] py-[9px] transition duration-300 ease-in-out hover:bg-[transparent] active:bg-[transparent] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] md:text-[14px]  md:px-[32px] md:py-[11px] lg:text-[16px] lg:px-[40px] lg:py-[14px]`}
         >
           {isActive ? (
             <svg
-              className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
+              className="transition duration-300 ease-in-out fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px] "
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -162,7 +166,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             </svg>
           ) : (
             <svg
-              className="fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
+              className="transition duration-300 ease-in-out fill-[#17696A] mr-[8px] w-[16px] h-[16px] lg:w-[24px] lg:h-[24px]"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -188,7 +192,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] text-[12px] bg-[#17696A] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
+          className={`${className} flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] text-[12px] bg-[#17696A] transition duration-300 ease-in-out active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           {text}
         </Tag>
@@ -201,7 +205,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} flex flex-row items-center justify-center bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[#17696A] active:bg-[#17696A] active:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] px-[24px] py-[9px] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
+          className={`${className} transition duration-300 ease-in-out flex flex-row items-center justify-center rounded border solid border-1 border-[#17696A] font-bold text-[#17696A] hover:text-[#ffffff] hover:bg-[#17696A] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] px-[24px] py-[9px] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
         >
           {text}
         </Tag>
