@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-import Image, { StaticImageData } from "next/image";
-import { MantineProvider, Rating, Badge, Chip } from "@mantine/core";
+import Image from "next/image";
+import { MantineProvider, Chip, Badge, Rating } from "@mantine/core";
 import ButtonComponent from "./ButtonComponent";
 import { useShoppingCart } from "use-shopping-cart";
 
@@ -13,70 +14,105 @@ import wishFilled from "@/images/navigation/WishFilled.svg";
 import wishOutline from "@/images/navigation/WishOutline.svg";
 
 type Props = {
-  rating?: 0 | 1 | 2 | 3 | 4 | 5;
-  discount?: number;
-  wishlist?: boolean;
-  image: StaticImageData | string;
-  slug: string;
-  name: string;
-  price: string;
-  oldPrice?: string;
-  options?: any;
+  product: {
+    id: number;
+    title: string;
+    body_html: string;
+    vendor: string;
+    product_type: string;
+    handle: string;
+    variants: Array<{
+      id: number;
+      product_id: number;
+      title: string;
+      price: string;
+      option1: string;
+      option2: string;
+      image_id: number;
+    }>;
+    options: Array<{
+      id: number;
+      product_id: number;
+      name: string;
+      position: number;
+      values: string[];
+    }>;
+    images: Array<{
+      id: number;
+      alt: string | null;
+      position: number;
+      product_id: number;
+      created_at: string;
+      updated_at: string;
+      admin_graphql_api_id: string;
+      width: number;
+      height: number;
+      src: string;
+      variant_ids: number[];
+    }>;
+  };
   small?: boolean;
-  price_id?: string;
+  discount?: number;
+  oldPrice?: string;
+  rating?: 1 | 2 | 3 | 4 | 5;
 };
 
 const ProductCardComponent = ({
-  rating,
+  product,
+  small,
   discount,
-  wishlist = false,
-  image,
-  slug,
-  name,
-  price,
   oldPrice,
-  options,
-  small = false,
-  price_id,
+  rating,
 }: Props) => {
-  const [isWishlistActive, setWishlistActive] = useState(wishlist);
+  const [isWishlistActive, setWishlistActive] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >({});
-
+  const [price, setPrice] = useState<string>("N/A");
   const locale = useLocale();
+  const { handleCartClick } = useShoppingCart();
+
   const toggleWishlist = () => {
     setWishlistActive(!isWishlistActive);
   };
 
-  const { addItem, handleCartClick } = useShoppingCart();
-  const product = {
-    name: name,
-    price: price as unknown as number,
-    image: image as string,
-    currency: "USD",
-    price_id: price_id,
-    sku: slug, // Assuming 'slug' can be used as the 'sku'
+  useEffect(() => {
+    updatePrice();
+  }, [selectedOptions]);
+
+  const updatePrice = () => {
+    const selectedVariant = findVariantByOptions();
+    if (selectedVariant) {
+      setPrice(selectedVariant.price);
+    } else {
+      setPrice("N/A");
+    }
   };
 
-  const options1 = {
-    count: 1,
-    price_metadata: {},
-    product_metadata: {
-      options: Object.entries(selectedOptions).map(([id, value]) => ({
-        id,
-        value,
-      })),
-      wishlist: wishlist,
-      oldPrice: oldPrice,
-    },
-  };
-
-  const handleOptionChange = (optionId: string, value: string) => {
+  const handleOptionChange = (optionIndex: number, value: string) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
-      [optionId]: value,
+      [optionIndex]: value,
     }));
+  };
+
+  useEffect(() => {
+    updatePrice();
+    const selectedVariant = findVariantByOptions();
+    if (selectedVariant) {
+      console.log(selectedVariant.id);
+    }
+  }, [selectedOptions]);
+
+  const findVariantByOptions = () => {
+    console.log(selectedOptions);
+    return product.variants.find((variant) => {
+      return Object.entries(selectedOptions).every(
+        ([optionId, selectedValue]) => {
+          return (variant as any)[`option${optionId}`] === selectedValue;
+        }
+      );
+    });
   };
 
   return (
@@ -84,7 +120,7 @@ const ProductCardComponent = ({
       <div className="relative">
         {/* Card Image */}
         <Link
-          href={`/${locale}/${slug}`}
+          href={`/${locale}/${product.handle}`}
           className={`${
             small
               ? "h-[180px] md:h-[220px] lg:h-[260px] xl:h-[280px] 2xl:h-[320px]"
@@ -92,7 +128,7 @@ const ProductCardComponent = ({
           } relative block`}
         >
           <Image
-            src={image}
+            src={product.images[0].src}
             width={390}
             height={440}
             alt="Product Image"
@@ -148,35 +184,42 @@ const ProductCardComponent = ({
             className="m-2 w-4 h-4"
           />
         </button>
-      </div>
 
-      {/* Product description */}
-      <div className="p-2 md:p-4 flex flex-col">
-        <h2 className="text-sm md:text-lg text-[#424551] md:mb-2">{name}</h2>
-        <div className="flex gap-2 md:gap-3 items-center flex-wrap">
-          <span
-            className={`${
-              small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
-            } ${oldPrice ? "text-danger" : "text-[#1E212C]"} font-bold`}
-          >
-            ${price}
-          </span>
-          {oldPrice && (
+        {/* Product description */}
+        <div className="p-2 md:p-4 flex flex-col">
+          <h2 className="text-sm md:text-lg text-[#424551] md:mb-2">
+            {product.title}
+          </h2>
+          <div className="flex gap-2 md:gap-3 items-center flex-wrap">
             <span
               className={`${
-                small ? "text-sm md:text-base" : "text-base	 md:text-lg"
-              } line-through text-[#787A80]`}
+                small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
+              } ${
+                oldPrice || discount ? "text-danger" : "text-[#1E212C]"
+              } font-bold`}
             >
-              ${oldPrice}
+              $
+              {discount
+                ? (parseFloat(price) * (1 - discount / 100)).toFixed(2)
+                : price}
             </span>
-          )}
+            {discount && (
+              <span
+                className={`${
+                  small ? "text-sm md:text-base" : "text-base md:text-lg"
+                } line-through text-[#787A80]`}
+              >
+                ${price}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Product hover */}
       <div className="relative ">
         <div className="px-4 pb-4 pt-1 w-full hidden lg:group-hover:flex flex-col gap-y-4 absolute top-0 bg-white shadow-card-xl rounded-b z-20">
-          {options && (
+          {product.options && (
             <MantineProvider
               theme={{
                 colors: {
@@ -192,41 +235,35 @@ const ProductCardComponent = ({
                 },
               }}
             >
-              {options.map((option: any) => {
-                const [value, setValue] = useState(option.values[0]);
-
-                const handleChange = (newValue: string) => {
-                  setValue(newValue);
-                };
-
-                return (
-                  <div key={option.id} className="flex flex-wrap gap-1">
-                    <Chip.Group
-                      key={option.id}
-                      multiple={false}
-                      value={selectedOptions[option.id] || option.values[0]}
-                      onChange={(value) => handleOptionChange(option.id, value)}
-                    >
-                      {option.values.map((val: string, index: number) => (
-                        <Chip
-                          key={index}
-                          value={val}
-                          classNames={{
-                            iconWrapper: "hidden",
-                            label:
-                              "px-[10px] text-gray-700 text-xs tracking-[0.010rem]",
-                          }}
-                          radius="sm"
-                          color="primary"
-                          checked={val === selectedOptions[option.id]}
-                        >
-                          {val}
-                        </Chip>
-                      ))}
-                    </Chip.Group>
-                  </div>
-                );
-              })}
+              {product.options.map((option: any) => (
+                <div key={option.id} className="flex flex-wrap gap-1">
+                  <Chip.Group
+                    key={option.id}
+                    multiple={false}
+                    value={selectedOptions[option.position] || option.values[0]}
+                    onChange={(value) =>
+                      handleOptionChange(option.position, value)
+                    }
+                  >
+                    {option.values.map((val: string, index: number) => (
+                      <Chip
+                        key={index}
+                        value={val}
+                        classNames={{
+                          iconWrapper: "hidden",
+                          label:
+                            "px-[10px] text-gray-700 text-xs tracking-[0.010rem]",
+                        }}
+                        radius="sm"
+                        color="primary"
+                        checked={val === selectedOptions[option.id]}
+                      >
+                        {val}
+                      </Chip>
+                    ))}
+                  </Chip.Group>
+                </div>
+              ))}
             </MantineProvider>
           )}
           <ButtonComponent
@@ -234,7 +271,7 @@ const ProductCardComponent = ({
             text="Add to cart"
             small={small}
             onClick={() => {
-              addItem(product, options1), handleCartClick();
+              handleCartClick();
             }}
           />
         </div>

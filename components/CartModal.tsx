@@ -101,7 +101,6 @@ const CartModal = (props: Props) => {
                               }}
                             />
                             <div className="flex gap-1 items-center">
-                              {" "}
                               <span
                                 className={`${
                                   entry.product_data.oldPrice
