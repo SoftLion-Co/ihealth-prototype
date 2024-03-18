@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import HeaderComponent from "@/components/HeaderComponent";
 import FooterComponent from "@/components/FooterComponent";
 import { ContextProvider } from "@/store/ContextProvider";
+import { NextIntlClientProvider } from "next-intl";
+import { notFound } from "next/navigation";
 
 const lato = localFont({
   src: [
@@ -46,8 +48,8 @@ const lato = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "iHealth",
-  description: "iHealth",
+  title: "Wellness",
+  description: "Wellness",
 };
 
 export default async function RootLayout({
@@ -59,14 +61,22 @@ export default async function RootLayout({
     locale: string;
   };
 }) {
+  let messages;
+  try {
+    messages = (await import(`@/messages/${locale}.json`)).default;
+  } catch (error) {
+    notFound();
+  }
   return (
     <html lang={locale}>
       <body className={lato.className}>
-        <ContextProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ContextProvider>
           <HeaderComponent />
           {children}
           <FooterComponent />
-        </ContextProvider>
+          </ContextProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
