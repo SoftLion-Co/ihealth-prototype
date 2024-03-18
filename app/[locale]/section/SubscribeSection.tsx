@@ -59,7 +59,7 @@ const SubscribeSection = () => {
                 tag="button"
                 type="submit"
                 className={`py-[5px] px-[10px] first-line:uppercase md:py-[7px] md:px-[11px] lg:py-[6px] lg:px-[16px] ${
-                  selectedCategory === item.text ? "bg-teal-700 text-[#ffffff]" : ""
+                  selectedCategory === item.text ? "bg-[#17697A] text-[#ffffff]" : ""
                 }`}
                 text={item.text}
                 typeButton="MainBorderButton"
