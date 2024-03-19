@@ -47,7 +47,7 @@ const Profile = () => {
               store.logout();
               redirect("/ua");
             }}
-            className="border-t-[1px] border-gray-200 py-[7px] px-[20px] cursor-pointer "
+            className="border-t-[1px] border-gray-200 py-[7px] px-[20px] cursor-pointer"
           >
             Logout
           </p>
