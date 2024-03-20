@@ -9,6 +9,7 @@ import FollowUsSection from "@/app/[locale]/section/FollowUsSection";
 import SubscribeSection from "./section/SubscribeSection";
 
 import { useTranslations } from "next-intl";
+import HomeBlogSecrtion from "./section/HomeBlogSection";
 
 const page = () => {
   const t = useTranslations("home_page");
@@ -21,6 +22,7 @@ const page = () => {
       <SaleUpSection />
       <ServiceSection />
       <FollowUsSection />
+      <HomeBlogSecrtion />
       <SubscribeSection />
     </main>
   );
