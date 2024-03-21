@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import Image from "next/image";
@@ -25,7 +25,7 @@ type Props = {
       id: number;
       product_id: number;
       title: string;
-      price: string;
+      price: number;
       option1: string;
       option2: string;
       image_id: number;
@@ -42,9 +42,9 @@ type Props = {
       alt: string | null;
       position: number;
       product_id: number;
-      created_at: string;
-      updated_at: string;
-      admin_graphql_api_id: string;
+      created_at?: string;
+      updated_at?: string;
+      admin_graphql_api_id?: string;
       width: number;
       height: number;
       src: string;
@@ -53,66 +53,84 @@ type Props = {
   };
   small?: boolean;
   discount?: number;
-  oldPrice?: string;
   rating?: 1 | 2 | 3 | 4 | 5;
+  wishlist?: boolean;
 };
 
 const ProductCardComponent = ({
   product,
   small,
   discount,
-  oldPrice,
   rating,
+  wishlist,
 }: Props) => {
-  const [isWishlistActive, setWishlistActive] = useState(false);
+  const initialSelectedOptions: Record<string, string> = {};
+  product.options.forEach((option) => {
+    initialSelectedOptions[option.name] = option.values[0];
+  });
+
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
-  >({});
-  const [price, setPrice] = useState<string>("N/A");
+  >(initialSelectedOptions);
+
+  const [isWishlistActive, setWishlistActive] = useState(false);
+  const [price, setPrice] = useState<number>(product.variants[0].price);
   const locale = useLocale();
-  const { handleCartClick } = useShoppingCart();
+  const { addItem, handleCartClick } = useShoppingCart();
+
+  const selectedVariantId = product.variants.find(variant =>
+    product.options.every(option =>
+      variant[`option${option.position}` as keyof typeof variant] === selectedOptions[option.name]
+    )
+  )?.id;
+  
+  const selectedImage = product.images.find(image =>
+    image.variant_ids.includes(selectedVariantId || NaN)
+    );
+
+  const productData = {
+    name: product.title,
+    image: selectedImage?.src || product.images[0].src,
+    price: discount ? price * (1 - discount / 100) : price,
+    currency: "USD",
+    // Використовуємо унікальний ідентифікатор для кожної комбінації продукту та опцій
+    price_id: `${product.id}-${Object.values(selectedOptions).join("-")}`,
+    sku: product.handle,
+  };
+
+  const options1 = {
+    count: 1,
+    price_metadata: {},
+    product_metadata: {
+      options: selectedOptions,
+      wishlist: wishlist,
+      ...(discount && { oldPrice: price }),
+    },
+  };
 
   const toggleWishlist = () => {
     setWishlistActive(!isWishlistActive);
   };
 
-  useEffect(() => {
-    updatePrice();
-  }, [selectedOptions]);
+  const handleOptionChange = (optionName: string, value: string) => {
+    const selectedVariant = product.variants.find((variant) =>
+      product.options.every((option) =>
+        option.name === optionName
+          ? value ===
+            variant[`option${option.position}` as keyof typeof variant]
+          : selectedOptions[option.name] ===
+            variant[`option${option.position}` as keyof typeof variant]
+      )
+    );
 
-  const updatePrice = () => {
-    const selectedVariant = findVariantByOptions();
     if (selectedVariant) {
       setPrice(selectedVariant.price);
-    } else {
-      setPrice("N/A");
     }
-  };
 
-  const handleOptionChange = (optionIndex: number, value: string) => {
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
-      [optionIndex]: value,
+      [optionName]: value,
     }));
-  };
-
-  useEffect(() => {
-    updatePrice();
-    const selectedVariant = findVariantByOptions();
-    if (selectedVariant) {
-      console.log(selectedVariant.id);
-    }
-  }, [selectedOptions]);
-
-  const findVariantByOptions = () => {
-    console.log(selectedOptions);
-    return product.variants.find((variant) => {
-      return Object.entries(selectedOptions).every(
-        ([optionId, selectedValue]) => {
-          return (variant as any)[`option${optionId}`] === selectedValue;
-        }
-      );
-    });
   };
 
   return (
@@ -128,7 +146,7 @@ const ProductCardComponent = ({
           } relative block`}
         >
           <Image
-            src={product.images[0].src}
+            src={selectedImage?.src || product.images[0].src}
             width={390}
             height={440}
             alt="Product Image"
@@ -173,7 +191,7 @@ const ProductCardComponent = ({
 
         {/* Add to wishlist button */}
         <button
-          className="absolute bottom-0 right-0 m-2 md:m-4 bg-white rounded-full size-8"
+          className="absolute bottom-0 right-0 m-2 md:m-4 size-8 rounded-full bg-white hover:bg-[#F4F5F6] "
           onClick={toggleWishlist}
         >
           <Image
@@ -194,14 +212,12 @@ const ProductCardComponent = ({
             <span
               className={`${
                 small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
-              } ${
-                oldPrice || discount ? "text-danger" : "text-[#1E212C]"
-              } font-bold`}
+              } ${discount ? "text-danger" : "text-[#1E212C]"} font-bold`}
             >
               $
               {discount
-                ? (parseFloat(price) * (1 - discount / 100)).toFixed(2)
-                : price}
+                ? (price * (1 - discount / 100)).toFixed(2)
+                : price.toFixed(2)}
             </span>
             {discount && (
               <span
@@ -209,7 +225,7 @@ const ProductCardComponent = ({
                   small ? "text-sm md:text-base" : "text-base md:text-lg"
                 } line-through text-[#787A80]`}
               >
-                ${price}
+                ${price.toFixed(2)}
               </span>
             )}
           </div>
@@ -235,14 +251,14 @@ const ProductCardComponent = ({
                 },
               }}
             >
-              {product.options.map((option: any) => (
+              {product.options.map((option) => (
                 <div key={option.id} className="flex flex-wrap gap-1">
                   <Chip.Group
                     key={option.id}
                     multiple={false}
-                    value={selectedOptions[option.position] || option.values[0]}
-                    onChange={(value) =>
-                      handleOptionChange(option.position, value)
+                    value={selectedOptions[option.name]}
+                    onChange={(value: string) =>
+                      handleOptionChange(option.name, value)
                     }
                   >
                     {option.values.map((val: string, index: number) => (
@@ -256,9 +272,9 @@ const ProductCardComponent = ({
                         }}
                         radius="sm"
                         color="primary"
-                        checked={val === selectedOptions[option.id]}
+                        checked={val === selectedOptions[option.name]}
                       >
-                        {val}
+                        <span className="first-letter:uppercase">{val}</span>
                       </Chip>
                     ))}
                   </Chip.Group>
@@ -271,7 +287,7 @@ const ProductCardComponent = ({
             text="Add to cart"
             small={small}
             onClick={() => {
-              handleCartClick();
+              addItem(productData, options1), handleCartClick();
             }}
           />
         </div>
