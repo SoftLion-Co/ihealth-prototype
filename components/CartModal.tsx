@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { NumberInput } from "@mantine/core";
+import { ActionIcon, Group, NumberInput } from "@mantine/core";
 import { Drawer } from "@mantine/core";
 import { useShoppingCart } from "use-shopping-cart";
 import Image from "next/image";
@@ -9,10 +9,21 @@ import Cross from "@/images/vector/CrossGray.svg";
 import wishFilled from "@/images/navigation/WishFilled.svg";
 import wishOutline from "@/images/navigation/WishOutline.svg";
 import deleteIcon from "@/images/goods/Delete.svg";
+import ButtonComponent from "./ButtonComponent";
 
-type Props = {};
+interface CartEntry {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+  product_data?: {
+    options?: { [key: string]: string };
+    oldPrice?: number;
+  };
+}
 
-const CartModal = (props: Props) => {
+const CartModal = () => {
   const {
     cartCount,
     shouldDisplayCart,
@@ -29,6 +40,20 @@ const CartModal = (props: Props) => {
     setItemQuantity(id, newQuantity);
   };
 
+  const handleDecrement = (id: string) => {
+    if (cartDetails && cartDetails[id]) {
+      const newQuantity = Math.max(cartDetails[id].quantity - 1, 1);
+      handleQuantityChange(id, newQuantity);
+    }
+  };
+
+  const handleIncrement = (id: string) => {
+    if (cartDetails && cartDetails[id]) {
+      const newQuantity = cartDetails[id].quantity + 1;
+      handleQuantityChange(id, newQuantity);
+    }
+  };
+
   const toggleWishlist = (id: string) => {
     if (wishlist.includes(id)) {
       setWishlist(wishlist.filter((itemId) => itemId !== id));
@@ -42,48 +67,47 @@ const CartModal = (props: Props) => {
       opened={shouldDisplayCart as boolean}
       onClose={() => handleCartClick()}
       position="right"
+      size={"352px"}
     >
       <Drawer.Overlay />
-      <Drawer.Content className="sm:max-w-lg w-[90vw] rounded-l overflow-hidden">
-        <Drawer.Header className="px-6 pt-8">
+      <Drawer.Content className="rounded-l flex flex-col">
+        <Drawer.Header className="px-6 pt-8 border-b border-gray-200 pb-6">
           <Drawer.Title className="text-xl font-bold">
             Your cart ({cartCount})
           </Drawer.Title>
-          <Drawer.CloseButton className="size-10 bg-transparent hover:bg-transparent">
+          <Drawer.CloseButton className="size-6 hover:bg-gray-200 transition">
             <Image src={Cross} width={24} height={24} alt="Close" />
           </Drawer.CloseButton>
         </Drawer.Header>
-        <Drawer.Body className="overflow-y-auto h-full">
-          <div>
-            <div className="flex-1 overflow-y-auto">
-              {cartCount === 0 ? (
-                <h2 className="py-6">You don't have any items</h2>
-              ) : (
-                <ul className=" divide-y divide-gray-200">
-                  {Object.values(cartDetails ?? {})
-                    .map((entry) => (
-                      <li key={entry.id}>
-                        <div className="px-6 py-4 flex justify-between gap-3 items-start">
-                          <div className="flex gap-4">
-                            {entry.image && (
-                              <Image
-                                src={entry.image}
-                                width={80}
-                                height={80}
-                                alt="Product image"
-                                className="size-20 object-contain"
-                              />
-                            )}
-                            <div className="flex flex-col">
-                              <h3 className="text-[#1e212c] font-bold text-sm mb-1">
-                                {entry.name}
-                              </h3>
-                              <div className="mb-3">
-                                {entry.product_data &&
-                                  entry.product_data.options &&
-                                  Object.entries(
-                                    entry.product_data.options
-                                  ).map(([key, value], index) => (
+        <Drawer.Body className="flex-grow p-0">
+          <div className="flex-1 overflow-y-auto">
+            {cartCount === 0 ? (
+              <h2 className="py-6 px-6">Your cart is empty</h2>
+            ) : (
+              <ul className="divide-y divide-gray-200">
+                {Object.values<CartEntry>((cartDetails as any) || {})
+                  .map((entry: CartEntry) => (
+                    <li key={entry.id}>
+                      <div className="px-3 lg:px-6 py-4 flex justify-between gap-2 sm:gap-3 items-start">
+                        <div className="flex gap-2 sm:gap-3">
+                          {entry.image && (
+                            <Image
+                              src={entry.image}
+                              width={80}
+                              height={80}
+                              alt="Product image"
+                              className="max-w-20 max-h-20 object-contain"
+                            />
+                          )}
+                          <div className="flex flex-col max-w-[180px]">
+                            <h3 className="text-[#1e212c] font-bold text-sm mb-1 line-clamp-2">
+                              {entry.name}
+                            </h3>
+                            <div className="mb-3">
+                              {entry.product_data &&
+                                entry.product_data.options &&
+                                Object.entries(entry.product_data.options).map(
+                                  ([key, value], index) => (
                                     <p
                                       key={index}
                                       className="text-xs text-[#424551]"
@@ -93,24 +117,64 @@ const CartModal = (props: Props) => {
                                       </span>{" "}
                                       {String(value)}
                                     </p>
-                                  ))}
-                              </div>
-                              <div className="flex items-center gap-4">
+                                  )
+                                )}
+                            </div>
+                            <div className="flex items-center gap-2 sm:gap-4">
+                              <NumberInput
+                                type="number"
+                                value={entry.quantity}
+                                onChange={(value: number) =>
+                                  handleQuantityChange(entry.id, value)
+                                }
+                                max={100}
+                                min={1}
+                                classNames={{
+                                  control:
+                                    "border-none before:hidden after:hidden",
+                                  input:
+                                    "focus:border-primary w-[64px] text-xs",
+                                }}
+                                className="hidden lg:block"
+                              />
+                              <Group
+                                spacing={2}
+                                className="flex flex-nowrap lg:hidden"
+                              >
+                                <ActionIcon
+                                  size={36}
+                                  variant="default"
+                                  onClick={() => handleDecrement(entry.id)}
+                                  disabled={entry.quantity <= 1}
+                                >
+                                  –
+                                </ActionIcon>
+
                                 <NumberInput
+                                  hideControls
                                   value={entry.quantity}
                                   onChange={(value: number) =>
                                     handleQuantityChange(entry.id, value)
                                   }
                                   max={100}
                                   min={1}
-                                  className="max-w-[72px] before:hidden after:hidden"
-                                  color="red"
                                   classNames={{
-                                    control: "border-none",
-                                    input: "focus:border-primary",
+                                    input: "text-center w-[36px] text-base p-0",
+                                    label: "!p-0 !m-0",
                                   }}
                                 />
-                                <div className="flex gap-1 items-center">
+
+                                <ActionIcon
+                                  size={36}
+                                  variant="default"
+                                  onClick={() => handleIncrement(entry.id)}
+                                  disabled={entry.quantity >= 100}
+                                >
+                                  +
+                                </ActionIcon>
+                              </Group>
+                              <div className="flex gap-1 items-center flex-wrap">
+                                {entry.product_data && (
                                   <span
                                     className={`${
                                       entry.product_data.oldPrice
@@ -118,71 +182,80 @@ const CartModal = (props: Props) => {
                                         : "text-[#1E212C]"
                                     } font-bold`}
                                   >
-                                    {entry.price.toFixed(2)}
+                                    ${(entry.price * entry.quantity).toFixed(2)}
                                   </span>
-                                  {entry.product_data.oldPrice && (
+                                )}
+                                {entry.product_data &&
+                                  entry.product_data.oldPrice && (
                                     <span className="text-xs line-through text-[#787A80]">
-                                      {entry.product_data.oldPrice.toFixed(2)}
+                                      $
+                                      {(
+                                        entry.product_data.oldPrice *
+                                        entry.quantity
+                                      ).toFixed(2)}
                                     </span>
                                   )}
-                                </div>
                               </div>
-
-                              {wishlist.includes(entry.id) ? (
-                                <span className=" text-gray-500 text-xs leading-9">
-                                  In wishlist
-                                </span>
-                              ) : (
-                                <button
-                                  className="flex items-center text-xs leading-9 text-[#424551] tracking-wide	"
-                                  onClick={() => toggleWishlist(entry.id)}
-                                >
-                                  <span>Move to</span>
-                                  <Image
-                                    src={
-                                      wishlist.includes(entry.id)
-                                        ? wishFilled
-                                        : wishOutline
-                                    }
-                                    alt="Wishlist"
-                                    width={16}
-                                    height={16}
-                                    className="m-2 w-4 h-4"
-                                  />
-                                </button>
-                              )}
                             </div>
+
+                            <button
+                              className="flex items-center text-xs leading-9 text-[#424551] tracking-wide group w-fit"
+                              onClick={() => toggleWishlist(entry.id)}
+                            >
+                              <span className="lg:group-hover:text-gray-400">
+                                {wishlist.includes(entry.id)
+                                  ? "In wishlist"
+                                  : "Move to"}
+                              </span>
+                              <Image
+                                src={
+                                  wishlist.includes(entry.id)
+                                    ? wishFilled
+                                    : wishOutline
+                                }
+                                alt="Wishlist"
+                                width={16}
+                                height={16}
+                                className="m-2 w-4 h-4 lg:group-hover:scale-125 transition"
+                              />
+                            </button>
                           </div>
-                          <button
-                            type="button"
-                            onClick={() => removeItem(entry.id)}
-                            className="font-md text-primary hover:text-primary/80"
-                          >
-                            <Image
-                              src={deleteIcon}
-                              alt="Remove from cart"
-                              width={16}
-                              height={16}
-                            />
-                          </button>
                         </div>
-                      </li>
-                    ))
-                    .reverse()}
-                </ul>
-              )}
-            </div>
+                        <button
+                          type="button"
+                          onClick={() => removeItem(entry.id)}
+                          className="flex shrink-0"
+                        >
+                          <Image
+                            src={deleteIcon}
+                            alt="Remove from cart"
+                            width={16}
+                            height={16}
+                            className="w-4 lg:hover:scale-110 transition"
+                          />
+                        </button>
+                      </div>
+                    </li>
+                  ))
+                  .reverse()}
+              </ul>
+            )}
           </div>
-          <div className="pt-5 pb-8 px-6 bg-blue-200">{totalPrice}</div>
         </Drawer.Body>
-        <Drawer.Header className="px-6 pt-8">
-          <Drawer.Title className="text-xl font-bold">
-            Your cart ({cartCount})
-          </Drawer.Title>
-          <Drawer.CloseButton className="size-10 bg-transparent hover:bg-transparent">
-            <Image src={Cross} width={24} height={24} alt="Close" />
-          </Drawer.CloseButton>
-        </Drawer.Header>
+
+        <div className="py-4 px-6 border-t border-gray-200">
+          <div className="flex justify-between items-center text-[#787A80] mb-5">
+            Subtotal:{" "}
+            <span className="text-[#1E212C] font-bold text-xl">
+              ${totalPrice?.toFixed(2)}
+            </span>
+          </div>
+          <ButtonComponent
+            text="Checkout"
+            typeButton="CheckoutButton"
+            className="w-full"
+          />
+        </div>
       </Drawer.Content>
     </Drawer.Root>
   );

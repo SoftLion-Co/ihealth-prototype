@@ -325,7 +325,8 @@ const page = () => {
 
   const product2 = {
     id: 7065603571764,
-    title: "Just Whey - GymBeam2",
+    title:
+      "Just Whey - GymBeam це якісний сироватковий багатокомпонентний протеїн з 75%-ю часткою першокласного білка з молока корів",
     body_html:
       "<span>Just Whey - це якісний сироватковий багатокомпонентний протеїн з </span><strong>75% -ю часткою першокласного білка з молока корів, що пасуться на зелених луках.</strong><span> Він має </span><strong>чудові смакові якості і підсолоджений стевією</strong><span>. Протеїн збагачений </span><strong>рядом амінокислот</strong><span> з різним ступенем абсорбції, а також </span><strong>вітамінами і мінералами</strong><span>. Крім того, він містить </span><strong>травні ферменти</strong><span> - Бромелайн і DigeZyme®.</span>",
     vendor: "GymBeam",
@@ -640,7 +641,7 @@ const page = () => {
   return (
     <main>
       <HeroSection />
-      <div className="flex w-[850px] gap-4 mx-auto">
+      <div className="flex max-w-[850px] gap-4 mx-auto">
         <ProductCardComponent
           product={product}
           discount={20}

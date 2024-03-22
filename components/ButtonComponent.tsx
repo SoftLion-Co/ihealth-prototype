@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import Cart from "@/images/goods/Cart.svg";
+import Card from "@/images/goods/Card.svg";
 import Filter from "@/images/goods/Filter.svg";
 
 interface ButtonProps {
@@ -21,7 +22,8 @@ interface ButtonProps {
     | "MainBorderButton"
     | "FollowButton"
     | "FilterButton"
-    | "WishButton";
+    | "WishButton"
+    | "CheckoutButton";
   small?: boolean;
 }
 
@@ -207,6 +209,26 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           href={href}
           className={`${className} flex flex-row items-center justify-center bg-transparent rounded border solid border-1 border-[#17696A] font-bold text-[#17696A] active:bg-[#17696A] active:text-[#ffffff] focus:bg-[#17696A] focus:text-[#ffffff] hover:text-[#ffffff] hover:bg-[#17696A] disabled:border-[#17696A] disabled:opacity-50 disabled:text-[#17696A] px-[24px] py-[9px] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
         >
+          {text}
+        </Tag>
+      );
+    } else if (typeButton === "CheckoutButton") {
+      return (
+        <Tag
+          type={type}
+          target={target}
+          disabled={disabled}
+          onClick={onClick}
+          href={href}
+          className={`${className} flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-base text-[#ffffff] bg-[#17696A] active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] lg:px-[40px] lg:py-[14px]`}
+        >
+          <Image
+            className="filter brightness-0 invert mr-[8px] w-[24px] h-[24px]"
+            src={Card}
+            alt="Card"
+            width={24}
+            height={24}
+          />
           {text}
         </Tag>
       );

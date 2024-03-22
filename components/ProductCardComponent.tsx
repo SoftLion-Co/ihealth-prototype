@@ -78,15 +78,17 @@ const ProductCardComponent = ({
   const locale = useLocale();
   const { addItem, handleCartClick } = useShoppingCart();
 
-  const selectedVariantId = product.variants.find(variant =>
-    product.options.every(option =>
-      variant[`option${option.position}` as keyof typeof variant] === selectedOptions[option.name]
+  const selectedVariantId = product.variants.find((variant) =>
+    product.options.every(
+      (option) =>
+        variant[`option${option.position}` as keyof typeof variant] ===
+        selectedOptions[option.name]
     )
   )?.id;
-  
-  const selectedImage = product.images.find(image =>
+
+  const selectedImage = product.images.find((image) =>
     image.variant_ids.includes(selectedVariantId || NaN)
-    );
+  );
 
   const productData = {
     name: product.title,
@@ -205,14 +207,19 @@ const ProductCardComponent = ({
 
         {/* Product description */}
         <div className="p-2 md:p-4 flex flex-col">
-          <h2 className="text-sm md:text-lg text-[#424551] md:mb-2">
-            {product.title}
-          </h2>
+          <Link href={`/${locale}/${product.handle}`}>
+            <h2 className="text-sm md:text-lg text-[#424551] md:mb-2 line-clamp-2 hover:underline hover:text-gray-500">
+              {product.title}
+            </h2>
+          </Link>
           <div className="flex gap-2 md:gap-3 items-center flex-wrap">
             <span
               className={`${
                 small ? "text-lg md:text-xl" : "text-xl md:text-2xl"
               } ${discount ? "text-danger" : "text-[#1E212C]"} font-bold`}
+              onClick={() => {
+                addItem(productData, options1), handleCartClick();
+              }}
             >
               $
               {discount
