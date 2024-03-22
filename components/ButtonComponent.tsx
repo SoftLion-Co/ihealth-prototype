@@ -192,7 +192,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
           disabled={disabled}
           onClick={onClick}
           href={href}
-          className={`${className} flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] text-[12px] bg-[#17696A] transition duration-300 ease-in-out active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
+          className={`${className} flex flex-row items-center justify-center px-[24px] py-[9px] rounded font-bold text-[#ffffff] bg-[#17696A] transition duration-300 ease-in-out active:bg-[#145C5D] hover:bg-[#145C5D] disabled:bg-[#17696A] disabled:opacity-50 disabled:text-[#ffffff] md:px-[32px] md:py-[11px] md:text-[14px] lg:px-[40px] lg:py-[14px] lg:text-[16px]`}
         >
           {text}
         </Tag>

@@ -4,7 +4,7 @@ import Button from "@/components/ButtonComponent";
 import ProductCardComponent from "@/components/ProductCardComponent";
 import ControlComponent from "@/components/hero-section/ControlComponent";
 
-import Image from "@/images/test/follow-us/image1.png";
+import Image from "@/images/test/test-photo/Complex.png";
 
 import { useMediaQuery } from "@mantine/hooks";
 import { Carousel } from "@mantine/carousel";
