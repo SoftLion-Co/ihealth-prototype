@@ -95,7 +95,7 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
             className="w-full flex flex-start relative"
           >
             <Image
-              src={slide.img}
+              src={""}
               width={100}
               height={800}
               alt="Slide"
