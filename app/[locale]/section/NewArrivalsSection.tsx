@@ -244,7 +244,8 @@ const NewArrivalsSection = () => {
   return (
     <section className="pb-[80px] flex flex-col items-center">
       <div className="container flex flex-col items-center mb-[60px]">
-        <Title text="New arrivals" className="mb-5 xl:mb-6" />
+        <Title text="New arrivals" className="!mb-5 xl:!mb-6" />
+
         <p className="text-[18px] text-center">
           Check out our latest arrivals for the upcoming season <br />
           <Link
