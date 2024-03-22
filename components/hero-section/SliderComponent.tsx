@@ -94,13 +94,13 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
             key={index}
             className="w-full flex flex-start relative"
           >
-            <Image
-              src={""}
+            {/* <Image
+              src=""
               width={100}
               height={800}
               alt="Slide"
               className="h-full w-full object-cover"
-            />
+            /> */}
             <div className="absolute top-[19%] lg:top-[25%] w-full">
               <div className="container w-full flex flex-col gap-9">
                 <div className="flex flex-col gap-3 md:items-start text-center">
