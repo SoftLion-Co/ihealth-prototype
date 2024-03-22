@@ -77,7 +77,7 @@ const SaleUpSection = () => {
   const isMobile = useMediaQuery("(max-width: 767.98px)");
 
   return (
-    <section>
+    <section id="sale-up">
       <Title className="container" text="Sale up to 70%" />
 
       <div className="container flex flex-col items-center">

@@ -30,6 +30,13 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
   const matches = useMediaQuery("(max-width: 1440px");
   const carouselRef = useRef(null);
 
+  const handleScrollToSection = (sectionId: string) => {
+    const section = document.querySelector(sectionId);
+    section?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     setDraggleScreen(matches);
 
@@ -78,14 +85,15 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
           viewport: "w-full h-full",
           container: "h-full w-full",
           controls: "hidden md:flex",
-          control: "bg-white h-12 w-12",
+          control:
+            "bg-white h-12 w-12 border-hidden shadow-none opacity-45 transition ease-in-out hover:opacity-100",
           indicators:
             "bottom-[20%] flex flex-row gap-1 md:justify-start container",
           indicator: `${
             slides.length > 4
               ? "w-[calc((100%-(4*15%))/4)] before:w-[calc((100%-(4*15%))/4)]"
               : "w-[calc(90%/4)] sm:w-[17%] lg:w-[20%] before:w-[calc(65%/4)] before:sm-[17%] before:lg:w-[18%]"
-          } h-[.210rem] bg-gray-700 opacity-40 before:text-end before:flex before:flex-row before:items-end before:h-[35px] before:text-[22px] before:text-[28px] before:font-bold before:text-gray-700 before:block before:opacity-80 before:absolute before:bottom-[15px] lg:before:bottom-[10px]`,
+          } h-[.210rem] bg-gray-700 opacity-40 before:inline-block before:align-text-top before:h-[45px] before:text-[22px] before:text-[28px] before:font-bold before:text-gray-700 before:opacity-80 before:absolute before:bottom-0`,
           slide: "w-full",
         }}
       >
@@ -94,13 +102,6 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
             key={index}
             className="w-full flex flex-start relative"
           >
-            {/* <Image
-              src=""
-              width={100}
-              height={800}
-              alt="Slide"
-              className="h-full w-full object-cover"
-            /> */}
             <div className="absolute top-[19%] lg:top-[25%] w-full">
               <div className="container w-full flex flex-col gap-9">
                 <div className="flex flex-col gap-3 md:items-start text-center">
@@ -111,7 +112,6 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
                     {slide.title}
                   </h1>
                 </div>
-
                 <div className="flex gap-6 items-center justify-center md:justify-start">
                   <ButtonComponent
                     text={slide.btnSale.title}
@@ -122,8 +122,8 @@ const SliderComponent: React.FC<SliderProps> = ({ slides }) => {
                   <ButtonComponent
                     text={slide.btnShop.title}
                     typeButton="MainBorderButton"
-                    tag="a"
-                    href={slide.btnShop.href}
+                    tag="button"
+                    onClick={() => handleScrollToSection(slide.btnShop.href)}
                   />
                 </div>
               </div>

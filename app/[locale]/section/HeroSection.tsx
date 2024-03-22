@@ -8,7 +8,7 @@ const slides = [
     subTitle: "new collection",
     img: "",
     btnSale: { href: "#", title: "Shop sale" },
-    btnShop: { href: "#", title: "Shop the menswear" },
+    btnShop: { href: "#new-arrivals", title: "Scroll the New Arrivals" },
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const slides = [
     subTitle: "new collection",
     img: "",
     btnSale: { href: "#", title: "Shop sale" },
-    btnShop: { href: "#", title: "Shop the menswear" },
+    btnShop: { href: "#trending-now", title: "Scroll the Trending" },
   },
   {
     id: 3,
@@ -24,7 +24,10 @@ const slides = [
     subTitle: "new collection",
     img: "",
     btnSale: { href: "#", title: "Shop sale" },
-    btnShop: { href: "#", title: "Shop the menswear" },
+    btnShop: {
+      href: "#popular-categories",
+      title: "Scroll the Popular categories",
+    },
   },
   {
     id: 4,
@@ -32,7 +35,7 @@ const slides = [
     subTitle: "new collection",
     img: "",
     btnSale: { href: "#", title: "Shop sale" },
-    btnShop: { href: "#", title: "Shop the menswear" },
+    btnShop: { href: "#sale-up", title: "Scroll the Sale" },
   },
 ];
 

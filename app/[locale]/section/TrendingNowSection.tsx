@@ -76,7 +76,7 @@ const TrendingNowSection = () => {
   const isMobile = useMediaQuery("(max-width: 767.98px)");
 
   return (
-    <section className="bg-[#E5E8ED] py-[80px]">
+    <section className="bg-[#E5E8ED] py-[80px]" id="trending-now">
       <Title className="container" text="Trending now" />
 
       <div className="container flex flex-col items-center">

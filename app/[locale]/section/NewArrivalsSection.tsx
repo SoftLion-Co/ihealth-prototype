@@ -242,7 +242,7 @@ const NewArrivalsSection = () => {
   }
 
   return (
-    <section className="pb-[80px] flex flex-col items-center">
+    <section className="pb-[80px] flex flex-col items-center" id="new-arrivals">
       <div className="container flex flex-col items-center mb-[60px]">
         <Title text="New arrivals" className="!mb-5 xl:!mb-6" />
 
