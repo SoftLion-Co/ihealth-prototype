@@ -37,7 +37,7 @@ const ServiceSection = () => {
   const isScreenSmall = useMediaQuery("(max-width: 1440px)");
 
   return (
-    <section className="bg-gray-900 py-[60px] xl:py-[80px]">
+    <section className="bg-gray-900 py-[60px] xl:py-[80px] ">
       {isScreenSmall ? (
         <Carousel
           loop

@@ -31,7 +31,7 @@ const PopularCategoriesSection = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 
   return (
-    <section className="container flex flex-col items-center ">
+    <section className="container flex flex-col items-center pb-[24px] md:pb-0">
       <MainTitleComponent text="popular categories" />
 
       {isScreenSmall ? (
