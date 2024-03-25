@@ -17,9 +17,9 @@ type Props = {
   product: {
     id: number;
     title: string;
-    body_html: string;
-    vendor: string;
-    product_type: string;
+    body_html?: string;
+    vendor?: string;
+    product_type?: string;
     handle: string;
     variants: Array<{
       id: number;
@@ -40,7 +40,7 @@ type Props = {
     images: Array<{
       id: number;
       alt: string | null;
-      position: number;
+      position?: number;
       product_id: number;
       created_at?: string;
       updated_at?: string;
@@ -151,7 +151,7 @@ const ProductCardComponent = ({
             src={selectedImage?.src || product.images[0].src}
             width={390}
             height={440}
-            alt="Product Image"
+            alt={selectedImage?.alt || "Product image"}
             className="rounded object-contain absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-4/5 w-4/5"
           />
         </Link>

@@ -4,71 +4,31 @@ import Button from "@/components/ButtonComponent";
 import ProductCardComponent from "@/components/ProductCardComponent";
 import ControlComponent from "@/components/hero-section/ControlComponent";
 
-import Image from "@/images/test/test-photo/Complex.png";
-
 import { useMediaQuery } from "@mantine/hooks";
 import { Carousel } from "@mantine/carousel";
 
+import testProduct from "@/hooks/testProductData";
+
+const product = testProduct;
+
 const ProductCardData = [
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="20.50"
-        slug="#17696A"
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="20.50"
-        slug="#17696A"
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="20.50"
-        slug="#17696A"
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="20.50"
-        slug="#17696A"
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="20.50"
-        slug="#17696A"
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="20.50"
-        slug="#17696A"
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist />,
   },
 ];
 

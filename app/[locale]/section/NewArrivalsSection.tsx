@@ -6,206 +6,64 @@ import ProductCardComponent from "@/components/ProductCardComponent";
 import { Carousel } from "@mantine/carousel";
 import { useMediaQuery } from "@mantine/hooks";
 
-import Image from "@/images/test/test-photo/Complex.png";
+import testProduct from "@/hooks/testProductData";
+
+const product = testProduct;
 
 const ProductCardData = [
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="1.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="2.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="3.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="4.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="5.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="6.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="7.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="8.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="9.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="10.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="11.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="12.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="13.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="14.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="15.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="16.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="17.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
   {
-    card: (
-      <ProductCardComponent
-        image={Image}
-        name="Test photo"
-        price="18.50"
-        slug="#17696A"
-        rating={5}
-      />
-    ),
+    card: <ProductCardComponent product={product} rating={5} wishlist small />,
   },
 ];
 
