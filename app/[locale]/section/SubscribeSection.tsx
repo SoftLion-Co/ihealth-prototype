@@ -5,7 +5,8 @@ import { Checkbox, Input } from "@mantine/core";
 
 import ButtonComponent from "@/components/ButtonComponent";
 import MainTitleComponent from "@/components/MainTitleComponent";
-import SubscribeService from "@/services/SubscribeService";
+import {addNewReceiver} from "@/services/SubscribeService"
+
 
 import Subscribe from "@/images/test/subscribe/imageSubscribe.png";
 
@@ -33,7 +34,7 @@ const SubscribeSection = () => {
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (email && isChecked && selectedCategory && isValidEmail(email)) {
-      SubscribeService.postData(selectedCategory, email);
+      addNewReceiver(selectedCategory, email);
 
       setEmail("");
       setIsChecked(false);
@@ -98,7 +99,7 @@ const SubscribeSection = () => {
               text="Subcribe"
               typeButton="MainButton"
               type="submit"
-              className={`rounded-l-[0] disabled:cursor-no-drop`}
+              className="rounded-l-[0] disabled:cursor-no-drop"
               tag="button"
               disabled={!isChecked}
               onClick={handleSubmit}
