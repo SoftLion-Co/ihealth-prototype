@@ -6,6 +6,8 @@ import FooterComponent from "@/components/FooterComponent";
 import { ContextProvider } from "@/store/ContextProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import CartProvider from "@/hooks/CartProvider";
+import CartModal from "@/components/CartModal";
 
 const lato = localFont({
   src: [
@@ -72,9 +74,12 @@ export default async function RootLayout({
       <body className={lato.className}>
         <NextIntlClientProvider messages={messages}>
           <ContextProvider>
-            <HeaderComponent />
+            <CartProvider>
+              <HeaderComponent />
+              <CartModal />
               {children}
-            <FooterComponent />
+              <FooterComponent />
+            </CartProvider>
           </ContextProvider>
         </NextIntlClientProvider>
       </body>

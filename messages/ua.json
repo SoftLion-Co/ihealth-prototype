@@ -4,5 +4,13 @@
   },
   "navigation": {
     "clear_all": "Очистити всі"
+  },
+  "cart": {
+    "your_cart": "Ваша корзина",
+    "empty": "Ваша корзина порожня",
+    "subtotal": "Підсумок",
+    "move_to_wish": "Додати у",
+    "in_wish": "Додано у",
+    "checkout": "Замовити"
   }
 }

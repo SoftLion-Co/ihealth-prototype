@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Menu } from "@mantine/core";
+import { useShoppingCart } from "use-shopping-cart";
 import HeaderCategoriesObject from "./HeaderCategoriesObject";
 import DiscountComponent from "@/components/hero-section/DiscountComponent";
 import Profile from "@/images/navigation/Login.svg";
-
 import HeaderPhoto from "@/images/test/test-photo/HeaderPhoto.png";
 import BurgerMenu from "@/images/navigation/BurgerMenu.svg";
 import WishOutline from "@/images/navigation/WishOutline.svg";
@@ -20,6 +20,7 @@ import Cross from "@/images/vector/Cross.svg";
 import UA from "@/images/flags/UA.svg";
 import UK from "@/images/flags/UK.svg";
 import LoginModal from "./LoginModal";
+
 
 type HeaderProps = {
   className?: string;
@@ -72,6 +73,7 @@ const DiscountDate = [
 ];
 
 const HeaderComponent: FC = () => {
+  const { handleCartClick, cartCount } = useShoppingCart();
   const [type, setType] = useState<"none" | "signup" | "signin">("none");
   const [openedCategories, setOpenedCategories] = useState(
     new Array(HeaderCategoriesObject.length).fill(false)
@@ -331,26 +333,37 @@ const HeaderComponent: FC = () => {
       </form>
 
       <div className="flex items-center gap-[12px] xl:gap-[32px]">
-        {CartAndWishlist.map((item, index) => (
-          <Link
-            key={index}
-            href={item.href}
-            className="flex items-center gap-[8px] text-[14px] xl:text-[16px]"
-          >
-            <Image
-              className="w-[22px] h-[22px] xl:w-[26px] xl:h-[26px]"
-              src={item.image}
-              alt="Wish"
-            />
-            {item.image === Cart ? (
+        {CartAndWishlist.map((item, index) =>
+          item.image === Cart ? (
+            <button
+              key={index}
+              onClick={() => handleCartClick()}
+              className="flex items-center gap-[8px] text-[14px] xl:text-[16px]"
+            >
+              <Image
+                className="w-[22px] h-[22px] xl:w-[26px] xl:h-[26px]"
+                src={item.image}
+                alt="Wish"
+              />
               <p className="bg-[#03CEA4] text-white rounded-md px-[4px] py-[1px] xl:px-[8px]">
-                {item.quantity}
+                {cartCount}
               </p>
-            ) : (
+            </button>
+          ) : (
+            <Link
+              key={index}
+              href={item.href}
+              className="flex items-center gap-[8px] text-[14px] xl:text-[16px]"
+            >
+              <Image
+                className="w-[22px] h-[22px] xl:w-[26px] xl:h-[26px]"
+                src={item.image}
+                alt="Wish"
+              />
               <p>{item.quantity}</p>
-            )}
-          </Link>
-        ))}
+            </Link>
+          )
+        )}
       </div>
     </div>
   );

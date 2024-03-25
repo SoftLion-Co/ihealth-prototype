@@ -4,5 +4,13 @@
   },
   "navigation": {
     "clear_all": "Clear All"
+  },
+  "cart": {
+    "your_cart": "Your cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "move_to_wish": "Move to",
+    "in_wish": "In wishlist",
+    "checkout": "Checkout"
   }
 }
