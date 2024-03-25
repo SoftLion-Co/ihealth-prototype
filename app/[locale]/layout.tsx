@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import HeaderComponent from "@/components/HeaderComponent";
 import FooterComponent from "@/components/FooterComponent";
+import { ContextProvider } from "@/store/ContextProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import  CartProvider from "@/hooks/CartProvider";
+import CartProvider from "@/hooks/CartProvider";
 import CartModal from "@/components/CartModal";
 
 const lato = localFont({
@@ -72,12 +73,14 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={lato.className}>
         <NextIntlClientProvider messages={messages}>
-          <CartProvider>
-            <HeaderComponent />
-            <CartModal />
-            {children}
-            <FooterComponent />
-          </CartProvider>
+          <ContextProvider>
+            <CartProvider>
+              <HeaderComponent />
+              <CartModal />
+              {children}
+              <FooterComponent />
+            </CartProvider>
+          </ContextProvider>
         </NextIntlClientProvider>
       </body>
     </html>

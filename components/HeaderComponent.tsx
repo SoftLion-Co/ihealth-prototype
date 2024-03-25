@@ -1,13 +1,14 @@
 "use client";
-import React, { FC, useState, useEffect } from "react";
+
+import React, { FC, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Menu } from "@mantine/core";
+import { useShoppingCart } from "use-shopping-cart";
 import HeaderCategoriesObject from "./HeaderCategoriesObject";
 import DiscountComponent from "@/components/hero-section/DiscountComponent";
-import { useShoppingCart } from "use-shopping-cart";
-
+import Profile from "@/images/navigation/Login.svg";
 import HeaderPhoto from "@/images/test/test-photo/HeaderPhoto.png";
 import BurgerMenu from "@/images/navigation/BurgerMenu.svg";
 import WishOutline from "@/images/navigation/WishOutline.svg";
@@ -18,6 +19,7 @@ import Cross from "@/images/vector/Cross.svg";
 
 import UA from "@/images/flags/UA.svg";
 import UK from "@/images/flags/UK.svg";
+import LoginModal from "./LoginModal";
 
 
 type HeaderProps = {
@@ -47,7 +49,6 @@ const CartAndWishlist = [
   { image: WishOutline, quantity: "7", href: "/" },
   { image: Cart, quantity: "15", href: "/" },
 ];
-
 const DiscountDate = [
   {
     discountTitle: "Up to 70% Off.",
@@ -73,9 +74,13 @@ const DiscountDate = [
 
 const HeaderComponent: FC = () => {
   const { handleCartClick, cartCount } = useShoppingCart();
-
+  const [type, setType] = useState<"none" | "signup" | "signin">("none");
   const [openedCategories, setOpenedCategories] = useState(
     new Array(HeaderCategoriesObject.length).fill(false)
+  );
+  const [selectedLanguage, setSelectedLanguage] = useState(ImageLanguage[1]);
+  const [availableLanguages, setAvailableLanguages] = useState(
+    ImageLanguage.filter((lang) => lang.country !== selectedLanguage.country)
   );
   const [mobileMenuOpened, { open: openMobileMenu, close: closeMobileMenu }] =
     useDisclosure(false);
@@ -91,11 +96,6 @@ const HeaderComponent: FC = () => {
     updatedCategories[index] = false;
     setOpenedCategories(updatedCategories);
   };
-
-  const [selectedLanguage, setSelectedLanguage] = useState(ImageLanguage[1]);
-  const [availableLanguages, setAvailableLanguages] = useState(
-    ImageLanguage.filter((lang) => lang.country !== selectedLanguage.country)
-  );
 
   const handleLanguageChange = (language: any) => {
     const prevSelectedLanguage = selectedLanguage;
@@ -179,7 +179,7 @@ const HeaderComponent: FC = () => {
 
   const AuthenticationLinks: FC<HeaderProps> = ({ className }) => (
     <div className={`${className} flex gap-[10px]`}>
-      <Link href={"/"} className="flex gap-[8px]">
+      <Link href={"/ua/profile"}>
         <svg
           className="fill-black xl:fill-[#ababab]"
           width="24"
@@ -199,10 +199,24 @@ const HeaderComponent: FC = () => {
             d="M6.10415 15.25C5.41083 15.25 4.86892 15.5876 4.64895 16.0726C4.34449 16.7439 4.06879 17.5432 4.00373 18.3012C3.97464 18.64 4.11593 18.8897 4.31061 19.0107C5.33977 19.65 7.72448 20.75 12.0001 20.75C16.2757 20.75 18.6604 19.65 19.6896 19.0107C19.8842 18.8897 20.0255 18.64 19.9964 18.3012C19.9314 17.5432 19.6557 16.7439 19.3512 16.0726C19.1313 15.5876 18.5894 15.25 17.896 15.25H6.10415ZM2.82752 15.2466C3.43546 13.9061 4.793 13.25 6.10415 13.25H17.896C19.2072 13.25 20.5647 13.9061 21.1727 15.2466C21.5218 16.0165 21.8965 17.0515 21.9891 18.1301C22.0734 19.1124 21.6652 20.1379 20.7449 20.7096C19.3914 21.5504 16.6397 22.75 12.0001 22.75C7.36049 22.75 4.60879 21.5504 3.25525 20.7096C2.33499 20.1379 1.92675 19.1124 2.01105 18.1301C2.10363 17.0515 2.47833 16.0165 2.82752 15.2466Z"
           />
         </svg>
-        Log in
       </Link>
+      <p
+        onClick={() => {
+          setType("signin");
+        }}
+        className="flex gap-[8px] cursor-pointer"
+      >
+        <Image className="text-white" src={Profile} alt="User" /> Log in
+      </p>
       <span>/</span>
-      <Link href={"/"}>Register</Link>
+      <p
+        className=" cursor-pointer"
+        onClick={() => {
+          setType("signup");
+        }}
+      >
+        Register
+      </p>
     </div>
   );
 
@@ -418,6 +432,7 @@ const HeaderComponent: FC = () => {
           </div>
         </Modal>
       </>
+      <LoginModal type={type} setType={setType} />
     </header>
   );
 };
