@@ -98,7 +98,7 @@ const SubscribeSection = () => {
               text="Subcribe"
               typeButton="MainButton"
               type="submit"
-              className={`rounded-l-[0] disabled:cursor-no-drop`}
+              className="rounded-l-[0] disabled:cursor-no-drop"
               tag="button"
               disabled={!isChecked}
               onClick={handleSubmit}
