@@ -10,6 +10,7 @@ import wishFilled from "@/images/navigation/WishFilled.svg";
 import wishOutline from "@/images/navigation/WishOutline.svg";
 import deleteIcon from "@/images/goods/Delete.svg";
 import ButtonComponent from "./ButtonComponent";
+import { useTranslations } from "next-intl";
 
 interface CartEntry {
   id: string;
@@ -35,23 +36,19 @@ const CartModal = () => {
   } = useShoppingCart();
 
   const [wishlist, setWishlist] = useState<string[]>([]);
+  const t = useTranslations("cart");
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
     setItemQuantity(id, newQuantity);
   };
 
-  const handleDecrement = (id: string) => {
-    if (cartDetails && cartDetails[id]) {
-      const newQuantity = Math.max(cartDetails[id].quantity - 1, 1);
-      handleQuantityChange(id, newQuantity);
-    }
-  };
+  const handleQuantity = (id: string, operation: "increment" | "decrement") => {
+    const item = cartDetails?.[id];
+    if (!item) return;
 
-  const handleIncrement = (id: string) => {
-    if (cartDetails && cartDetails[id]) {
-      const newQuantity = cartDetails[id].quantity + 1;
-      handleQuantityChange(id, newQuantity);
-    }
+    const increment = operation === "increment" ? 1 : -1;
+    const newQuantity = Math.max(item.quantity + increment, 1);
+    handleQuantityChange(id, newQuantity);
   };
 
   const toggleWishlist = (id: string) => {
@@ -73,7 +70,7 @@ const CartModal = () => {
       <Drawer.Content className="rounded-l flex flex-col">
         <Drawer.Header className="px-6 pt-8 border-b border-gray-200 pb-6">
           <Drawer.Title className="text-xl font-bold">
-            Your cart ({cartCount})
+            {t("your_cart")} ({cartCount})
           </Drawer.Title>
           <Drawer.CloseButton className="size-6 hover:bg-gray-200 transition">
             <Image src={Cross} width={24} height={24} alt="Close" />
@@ -82,12 +79,13 @@ const CartModal = () => {
         <Drawer.Body className="flex-grow p-0">
           <div className="flex-1 overflow-y-auto">
             {cartCount === 0 ? (
-              <h2 className="py-6 px-6">Your cart is empty</h2>
+              <h2 className="py-6 px-6">{t("empty")}</h2>
             ) : (
               <ul className="divide-y divide-gray-200">
                 {Object.values<CartEntry>((cartDetails as any) || {})
                   .map((entry: CartEntry) => (
                     <li key={entry.id}>
+                      {/* Cart product card */}
                       <div className="px-3 lg:px-6 py-4 flex justify-between gap-2 sm:gap-3 items-start">
                         <div className="flex gap-2 sm:gap-3">
                           {entry.image && (
@@ -120,7 +118,10 @@ const CartModal = () => {
                                   )
                                 )}
                             </div>
+
+                            {/* Quantity inputs */}
                             <div className="flex items-center gap-2 sm:gap-4">
+                              {/* Desktop quantity input */}
                               <NumberInput
                                 type="number"
                                 value={entry.quantity}
@@ -137,6 +138,7 @@ const CartModal = () => {
                                 }}
                                 className="hidden lg:block"
                               />
+                              {/* Mobile quantity input */}
                               <Group
                                 spacing={2}
                                 className="flex flex-nowrap lg:hidden"
@@ -144,12 +146,13 @@ const CartModal = () => {
                                 <ActionIcon
                                   size={36}
                                   variant="default"
-                                  onClick={() => handleDecrement(entry.id)}
+                                  onClick={() =>
+                                    handleQuantity(entry.id, "decrement")
+                                  }
                                   disabled={entry.quantity <= 1}
                                 >
                                   –
                                 </ActionIcon>
-
                                 <NumberInput
                                   hideControls
                                   value={entry.quantity}
@@ -163,16 +166,19 @@ const CartModal = () => {
                                     label: "!p-0 !m-0",
                                   }}
                                 />
-
                                 <ActionIcon
                                   size={36}
                                   variant="default"
-                                  onClick={() => handleIncrement(entry.id)}
+                                  onClick={() =>
+                                    handleQuantity(entry.id, "increment")
+                                  }
                                   disabled={entry.quantity >= 100}
                                 >
                                   +
                                 </ActionIcon>
                               </Group>
+
+                              {/* Product price */}
                               <div className="flex gap-1 items-center flex-wrap">
                                 {entry.product_data && (
                                   <span
@@ -198,14 +204,15 @@ const CartModal = () => {
                               </div>
                             </div>
 
+                            {/* Add to wishlist button */}
                             <button
                               className="flex items-center text-xs leading-9 text-[#424551] tracking-wide group w-fit"
                               onClick={() => toggleWishlist(entry.id)}
                             >
                               <span className="lg:group-hover:text-gray-400">
                                 {wishlist.includes(entry.id)
-                                  ? "In wishlist"
-                                  : "Move to"}
+                                  ? t("in_wish")
+                                  : t("move_to_wish")}
                               </span>
                               <Image
                                 src={
@@ -221,6 +228,8 @@ const CartModal = () => {
                             </button>
                           </div>
                         </div>
+
+                        {/* Remove from cart button */}
                         <button
                           type="button"
                           onClick={() => removeItem(entry.id)}
@@ -243,15 +252,16 @@ const CartModal = () => {
           </div>
         </Drawer.Body>
 
+        {/* Subtotal footer */}
         <div className="py-4 px-6 border-t border-gray-200">
           <div className="flex justify-between items-center text-[#787A80] mb-5">
-            Subtotal:{" "}
+            {t("subtotal")}:{" "}
             <span className="text-[#1E212C] font-bold text-xl">
               ${totalPrice?.toFixed(2)}
             </span>
           </div>
           <ButtonComponent
-            text="Checkout"
+            text={t("checkout")}
             typeButton="CheckoutButton"
             className="w-full"
           />
