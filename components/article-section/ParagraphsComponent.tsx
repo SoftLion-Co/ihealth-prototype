@@ -50,7 +50,7 @@ const ParagraphsComponent: FC<ParagraphsProps> = ({ paragraph }) => {
       ) : null;
     } else if (paragraph.type === "list") {
       const listItems = paragraph.text?.split("\\t").map((item, index) => (
-        <div className="flex flex-row items-center gap-[12px] md:flex-wrap lg:gap-[16px]">
+        <div key={index} className="flex flex-row items-center gap-[12px] md:flex-wrap lg:gap-[16px]">
           <svg
           className="fill-[#17696A]"
             width="15"
@@ -68,11 +68,11 @@ const ParagraphsComponent: FC<ParagraphsProps> = ({ paragraph }) => {
               fill=""
             />
           </svg>
-          <li className="pb-[4px]" key={index}>{item}</li>
+          <li className="pb-[4px]" key={index} >{item}</li>
         </div>
       ));
       return (
-        <div className="flex flex-col gap-[15px] md:gap-[24px]">
+        <div className="flex flex-col gap-[15px] md:gap-[20px]">
           <p>{paragraph.subheading}</p>
           <ul>{listItems}</ul>
         </div>

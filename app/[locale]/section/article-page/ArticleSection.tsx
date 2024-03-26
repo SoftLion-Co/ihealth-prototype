@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
-import React, { FC } from "react";
-import { Button } from "@mantine/core";
 import { useLocale } from "next-intl";
+import { Button } from "@mantine/core";
+import React, { FC,useState,useEffect } from "react";
 
+import {getBlogById, getBlogs}from "@/services/BlogService";
 import MainTitleComponent from "@/components/MainTitleComponent";
 import ParagraphsComponent from "@/components/article-section/ParagraphsComponent";
 
@@ -16,7 +17,6 @@ import Blog from "@/images/test/article-section/Top 10 of This Season’s Hottes
 interface ShareSocialLinksProps {
   isFirstCall: boolean;
 }
-
 interface BlogData {
   [locale: string]: {
     category: string;
@@ -40,7 +40,6 @@ interface BlogData {
     paragraphs: Paragraph[];
   };
 }
-
 interface Paragraph {
   type: string;
   id?: string;
@@ -61,7 +60,6 @@ interface Paragraph {
   };
   blog_post_id?: string;
 }
-
 
 const BlogData = {
   ua: {
@@ -190,6 +188,22 @@ const SocialLinks = [
 ];
 
 const ArticleSection: FC = () => {
+
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const blogsData = await getBlogs();
+        setBlogs(blogsData);
+      } catch (error) {
+        console.error('Failed to fetch blogs', error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
   const locale = useLocale();
   const blogData = BlogData[locale as keyof typeof BlogData];
   
@@ -197,7 +211,7 @@ const ArticleSection: FC = () => {
   const ShareSocialLinks: FC<ShareSocialLinksProps> = ({ isFirstCall }) => {
     return (
       <div
-        className={`flex flex-wrap gap-[12px] ${
+        className={`flex flex-wrap items-center gap-[12px] ${
           isFirstCall ? "justify-end" : ""
         }`}
       >
@@ -205,7 +219,7 @@ const ArticleSection: FC = () => {
         {SocialLinks.map((item, index) => (
           <div key={index}>
             <Button className="px-[10px] bg-[#787A80] opacity-[12%] hover:bg-[#17696A] hover:opacity-[12%]">
-              <Image src={item.image.src} alt={item.image.alt} />
+            <Image src={item.image.src} alt={item.image.alt} />
             </Button>
           </div>
         ))}
@@ -232,7 +246,7 @@ const ArticleSection: FC = () => {
 
   const ArticleInformation: FC = () => {
     return (
-      <div className="flex flex-wrap items-center gap-[5px] md:gap-[10px] text-[#787A80] text-[14px] md:text-[16px]">
+      <div className="flex flex-wrap items-center gap-[5px] text-[#787A80] text-[14px] md:gap-[10px] md:text-[16px]">
         <p>{blogData.category}</p>
         <span>|</span>
         <p>{blogData.date}</p>
@@ -257,24 +271,29 @@ const ArticleSection: FC = () => {
   };
 
   return (
-    <section className="container mt-[15px] flex flex-col items-center md:mt-[20px] lg:mt-[32px]">
+    <section className="container mb-[50px] mt-[15px] flex flex-col items-center md:mt-[20px] lg:mt-[32px]">
       <div className=" md:w-[74%]">
         <MainTitleComponent
-          className="text-[28px] sm:text-[28px] mb-[18px] sm:mb-[20px] md:text-[38px] md:mb-[24px] lg:text-[46px] lg:mb-[30px] xl:mb-[29px] 2xl:mb-[32px]"
+          className="text-[28px] mb-[18px] sm:text-[28px] sm:mb-[20px] md:text-[38px] md:mb-[24px] lg:text-[46px] lg:mb-[30px] xl:mb-[29px] 2xl:mb-[32px]"
           tag="h1"
           text={blogData.title}
         />
-        <div className="pb-[32px] flex flex-col justify-start gap-[20px] lg:flex-row md:justify-between">
+
+        <div className="pb-[32px] flex flex-col justify-start gap-[20px] md:justify-between lg:flex-row ">
           <ArticleInformation />
           <ShareSocialLinks isFirstCall={false} />
         </div>
+
         <hr className="" />
+        
         <ArticleDescription />
+
         <div className="flex flex-col gap-[15px] mb-[60px] md:gap-[24px]">
           {blogData.paragraphs.map((paragraph:Paragraph, index:number) => (
             <ParagraphsComponent key={index} paragraph={paragraph} />
           ))}
         </div>
+
         <ShareSocialLinks isFirstCall={true} />
       </div>
     </section>
